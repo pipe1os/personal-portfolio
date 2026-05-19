@@ -1,4 +1,4 @@
-# Felipe Arce Portfolio
+# Personal Portfolio
 
 [![Live site](https://img.shields.io/badge/live-pipeos.vercel.app-111111?style=for-the-badge&logo=vercel&logoColor=white)](https://pipeos.vercel.app)
 ![Astro](https://img.shields.io/badge/Astro-6.2-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
