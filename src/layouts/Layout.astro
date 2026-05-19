@@ -1,0 +1,61 @@
+---
+import "@/styles/global.css";
+import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { Toaster } from "@/components/ui/sonner";
+import { DATA } from "@/data/resume";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalPath?: string;
+}
+
+const {
+  title = `${DATA.name} | ${DATA.description}`,
+  description = DATA.summary,
+  image = `${DATA.url}/me.webp`,
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, DATA.url).toString();
+---
+
+<!doctype html>
+<html lang="es" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={DATA.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={DATA.name} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+  </head>
+  <body class="min-h-screen bg-background font-sans antialiased relative text-foreground">
+    <ScrollProgress client:load />
+    <FlickeringGrid
+      client:load
+      className="absolute inset-0 z-0 h-25 w-full mask-fade-bottom"
+      squareSize={2}
+      gridGap={2}
+    />
+    <div class="relative z-10 max-w-2xl mx-auto py-12 sm:py-24 px-6">
+      <slot />
+    </div>
+    <Toaster client:load position="bottom-center" richColors />
+  </body>
+</html>
