@@ -337,6 +337,17 @@ export const DATA = {
       logoUrl: "",
       href: "https://freecodecamp.org/certification/fcc0437f77a-3e45-45af-8662-6ba55413b498/b1-english-for-developers",
     },
+    {
+      title: "Frontend Developer (React) Certificate",
+      issuer: "HackerRank",
+      date: {
+        es: "Mayo 2026",
+        en: "May 2026",
+      },
+      credentialId: "a0b1611a7b51",
+      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/4/40/HackerRank_Icon-1000px.png",
+      href: "https://www.hackerrank.com/certificates/a0b1611a7b51",
+    },
   ],
 } as const;
 
