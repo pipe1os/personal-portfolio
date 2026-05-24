@@ -5,7 +5,6 @@ import { Supabase } from "@/components/ui/svgs/supabase";
 import { Git } from "@/components/ui/svgs/git";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
 import { Typescript } from "@/components/ui/svgs/typescript";
-import { Python } from "@/components/ui/svgs/python";
 export const LANGUAGES = ["es", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
 export const DEFAULT_LANGUAGE: Language = "es";
@@ -50,6 +49,8 @@ export const SITE_COPY = {
       about: "Acerca de mí",
       education: "Educación",
       skills: "Habilidades",
+      github: "Actividad en GitHub",
+      certifications: "Certificaciones",
     },
     projects: {
       label: "Proyectos",
@@ -57,6 +58,12 @@ export const SITE_COPY = {
       description:
         "He trabajado en una variedad de proyectos, desde sitios web simples hasta aplicaciones web complejas.",
       openProject: "Abrir",
+    },
+    github: {
+      label: "GitHub",
+      heading: "Actividad de Código",
+      description:
+        "Mi historial de contribuciones y commits en repositorios públicos de GitHub.",
     },
     contact: {
       label: "Contacto",
@@ -87,6 +94,8 @@ export const SITE_COPY = {
       about: "About me",
       education: "Education",
       skills: "Skills",
+      github: "GitHub Activity",
+      certifications: "Certifications",
     },
     projects: {
       label: "Projects",
@@ -94,6 +103,12 @@ export const SITE_COPY = {
       description:
         "I have worked on a range of projects, from focused websites to complex web applications.",
       openProject: "Open",
+    },
+    github: {
+      label: "GitHub",
+      heading: "Code Activity",
+      description:
+        "My contribution history and commits in public GitHub repositories.",
     },
     contact: {
       label: "Contact",
@@ -288,6 +303,41 @@ export const DATA = {
       video: "",
     },
   ],
+  certifications: [
+    {
+      title: "Engineer AI Agents with Agent Development Kit (ADK)",
+      issuer: "Google",
+      date: {
+        es: "Mayo 2026",
+        en: "May 2026",
+      },
+      credentialId: "02eb26e9-bacc-4b7d-abb4-c4b79c22f2e4",
+      logoUrl: "",
+      href: "https://www.credly.com/badges/02eb26e9-bacc-4b7d-abb4-c4b79c22f2e4/public_url",
+    },
+    {
+      title: "The Basics of Google Cloud Compute",
+      issuer: "Google",
+      date: {
+        es: "Mayo 2026",
+        en: "May 2026",
+      },
+      credentialId: "e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6",
+      logoUrl: "",
+      href: "https://www.credly.com/badges/e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6/public_url",
+    },
+    {
+      title: "B1 English for Developers",
+      issuer: "freeCodeCamp",
+      date: {
+        es: "Mayo 2026",
+        en: "May 2026",
+      },
+      credentialId: "fcc0437f77a-3e45-45af-8662-6ba55413b498-b1efd",
+      logoUrl: "",
+      href: "https://freecodecamp.org/certification/fcc0437f77a-3e45-45af-8662-6ba55413b498/b1-english-for-developers",
+    },
+  ],
 } as const;
 
 export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
@@ -311,6 +361,10 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
         ...link,
         type: link.type[language],
       })),
+    })),
+    certifications: DATA.certifications.map((cert) => ({
+      ...cert,
+      date: cert.date[language],
     })),
   };
 }
