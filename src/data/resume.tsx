@@ -152,6 +152,7 @@ export const DATA = {
     { name: "React", icon: ReactDark },
     { name: "Supabase", icon: Supabase },
     { name: "PostgreSQL", icon: Postgresql },
+    { name: "Python", icon: Python },
     { name: "Git", icon: Git },
   ],
   contact: {
@@ -314,14 +315,30 @@ export const DATA = {
   ],
   openSourceContributions: [
     {
+      repo: "strands-agents/sdk-python",
+      title: {
+        es: "fix: prevent in-place mutation of message history in normalizer",
+        en: "fix: prevent in-place mutation of message history in normalizer",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "open",
+      href: "https://github.com/strands-agents/sdk-python/pull/2326",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/209155962?s=200&v=4"
+          alt="Strands logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
+    {
       repo: "withastro/astro",
       title: {
         es: "fix(core): cache resolved actions in base pipeline",
         en: "fix(core): cache resolved actions in base pipeline",
-      },
-      description: {
-        es: "Asignación faltante en `getActions()` del pipeline base: el módulo de acciones se reimportaba en cada invocación. PR fusionado que alinea el caché con `getMiddleware()` y `getSessionDriver()`.",
-        en: "Missing assignment in the base pipeline's `getActions()`: the actions module was re-imported on every invocation. Merged PR that aligns caching with `getMiddleware()` and `getSessionDriver()`.",
       },
       dates: {
         es: "May 2026",
@@ -337,10 +354,6 @@ export const DATA = {
         es: "Fix windows startup freeze when geode fails to load",
         en: "Fix windows startup freeze when geode fails to load",
       },
-      description: {
-        es: "Evita congelar el juego al mostrar errores tempranos desde `DllMain` bajo el loader lock de Windows.",
-        en: "Prevents startup freezes when showing early errors from `DllMain` under the Windows loader lock.",
-      },
       dates: {
         es: "May 2026",
         en: "May 2026",
@@ -355,10 +368,6 @@ export const DATA = {
         es: "Complete translation of tutorial/classes.po",
         en: "Complete translation of tutorial/classes.po",
       },
-      description: {
-        es: "Traducción y revisión de `tutorial/classes.po` para la documentación de Python en español.",
-        en: "Translation and review of `tutorial/classes.po` for the Spanish Python documentation.",
-      },
       dates: {
         es: "May 2026",
         en: "May 2026",
@@ -372,10 +381,6 @@ export const DATA = {
       title: {
         es: "fix(devtools): detect VSCodium on macOS in launch-editor",
         en: "fix(devtools): detect VSCodium on macOS in launch-editor",
-      },
-      description: {
-        es: "Detección de VSCodium en macOS para el overlay de errores y argumentos de línea/columna en `launch-editor`.",
-        en: "VSCodium detection on macOS for the error overlay and line/column args in `launch-editor`.",
       },
       dates: {
         es: "May 2026",
@@ -459,7 +464,6 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
     openSourceContributions: DATA.openSourceContributions.map((contribution) => ({
       ...contribution,
       title: contribution.title[language],
-      description: contribution.description[language],
       dates: contribution.dates[language],
       statusLabel: SITE_COPY[language].contributions.status[contribution.status],
     })),
