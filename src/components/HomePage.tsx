@@ -3,7 +3,6 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import GitHubActivityDashboard from './github-stats.tsx';
 import {
   DATA,
   DEFAULT_LANGUAGE,
@@ -19,12 +18,15 @@ import { FreeCodeCampLogo } from "@/components/ui/svgs/freecodecamp";
 import Markdown from "react-markdown";
 import { TextAnimate } from "@/components/ui/text-animate";
 const ProjectsSection = lazy(() => import("./section/projects-section"));
+const ContributionsSection = lazy(
+  () => import("./section/contributions-section"),
+);
 const ContactSection = lazy(() => import("./section/contact-section"));
 const Footer = lazy(() => import("./section/footer"));
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default function HomePage({ githubStats }: { githubStats: any }) {
+export default function HomePage() {
   const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const data = getResumeData(language);
   const copy = SITE_COPY[language];
@@ -145,7 +147,7 @@ export default function HomePage({ githubStats }: { githubStats: any }) {
           <div className="flex flex-col gap-8">
             {data.education.map((education, index) => (
               <BlurFade
-                key={`${education.school}-${education.degree}`}
+                key={education.school}
                 delay={BLUR_FADE_DELAY * 7 + index * 0.05}
               >
                 <a
@@ -287,31 +289,11 @@ export default function HomePage({ githubStats }: { githubStats: any }) {
             <ProjectsSection copy={copy.projects} projects={data.projects} />
           </BlurFade>
         </section>
-        <section id="github">
-          <BlurFade delay={BLUR_FADE_DELAY * 13}>
-            <div className="flex flex-col gap-y-8">
-              <div className="flex flex-col gap-y-4 items-center justify-center">
-                <div className="flex items-center w-full">
-                  <div className="flex-1 h-px bg-linear-to-r from-transparent from-5% via-border via-95% to-transparent" />
-                  <div className="border bg-primary z-10 rounded-xl px-4 py-1">
-                    <span className="text-background text-sm font-medium">
-                      {copy.github.label}
-                    </span>
-                  </div>
-                  <div className="flex-1 h-px bg-linear-to-l from-transparent from-5% via-border via-95% to-transparent" />
-                </div>
-                <div className="flex flex-col gap-y-3 items-center justify-center">
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                    {copy.github.heading}
-                  </h2>
-                  <p className="text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed text-balance text-center">
-                    {copy.github.description}
-                  </p>
-                </div>
-              </div>
-              <GitHubActivityDashboard stats={githubStats} language={language} />
-            </div>
-          </BlurFade>
+        <section id="contributions">
+          <ContributionsSection
+            copy={copy.contributions}
+            contributions={data.openSourceContributions}
+          />
         </section>
         <section id="contact">
           <BlurFade delay={BLUR_FADE_DELAY * 14}>

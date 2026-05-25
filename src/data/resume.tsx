@@ -1,6 +1,9 @@
 import { Icons } from "@/components/icons";
-import { ReactDark } from "@/components/ui/svgs/reactDark";
+import { AstroOfficialLogo } from "@/components/ui/svgs/astro-official";
+import GeodeIcon from "@/components/ui/svgs/geode";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
+import { Python } from "@/components/ui/svgs/python";
+import { ReactDark } from "@/components/ui/svgs/reactDark";
 import { Supabase } from "@/components/ui/svgs/supabase";
 import { Git } from "@/components/ui/svgs/git";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
@@ -12,9 +15,9 @@ export const DEFAULT_LANGUAGE: Language = "es";
 const LOCALIZED_RESUME = {
   es: {
     location: "Concepción, Chile",
-    description: "Desarrollador Frontend con experiencia en Next.js",
+    description: "Desarrollador de Software",
     summary: `
-Desarrollador frontend con foco en Next.js. Comencé en Ingeniería Civil en Informática en la UCSC y después de dos años decidí cambiar a Duoc UC para enfocarme en desarrollo de software de forma más directa y práctica.
+Desarrollador de software con foco en front-end. Comencé en Ingeniería Civil en Informática en la UCSC y después de dos años decidí cambiar a Duoc UC para enfocarme en desarrollo de software de forma más directa y práctica.
 
 Mi proyecto principal es un portal de transparencia financiera para la FEUCSC, una aplicación real con usuarios reales, donde tomé decisiones técnicas que importaban: autenticación con RLS en Supabase, uploads server-side con validación de magic bytes, control de acceso en tres capas, etc.
 
@@ -23,9 +26,9 @@ Me importa escribir código que alguien más pueda leer y mantener. Aprendo cons
   },
   en: {
     location: "Concepción, Chile",
-    description: "Frontend Developer with experience in Next.js.",
+    description: "Software Developer",
     summary: `
-Frontend developer focused on Next.js. I started in Computer Science at UCSC and after two years switched to Duoc UC to focus more directly on software development.
+Software developer focused on front-end. I started in Computer Science at UCSC and after two years switched to Duoc UC to focus more directly on software development.
 
 My main project is a financial transparency portal for the FEUCSC, a real app with real users, where the technical decisions actually mattered: Supabase auth with RLS, server-side uploads with magic byte validation, three-layer access control, etc.
 
@@ -49,7 +52,6 @@ export const SITE_COPY = {
       about: "Acerca de mí",
       education: "Educación",
       skills: "Habilidades",
-      github: "Actividad en GitHub",
       certifications: "Certificaciones",
     },
     projects: {
@@ -59,11 +61,15 @@ export const SITE_COPY = {
         "He trabajado en una variedad de proyectos, desde sitios web simples hasta aplicaciones web complejas.",
       openProject: "Abrir",
     },
-    github: {
-      label: "GitHub",
-      heading: "Actividad de Código",
+    contributions: {
+      heading: "Contribuciones",
       description:
-        "Mi historial de contribuciones y commits en repositorios públicos de GitHub.",
+        "Mis contribuciones a proyectos open-source.",
+      status: {
+        open: "Open",
+        merged: "Merged",
+        draft: "Draft",
+      },
     },
     contact: {
       label: "Contacto",
@@ -94,7 +100,6 @@ export const SITE_COPY = {
       about: "About me",
       education: "Education",
       skills: "Skills",
-      github: "GitHub Activity",
       certifications: "Certifications",
     },
     projects: {
@@ -104,11 +109,15 @@ export const SITE_COPY = {
         "I have worked on a range of projects, from focused websites to complex web applications.",
       openProject: "Open",
     },
-    github: {
-      label: "GitHub",
-      heading: "Code Activity",
+    contributions: {
+      heading: "Contributions",
       description:
-        "My contribution history and commits in public GitHub repositories.",
+        "My contributions to open-source projects.",
+      status: {
+        open: "Open",
+        merged: "Merged",
+        draft: "Draft",
+      },
     },
     contact: {
       label: "Contact",
@@ -247,8 +256,8 @@ export const DATA = {
         },
         {
           type: {
-            es: "Fuente",
-            en: "Source",
+            es: "Repo",
+            en: "Repo",
           },
           href: "https://github.com/pipe1os/FEUCSC-FINANZAS",
           icon: <Icons.github className="size-3" />,
@@ -292,8 +301,8 @@ export const DATA = {
         },
         {
           type: {
-            es: "Fuente",
-            en: "Source",
+            es: "Repo",
+            en: "Repo",
           },
           href: "https://github.com/pipe1os",
           icon: <Icons.github className="size-3" />,
@@ -301,6 +310,80 @@ export const DATA = {
       ],
       image: "/portfolio.webp",
       video: "",
+    },
+  ],
+  openSourceContributions: [
+    {
+      repo: "withastro/astro",
+      title: {
+        es: "fix(core): cache resolved actions in base pipeline",
+        en: "fix(core): cache resolved actions in base pipeline",
+      },
+      description: {
+        es: "Asignación faltante en `getActions()` del pipeline base: el módulo de acciones se reimportaba en cada invocación. PR fusionado que alinea el caché con `getMiddleware()` y `getSessionDriver()`.",
+        en: "Missing assignment in the base pipeline's `getActions()`: the actions module was re-imported on every invocation. Merged PR that aligns caching with `getMiddleware()` and `getSessionDriver()`.",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "merged",
+      href: "https://github.com/withastro/astro/pull/16859",
+      icon: <AstroOfficialLogo className="h-5 w-auto" />,
+    },
+    {
+      repo: "geode-sdk/geode",
+      title: {
+        es: "Fix windows startup freeze when geode fails to load",
+        en: "Fix windows startup freeze when geode fails to load",
+      },
+      description: {
+        es: "Evita congelar el juego al mostrar errores tempranos desde `DllMain` bajo el loader lock de Windows.",
+        en: "Prevents startup freezes when showing early errors from `DllMain` under the Windows loader lock.",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "open",
+      href: "https://github.com/geode-sdk/geode/pull/2082",
+      icon: <GeodeIcon className="size-5" />,
+    },
+    {
+      repo: "python/python-docs-es",
+      title: {
+        es: "Complete translation of tutorial/classes.po",
+        en: "Complete translation of tutorial/classes.po",
+      },
+      description: {
+        es: "Traducción y revisión de `tutorial/classes.po` para la documentación de Python en español.",
+        en: "Translation and review of `tutorial/classes.po` for the Spanish Python documentation.",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "open",
+      href: "https://github.com/python/python-docs-es/pull/3862",
+      icon: <Python className="size-5" />,
+    },
+    {
+      repo: "vercel/next.js",
+      title: {
+        es: "fix(devtools): detect VSCodium on macOS in launch-editor",
+        en: "fix(devtools): detect VSCodium on macOS in launch-editor",
+      },
+      description: {
+        es: "Detección de VSCodium en macOS para el overlay de errores y argumentos de línea/columna en `launch-editor`.",
+        en: "VSCodium detection on macOS for the error overlay and line/column args in `launch-editor`.",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "draft",
+      href: "https://github.com/vercel/next.js/pull/94078",
+      icon: <NextjsIconDark className="size-5" />,
     },
   ],
   certifications: [
@@ -372,6 +455,13 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
         ...link,
         type: link.type[language],
       })),
+    })),
+    openSourceContributions: DATA.openSourceContributions.map((contribution) => ({
+      ...contribution,
+      title: contribution.title[language],
+      description: contribution.description[language],
+      dates: contribution.dates[language],
+      statusLabel: SITE_COPY[language].contributions.status[contribution.status],
     })),
     certifications: DATA.certifications.map((cert) => ({
       ...cert,
