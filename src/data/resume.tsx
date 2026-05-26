@@ -227,7 +227,7 @@ export const DATA = {
       active: true,
       description: {
         es: "Plataforma de transparencia financiera construida para la FEUCSC, una federación estudiantil de 14.000+ alumnos. Antes de esto, la gestión de gastos se hacía en papel y hojas de cálculo. La app centraliza el seguimiento de gastos, auditoría e informes con un dashboard en tiempo real, tres capas de seguridad independientes, uploads con validación de magic bytes y RLS en Supabase. En uso activo hoy.",
-        en: "Financial transparency platform built for FEUCSC, the student federation of UCSC — a university of 14,000+ students. Before this, expense management ran on paper and spreadsheets. The app centralizes expense tracking, auditing, and reporting with a real-time dashboard, secured with three independent defensive layers, magic byte file validation, and Supabase RLS. Actively in use today.",
+        en: "Financial transparency platform built for FEUCSC, the student federation of UCSC, a university of 14,000+ students. Before this, expense management ran on paper and spreadsheets. The app centralizes expense tracking, auditing, and reporting with a real-time dashboard, secured with three independent defensive layers, magic byte file validation, and Supabase RLS. Actively in use today.",
       },
       technologies: [
         "Next.js",
