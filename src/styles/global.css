@@ -192,10 +192,6 @@
     @apply text-base! font-medium! tracking-tight! leading-tight!;
   }
 
-  .prose a {
-    @apply text-primary underline underline-offset-4;
-  }
-
   .prose blockquote {
     @apply border-l-4 border-amber-500! pl-4 italic bg-muted/50 p-4 rounded-md rounded-l-none;
   }
@@ -255,4 +251,8 @@
   .prose :where(tbody tr:last-child td):not(:where([class~="not-prose"] *)) {
     @apply border-b-0;
   }
+}
+
+.prose a {
+  @apply text-foreground/85! underline decoration-muted-foreground/30! underline-offset-4 hover:text-foreground! hover:decoration-foreground! transition-all duration-200;
 }

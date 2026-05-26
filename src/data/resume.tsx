@@ -15,22 +15,18 @@ export const DEFAULT_LANGUAGE: Language = "es";
 const LOCALIZED_RESUME = {
   es: {
     location: "Concepción, Chile",
-    description: "Desarrollador de Software",
+    description: "Desarrollador de Software · Full Stack",
     summary: `
-Desarrollador de software con foco en front-end. Comencé en Ingeniería Civil en Informática en la UCSC y después de dos años decidí cambiar a Duoc UC para enfocarme en desarrollo de software de forma más directa y práctica.
+[Mi proyecto principal](#projects) es un portal de transparencia financiera para la FEUCSC, una aplicación real con usuarios reales, donde las decisiones técnicas realmente importaron: autenticación con RLS en Supabase, uploads server-side con validación de magic bytes, control de acceso en tres capas, etc. También he [contribuido a proyectos de código abierto](#contributions), incluyendo astro, next.js y la documentación en español de python.
 
-Mi proyecto principal es un portal de transparencia financiera para la FEUCSC, una aplicación real con usuarios reales, donde tomé decisiones técnicas que importaban: autenticación con RLS en Supabase, uploads server-side con validación de magic bytes, control de acceso en tres capas, etc.
-
-Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda quedarme quieto cuando hay algo que mejorar.
+Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
     `,
   },
   en: {
     location: "Concepción, Chile",
-    description: "Software Developer",
+    description: "Software Developer · Full Stack",
     summary: `
-Software developer focused on front-end. I started in Computer Science at UCSC and after two years switched to Duoc UC to focus more directly on software development.
-
-My main project is a financial transparency portal for the FEUCSC, a real app with real users, where the technical decisions actually mattered: Supabase auth with RLS, server-side uploads with magic byte validation, three-layer access control, etc.
+[My main project](#projects) is a financial transparency portal for the FEUCSC, a real app with real users, where the technical decisions actually mattered: Supabase auth with RLS, server-side uploads with magic byte validation, three-layer access control, etc. I have also [contributed to open-source projects](#contributions), including astro, next.js, and python spanish docs.
 
 I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
   },
@@ -58,7 +54,7 @@ export const SITE_COPY = {
       label: "Proyectos",
       heading: "Revisa mi trabajo",
       description:
-        "He trabajado en una variedad de proyectos, desde sitios web simples hasta aplicaciones web complejas.",
+        "Estos son mis proyectos principales, he construido desde sitios web simples hasta aplicaciones web complejas.",
       openProject: "Abrir",
     },
     contributions: {
@@ -106,7 +102,7 @@ export const SITE_COPY = {
       label: "Projects",
       heading: "Check out my work",
       description:
-        "I have worked on a range of projects, from focused websites to complex web applications.",
+        "These are my main projects, from focused websites to complex web applications.",
       openProject: "Open",
     },
     contributions: {
@@ -230,8 +226,8 @@ export const DATA = {
       },
       active: true,
       description: {
-        es: "Plataforma de transparencia financiera desarrollada para la FEUCSC que centraliza la gestión y auditoría de gastos federativos mediante una dashboard en tiempo real, autenticación segura y control de acceso basado en roles.",
-        en: "Financial transparency platform developed for FEUCSC. It centralizes federation expense management and auditing through a real-time dashboard, secure authentication, and role-based access control.",
+        es: "Plataforma de transparencia financiera construida para la FEUCSC, una federación estudiantil de 14.000+ alumnos. Antes de esto, la gestión de gastos se hacía en papel y hojas de cálculo. La app centraliza el seguimiento de gastos, auditoría e informes con un dashboard en tiempo real, tres capas de seguridad independientes, uploads con validación de magic bytes y RLS en Supabase. En uso activo hoy.",
+        en: "Financial transparency platform built for FEUCSC, the student federation of UCSC — a university of 14,000+ students. Before this, expense management ran on paper and spreadsheets. The app centralizes expense tracking, auditing, and reporting with a real-time dashboard, secured with three independent defensive layers, magic byte file validation, and Supabase RLS. Actively in use today.",
       },
       technologies: [
         "Next.js",
@@ -279,8 +275,8 @@ export const DATA = {
       },
       active: true,
       description: {
-        es: "Portfolio personal enfocado en rendimiento y experiencia mobile-first. Proyecto refactorizado desde una base original en Next.js hacia Astro + React, incorporando arquitectura híbrida, soporte bilingüe, optimizaciones de rendimiento y personalización completa de interfaz.",
-        en: "Personal portfolio focused on performance and mobile-first experience. Refactored from an original Next.js codebase to Astro + React, incorporating a hybrid architecture, bilingual support, performance optimizations, and full UI customization.",
+        es: `Refactorizado desde Next.js hacia Astro + React para adaptarse a un sitio estático con contenido pesado. La arquitectura de islas de Astro no envía JS por defecto, hidratando solo los componentes React que necesitan interactividad. Esto permite una carga más rápida y separa el contenido estático de la interfaz dinámica.`,
+        en: `Refactored from Next.js to Astro + React to fit a content-heavy static site. Astro's island architecture ships zero JS by default, only hydrating React components that need interactivity. This transition reduced load times and separated static content from dynamic UI.`,
       },
       technologies: [
         "Astro",
@@ -294,18 +290,10 @@ export const DATA = {
       links: [
         {
           type: {
-            es: "Sitio",
-            en: "Website",
-          },
-          href: "https://pipeos.vercel.app",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: {
             es: "Repo",
             en: "Repo",
           },
-          href: "https://github.com/pipe1os",
+          href: "https://github.com/pipe1os/personal-portfolio",
           icon: <Icons.github className="size-3" />,
         },
       ],
@@ -399,7 +387,6 @@ export const DATA = {
         es: "Mayo 2026",
         en: "May 2026",
       },
-      credentialId: "02eb26e9-bacc-4b7d-abb4-c4b79c22f2e4",
       logoUrl: "",
       href: "https://www.credly.com/badges/02eb26e9-bacc-4b7d-abb4-c4b79c22f2e4/public_url",
     },
@@ -410,7 +397,6 @@ export const DATA = {
         es: "Mayo 2026",
         en: "May 2026",
       },
-      credentialId: "e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6",
       logoUrl: "",
       href: "https://www.credly.com/badges/e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6/public_url",
     },
@@ -421,7 +407,6 @@ export const DATA = {
         es: "Mayo 2026",
         en: "May 2026",
       },
-      credentialId: "fcc0437f77a-3e45-45af-8662-6ba55413b498-b1efd",
       logoUrl: "",
       href: "https://freecodecamp.org/certification/fcc0437f77a-3e45-45af-8662-6ba55413b498/b1-english-for-developers",
     },
@@ -432,7 +417,6 @@ export const DATA = {
         es: "Mayo 2026",
         en: "May 2026",
       },
-      credentialId: "a0b1611a7b51",
       logoUrl: "https://upload.wikimedia.org/wikipedia/commons/4/40/HackerRank_Icon-1000px.png",
       href: "https://www.hackerrank.com/certificates/a0b1611a7b51",
     },

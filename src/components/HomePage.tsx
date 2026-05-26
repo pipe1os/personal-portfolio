@@ -55,7 +55,7 @@ export default function HomePage() {
                 animation="blurInUp"
                 by="character"
                 startOnView={false}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-5xl"
+                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-6xl"
               >
                 {`${copy.hero.greeting} ${data.name.split(" ")[0]}`}
               </TextAnimate>
@@ -119,7 +119,7 @@ export default function HomePage() {
               </BlurFade>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-              <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted">
+              <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted transition-all duration-300 hover:scale-[1.04] hover:shadow-xl hover:rotate-3">
                 <AvatarImage alt={data.name} src={data.avatarUrl} />
                 <AvatarFallback>{data.initials}</AvatarFallback>
               </Avatar>
@@ -191,84 +191,16 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section id="certifications">
-        <div className="flex flex-col gap-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 8}>
-            <h2 className="text-xl font-bold">{copy.sections.certifications}</h2>
-          </BlurFade>
-          <div className="flex flex-col gap-8">
-            {data.certifications.map((cert, index) => {
-              let LogoComponent: any = Award;
-              let logoClasses = "size-4.5 fill-current opacity-80 text-emerald-500";
-              
-              if (cert.issuer.toLowerCase() === "google") {
-                LogoComponent = GoogleLogo;
-                logoClasses = "size-4.5";
-              } else if (cert.issuer.toLowerCase() === "freecodecamp") {
-                LogoComponent = FreeCodeCampLogo;
-                logoClasses = "size-5 fill-current text-foreground opacity-90";
-              }
-
-              return (
-                <BlurFade
-                  key={cert.title}
-                  delay={BLUR_FADE_DELAY * 9 + index * 0.05}
-                >
-                  <a
-                    href={cert.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-x-3 justify-between group w-full"
-                  >
-                    <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                      {cert.logoUrl ? (
-                        <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden bg-background flex items-center justify-center flex-none">
-                          <img
-                            src={cert.logoUrl}
-                            alt={cert.issuer}
-                            className="size-full object-contain"
-                          />
-                        </div>
-                      ) : (
-                        <div className="size-8 md:size-10 p-1.5 border rounded-full shadow ring-2 ring-border bg-background flex items-center justify-center flex-none overflow-hidden">
-                          <LogoComponent className={logoClasses} />
-                        </div>
-                      )}
-                      <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                        <div className="font-semibold leading-none flex items-center gap-2">
-                          {cert.title}
-                          <ArrowUpRight
-                            className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                            aria-hidden
-                          />
-                        </div>
-                        <div className="font-sans text-sm text-muted-foreground flex flex-wrap items-center gap-x-2 leading-none">
-                          <span>{cert.issuer}</span>
-                          <span className="text-muted-foreground/30">•</span>
-                          <span className="text-xs font-mono select-all text-muted-foreground/70">ID: {cert.credentialId}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground text-right flex-none">
-                      <span>{cert.date}</span>
-                    </div>
-                  </a>
-                </BlurFade>
-              );
-            })}
-          </div>
-        </div>
-      </section>
       <section id="skills">
         <div className="flex flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 10}>
+          <BlurFade delay={BLUR_FADE_DELAY * 8}>
             <h2 className="text-xl font-bold">{copy.sections.skills}</h2>
           </BlurFade>
           <div className="flex flex-wrap gap-2">
             {data.skills.map((skill, id) => (
               <BlurFade
                 key={skill.name}
-                delay={BLUR_FADE_DELAY * 11 + id * 0.05}
+                delay={BLUR_FADE_DELAY * 9 + id * 0.05}
               >
                 <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
                   {skill.icon && (
@@ -285,7 +217,7 @@ export default function HomePage() {
       </section>
       <Suspense fallback={null}>
         <section id="projects">
-          <BlurFade delay={BLUR_FADE_DELAY * 12}>
+          <BlurFade delay={BLUR_FADE_DELAY * 10}>
             <ProjectsSection copy={copy.projects} projects={data.projects} />
           </BlurFade>
         </section>
@@ -294,6 +226,72 @@ export default function HomePage() {
             copy={copy.contributions}
             contributions={data.openSourceContributions}
           />
+        </section>
+        <section id="certifications">
+          <div className="flex flex-col gap-y-6">
+            <BlurFade delay={BLUR_FADE_DELAY * 12}>
+              <h2 className="text-xl font-bold">{copy.sections.certifications}</h2>
+            </BlurFade>
+            <div className="flex flex-col gap-8">
+              {data.certifications.map((cert, index) => {
+                let LogoComponent: any = Award;
+                let logoClasses = "size-4.5 fill-current opacity-80 text-emerald-500";
+
+                if (cert.issuer.toLowerCase() === "google") {
+                  LogoComponent = GoogleLogo;
+                  logoClasses = "size-4.5";
+                } else if (cert.issuer.toLowerCase() === "freecodecamp") {
+                  LogoComponent = FreeCodeCampLogo;
+                  logoClasses = "size-5 fill-current text-foreground opacity-90";
+                }
+
+                return (
+                  <BlurFade
+                    key={cert.title}
+                    delay={BLUR_FADE_DELAY * 13 + index * 0.05}
+                  >
+                    <a
+                      href={cert.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-x-3 justify-between group w-full"
+                    >
+                      <div className="flex items-center gap-x-3 flex-1 min-w-0">
+                        {cert.logoUrl ? (
+                          <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden bg-background flex items-center justify-center flex-none">
+                            <img
+                              src={cert.logoUrl}
+                              alt={cert.issuer}
+                              className="size-full object-contain"
+                            />
+                          </div>
+                        ) : (
+                          <div className="size-8 md:size-10 p-1.5 border rounded-full shadow ring-2 ring-border bg-background flex items-center justify-center flex-none overflow-hidden">
+                            <LogoComponent className={logoClasses} />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0 flex flex-col gap-0.5">
+                          <div className="font-semibold leading-none flex items-center gap-2">
+                            {cert.title}
+                            <ArrowUpRight
+                              className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                              aria-hidden
+                            />
+                          </div>
+                          <div className="font-sans text-sm text-muted-foreground flex flex-wrap items-center gap-x-2 leading-none">
+                            <span>{cert.issuer}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground text-right flex-none">
+                        <span>{cert.date}</span>
+                      </div>
+                    </a>
+                  </BlurFade>
+                );
+              })}
+            </div>
+          </div>
         </section>
         <section id="contact">
           <BlurFade delay={BLUR_FADE_DELAY * 14}>

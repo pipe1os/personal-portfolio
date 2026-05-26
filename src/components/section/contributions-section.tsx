@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/svgs/pr-status";
 import { ArrowUpRight } from "lucide-react";
 
-const BASE_DELAY = 0.04 * 13;
+const BASE_DELAY = 0.04 * 11;
 
 type Contribution = {
   title: string;
