@@ -303,6 +303,20 @@ export const DATA = {
   ],
   openSourceContributions: [
     {
+      repo: "withastro/astro",
+      title: {
+        es: "fix(actions): Fix array element coercion in actions",
+        en: "fix(actions): Fix array element coercion in actions",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "open",
+      href: "https://github.com/withastro/astro/pull/16876",
+      icon: <AstroOfficialLogo className="h-5 w-auto" />,
+    },
+    {
       repo: "strands-agents/sdk-python",
       title: {
         es: "fix: prevent in-place mutation of message history in normalizer",
