@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-[![Live site](https://img.shields.io/badge/live-pipeos.vercel.app-111111?style=for-the-badge&logo=vercel&logoColor=white)](https://pipeos.vercel.app)
+[![Live site](https://img.shields.io/badge/live-pipeos.dev-111111?style=for-the-badge&logo=vercel&logoColor=white)](https://pipeos.dev)
 ![Astro](https://img.shields.io/badge/Astro-6.2-BC52EE?style=for-the-badge&logo=astro&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-149ECA?style=for-the-badge&logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
