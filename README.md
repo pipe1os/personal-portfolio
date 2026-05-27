@@ -14,7 +14,7 @@ It started from the [Magic UI Design portfolio template](https://github.com/magi
 
 ## Live Site
 
-Production is available at [pipeos.vercel.app](https://pipeos.vercel.app).
+Production is available at [pipeos.dev](https://pipeos.dev).
 
 ## What This Project Shows
 
