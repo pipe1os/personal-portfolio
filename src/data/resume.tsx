@@ -195,23 +195,6 @@ export const DATA = {
         en: "2026",
       },
     },
-    {
-      school: "Duoc UC",
-      href: "https://duoc.cl",
-      degree: {
-        es: "Ingeniería en Informática",
-        en: "Computer Engineering",
-      },
-      logoUrl: "/duocuc.webp",
-      start: {
-        es: "2026",
-        en: "2026",
-      },
-      end: {
-        es: "En Curso",
-        en: "In Progress",
-      },
-    },
   ],
   projects: [
     {
