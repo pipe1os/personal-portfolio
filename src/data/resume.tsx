@@ -253,8 +253,8 @@ export const DATA = {
       },
       href: "https://pipeos.vercel.app",
       dates: {
-        es: "Abr 2026",
-        en: "Apr 2026",
+        es: "Abr 2026 - Presente",
+        en: "Apr 2026 - Present",
       },
       active: true,
       description: {
