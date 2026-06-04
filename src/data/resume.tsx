@@ -54,7 +54,7 @@ export const SITE_COPY = {
       label: "Proyectos",
       heading: "Revisa mi trabajo",
       description:
-        "Estos son mis proyectos principales, he construido desde sitios web simples hasta aplicaciones web complejas.",
+        "Una mezcla de aplicaciones web, herramientas CLI y contribuciones.",
       openProject: "Abrir",
     },
     contributions: {
@@ -102,7 +102,7 @@ export const SITE_COPY = {
       label: "Projects",
       heading: "Check out my work",
       description:
-        "These are my main projects, from focused websites to complex web applications.",
+        "A mix of web applications, CLI tools, and open source work.",
       openProject: "Open",
     },
     contributions: {
@@ -281,6 +281,43 @@ export const DATA = {
         },
       ],
       image: "/portfolio.webp",
+      video: "",
+    },
+    {
+      title: {
+        es: "ModelInfo CLI",
+        en: "ModelInfo CLI",
+      },
+      href: "https://pypi.org/project/modelinfo-cli/",
+      dates: {
+        es: "Mayo 2026",
+        en: "May 2026",
+      },
+      active: true,
+      description: {
+        es: "Herramienta CLI que inspecciona checkpoints de modelos de machine learning y estima los requerimientos de VRAM de forma offline. Procesa cabeceras binarias de .safetensors, .gguf y .pt directamente sin dependencias de PyTorch o HuggingFace. Se ejecuta en menos de 100ms. Publicada en PyPI.",
+        en: "CLI tool that inspects ML model checkpoints and estimates VRAM requirements offline. Parses .safetensors, .gguf and .pt binary headers directly with no PyTorch or HuggingFace dependencies. Runs in under 100ms. Published to PyPI.",
+      },
+      technologies: ["Python", "CLI", "PyPI", "Machine Learning"],
+      links: [
+        {
+          type: {
+            es: "Repo",
+            en: "Repo",
+          },
+          href: "https://github.com/pipe1os/modelinfo-cli",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: {
+            es: "PyPI",
+            en: "PyPI",
+          },
+          href: "https://pypi.org/project/modelinfo-cli/",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/modelinfo-cli.webp",
       video: "",
     },
   ],
