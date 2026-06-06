@@ -258,8 +258,8 @@ export const DATA = {
       },
       active: true,
       description: {
-        es: "Herramienta CLI que inspecciona checkpoints de modelos de machine learning y estima los requerimientos de VRAM de forma offline. Procesa cabeceras binarias de .safetensors, .gguf y .pt directamente sin dependencias de PyTorch o HuggingFace. Se ejecuta en menos de 100ms. Publicada en PyPI.",
-        en: "CLI tool that inspects ML model checkpoints and estimates VRAM requirements offline. Parses .safetensors, .gguf and .pt binary headers directly with no PyTorch or HuggingFace dependencies. Runs in under 100ms. Published to PyPI.",
+        es: "Una utilidad nativa de terminal y sin dependencias que inspecciona checkpoints de modelos de ML (.safetensors, .gguf) de forma local o directamente a través del Hugging Face Hub. Al analizar encabezados binarios de forma nativa en menos de 100 ms, evita la enorme sobrecarga (overhead) de PyTorch y Transformers. Calcula la huella exacta de VRAM incorporando los multiplicadores de cuantización, la longitud de contexto y la sobrecarga de CUDA, para diagnosticar al instante si un modelo cabrá en tu configuración de hardware específica.",
+        en: "A zero-dependency, terminal-native utility that inspects ML model checkpoints (.safetensors, .gguf) locally or directly via the Hugging Face Hub. By parsing binary headers natively in under 100ms, it bypasses the massive overhead of PyTorch and Transformers. It calculates exact VRAM footprints by factoring in quantization multipliers, context length, and CUDA overhead to instantly diagnose if a model will fit on your specific hardware configuration.",
       },
       technologies: ["Python", "CLI", "PyPI", "Machine Learning"],
       links: [
