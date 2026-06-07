@@ -258,8 +258,8 @@ export const DATA = {
       },
       active: true,
       description: {
-        es: "Una utilidad nativa de terminal y sin dependencias que inspecciona checkpoints de modelos de ML (.safetensors, .gguf) de forma local o directamente a través del Hugging Face Hub. Al analizar encabezados binarios de forma nativa en menos de 100 ms, evita la enorme sobrecarga (overhead) de PyTorch y Transformers. Calcula la huella exacta de VRAM incorporando los multiplicadores de cuantización, la longitud de contexto y la sobrecarga de CUDA, para diagnosticar al instante si un modelo cabrá en tu configuración de hardware específica.",
-        en: "A zero-dependency, terminal-native utility that inspects ML model checkpoints (.safetensors, .gguf) locally or directly via the Hugging Face Hub. By parsing binary headers natively in under 100ms, it bypasses the massive overhead of PyTorch and Transformers. It calculates exact VRAM footprints by factoring in quantization multipliers, context length, and CUDA overhead to instantly diagnose if a model will fit on your specific hardware configuration.",
+        es: "Una herramienta CLI sin dependencias que inspecciona checkpoints de modelos de ML (.safetensors, .gguf, .pt) de forma local o directamente desde el Hugging Face Hub. Al omitir PyTorch y Transformers, parsea los headers binarios locales en menos de 100ms. Calcula el footprint de VRAM considerando los multiplicadores de cuantización y las longitudes de contexto, y estima las penalizaciones NCCL en configuraciones multi-GPU y la capacidad de serving de vLLM para planificar despliegues en producción.",
+        en: "A zero-dependency CLI tool that inspects ML model checkpoints (.safetensors, .gguf, .pt) locally or directly via the Hugging Face Hub. By bypassing PyTorch and Transformers, it parses local binary headers in under 100ms. It calculates VRAM footprints by factoring in quantization multipliers and context lengths, and calculates multi-GPU NCCL penalties and vLLM serving capacity for production deployment planning.",
       },
       technologies: ["Python", "CLI", "PyPI", "Machine Learning"],
       links: [
