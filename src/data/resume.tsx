@@ -283,43 +283,6 @@ export const DATA = {
       image: "/modelinfo-cli.webp",
       video: "",
     },
-    {
-      title: {
-        es: "Portfolio Web Personal",
-        en: "Personal Web Portfolio",
-      },
-      href: "https://pipeos.vercel.app",
-      dates: {
-        es: "Abr 2026 - Presente",
-        en: "Apr 2026 - Present",
-      },
-      active: true,
-      description: {
-        es: `Refactorizado desde Next.js hacia Astro + React para adaptarse a un sitio estático con contenido pesado. La arquitectura de islas de Astro no envía JS por defecto, hidratando solo los componentes React que necesitan interactividad. Esto permite una carga más rápida y separa el contenido estático de la interfaz dinámica.`,
-        en: `Refactored from Next.js to Astro + React to fit a content-heavy static site. Astro's island architecture ships zero JS by default, only hydrating React components that need interactivity. This transition reduced load times and separated static content from dynamic UI.`,
-      },
-      technologies: [
-        "Astro",
-        "React",
-        "Typescript",
-        "Tailwind CSS",
-        "Shadcn UI",
-        "Motion",
-        "Vercel",
-      ],
-      links: [
-        {
-          type: {
-            es: "Repo",
-            en: "Repo",
-          },
-          href: "https://github.com/pipe1os/personal-portfolio",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "/portfolio.webp",
-      video: "",
-    },
   ],
   openSourceContributions: [
     {
