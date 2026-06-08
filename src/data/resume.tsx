@@ -219,9 +219,6 @@ export const DATA = {
         "PostgreSQL",
         "Cloudinary",
         "Tailwind CSS",
-        "HeroUI",
-        "Motion",
-        "Recharts",
         "Vercel",
         "Vitest",
       ],
@@ -383,16 +380,7 @@ export const DATA = {
       logoUrl: "",
       href: "https://www.credly.com/badges/e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6/public_url",
     },
-    {
-      title: "B1 English for Developers",
-      issuer: "freeCodeCamp",
-      date: {
-        es: "Mayo 2026",
-        en: "May 2026",
-      },
-      logoUrl: "",
-      href: "https://freecodecamp.org/certification/fcc0437f77a-3e45-45af-8662-6ba55413b498/b1-english-for-developers",
-    },
+
     {
       title: "Frontend Developer (React) Certificate",
       issuer: "HackerRank",
