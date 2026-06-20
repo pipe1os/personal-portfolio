@@ -381,16 +381,6 @@ export const DATA = {
       href: "https://www.credly.com/badges/e1a1b120-57dc-45ec-9a14-dfd6b6ca4fe6/public_url",
     },
 
-    {
-      title: "Frontend Developer (React) Certificate",
-      issuer: "HackerRank",
-      date: {
-        es: "Mayo 2026",
-        en: "May 2026",
-      },
-      logoUrl: "https://upload.wikimedia.org/wikipedia/commons/4/40/HackerRank_Icon-1000px.png",
-      href: "https://www.hackerrank.com/certificates/a0b1611a7b51",
-    },
   ],
 } as const;
 
