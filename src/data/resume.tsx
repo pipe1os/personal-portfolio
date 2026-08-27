@@ -292,7 +292,7 @@ export const DATA = {
         es: "May 2026",
         en: "May 2026",
       },
-      status: "open",
+      status: "merged",
       href: "https://github.com/strands-agents/sdk-python/pull/2326",
       icon: (
         <img
