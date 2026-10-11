@@ -309,7 +309,7 @@ export const DATA = {
         es: "Oct 2026",
         en: "Oct 2026",
       },
-      status: "open",
+      status: "merged",
       href: "https://github.com/boykopovar/AnyPS5/pull/3976",
       icon: (
         <img
