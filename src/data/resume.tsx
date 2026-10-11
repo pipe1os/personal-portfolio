@@ -179,6 +179,23 @@ export const DATA = {
   },
   education: [
     {
+      school: "INACAP",
+      href: "https://www.inacap.cl",
+      degree: {
+        es: "Analista Programador",
+        en: "Programmer Analyst",
+      },
+      logoUrl: "/inacap.svg",
+      start: {
+        es: "2027",
+        en: "2027",
+      },
+      end: {
+        es: "2029",
+        en: "2029",
+      },
+    },
+    {
       school: "UCSC (Universidad Católica de la Santísima Concepción)",
       href: "https://ucsc.cl",
       degree: {
@@ -282,6 +299,26 @@ export const DATA = {
     },
   ],
   openSourceContributions: [
+    {
+      repo: "boykopovar/AnyPS5",
+      title: {
+        es: "fix(agc): keep another device's host imports until its teardown",
+        en: "fix(agc): keep another device's host imports until its teardown",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "open",
+      href: "https://github.com/boykopovar/AnyPS5/pull/3976",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/184076081?v=4"
+          alt="AnyPS5 logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
     {
       repo: "strands-agents/sdk-python",
       title: {
