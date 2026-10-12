@@ -1,18 +1,28 @@
 ---
-import { Home } from "lucide-react";
 import Layout from "@/layouts/Layout.astro";
+import { ArrowUpRight } from "lucide-react";
 ---
 
-<Layout title="Pagina no encontrada | Felipe Arce" description="The requested page could not be found." canonicalPath="/404">
-  <main class="relative flex min-h-[60vh] flex-col items-center justify-center gap-6 overflow-hidden text-center">
-    <div class="pointer-events-none absolute inset-0 flex items-center justify-center text-[12rem] font-bold leading-none text-muted/30 sm:text-[18rem]">
-      404
-    </div>
-    <div class="relative z-10 flex flex-col items-center gap-3">
-      <h1 class="text-3xl font-semibold tracking-tighter sm:text-5xl">Pagina no encontrada</h1>
-      <p class="max-w-md text-muted-foreground">La página que estás buscando no existe o ha sido movida.</p>
-      <a href="/" class="mt-2 inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90">
-        <Home className="size-4" aria-hidden /> Inicio
+<Layout title="Página no encontrada | Felipe Arce" description="La página solicitada no existe." canonicalPath="/404">
+  <main class="wrap flex min-h-dvh flex-col pb-6 pt-6">
+    <p class="meta text-grey">Error 404 — Not found</p>
+    <h1 class="display-name mt-auto" aria-label="404">
+      <span class="line" aria-hidden="true">
+        <span class="ch" style="--i:0">4</span><span class="ch" style="--i:1">0</span><span class="ch" style="--i:2">4</span>
+      </span>
+    </h1>
+    <div class="grid-page mt-10 items-end gap-y-8 border-t border-rule pt-4">
+      <p class="rise col-span-4 text-xl font-medium leading-snug md:col-span-5" style="--d:400ms">
+        Esta página no existe o fue movida.
+        <span class="text-grey">This page does not exist or has moved.</span>
+      </p>
+      <a
+        href="/"
+        class="rise sweep meta col-span-4 flex items-center justify-between border-b border-rule px-1 py-4 uppercase md:col-span-3 md:col-start-6 lg:col-span-3 lg:col-start-10"
+        style="--d:500ms"
+      >
+        Volver al inicio / Home
+        <ArrowUpRight className="size-3.5" strokeWidth={1.5} aria-hidden="true" />
       </a>
     </div>
   </main>

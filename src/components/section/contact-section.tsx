@@ -1,54 +1,124 @@
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
-import { Icons } from "@/components/icons";
-import { DATA } from "@/data/resume";
-import type { SiteCopy } from "@/data/resume";
-import { toast } from "sonner";
+import { DisplayName } from "@/components/display-name";
+import { DATA, type SiteCopy } from "@/data/resume";
+import { ArrowUp, ArrowUpRight, Check, Copy } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ContactSection({
   copy,
+  socialLabels,
 }: {
   copy: SiteCopy["contact"];
+  socialLabels: SiteCopy["socialLabels"];
 }) {
+  const [state, setState] = useState<"idle" | "copied" | "error">("idle");
+  const timer = useRef<number>(undefined);
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(DATA.contact.email);
-      toast.success(copy.copySuccess);
-    } catch (err) {
-      toast.error(copy.copyError);
+      setState("copied");
+    } catch {
+      setState("error");
     }
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setState("idle"), 2400);
   };
 
+  const elsewhere = Object.entries(DATA.contact.social).filter(
+    ([key]) => key !== "email",
+  );
+
   return (
-    <div className="border rounded-xl p-10 relative">
-      <div className="absolute -top-4 border bg-primary z-10 rounded-xl px-4 py-1 left-1/2 -translate-x-1/2">
-        <span className="text-background text-sm font-medium">
-          {copy.label}
-        </span>
-      </div>
-      <div className="absolute inset-0 h-1/2 rounded-xl overflow-hidden">
-        <FlickeringGrid
-          className="h-full w-full mask-fade-bottom"
-          squareSize={2}
-          gridGap={2}
+    <section
+      id="contact"
+      aria-labelledby="contact-title"
+      className="on-signal relative bg-signal text-ink"
+    >
+      <div className="wrap pb-6 pt-16 md:pt-24 lg:pt-28">
+        <DisplayName
+          as="h2"
+          id="contact-title"
+          lines={[copy.heading]}
+          reveal
+          className="is-wide"
         />
-      </div>
-      <div className="relative flex flex-col items-center gap-4 text-center">
-        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-          {copy.heading}
-        </h2>
-        <p className="mx-auto max-w-lg text-muted-foreground text-balance">
-          {copy.description}
-        </p>
-        <div className="flex gap-4">
-          <button
-            onClick={copyEmail}
-            className="group inline-flex cursor-pointer items-center gap-2 bg-transparent p-0 text-sm text-muted-foreground transition-colors hover:text-foreground"
+
+        <div className="grid-page mt-12 gap-y-12 md:mt-16 lg:mt-20">
+          <p
+            className="col-span-4 max-w-[34ch] text-xl leading-snug md:col-span-4 lg:col-span-4 lg:text-2xl"
+            data-reveal="rise"
           >
-            <Icons.email className="size-5" />
-            <span>{DATA.contact.email}</span>
-          </button>
+            {copy.description}
+          </p>
+
+          <div
+            className="col-span-4 md:col-span-4 lg:col-span-7 lg:col-start-6"
+            data-reveal="rise"
+            style={{ "--d": "80ms" } as React.CSSProperties}
+          >
+            <a
+              href={`mailto:${DATA.contact.email}`}
+              className="link block w-fit max-w-full break-all text-[clamp(1.5rem,3.3vw,3.25rem)] font-semibold leading-none tracking-[-0.035em] [font-variation-settings:'wdth'_104]"
+            >
+              {DATA.contact.email}
+            </a>
+            <div className="mt-5 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="meta inline-flex h-11 cursor-pointer items-center gap-2 border border-ink px-4 uppercase transition-colors duration-200 hover:bg-ink hover:text-signal"
+              >
+                {state === "copied" ? (
+                  <Check className="size-3.5" strokeWidth={2} aria-hidden />
+                ) : (
+                  <Copy className="size-3.5" strokeWidth={1.5} aria-hidden />
+                )}
+                {state === "copied" ? copy.copied : copy.copy}
+              </button>
+              <span className="meta" role="status" aria-live="polite">
+                {state === "copied"
+                  ? copy.copySuccess
+                  : state === "error"
+                    ? copy.copyError
+                    : ""}
+              </span>
+            </div>
+
+            <ul className="mt-12 border-t border-ink/25">
+              {elsewhere.map(([key, social]) => (
+                <li key={key} className="border-b border-ink/25">
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="sweep flex items-center justify-between px-1 py-4 text-lg font-medium [--sweep-color:var(--color-ink)] [--sweep-ink:var(--color-signal)]"
+                  >
+                    {socialLabels[key as keyof typeof socialLabels] ?? social.name}
+                    <span className="meta flex items-center gap-2">
+                      {social.url.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "")}
+                      <ArrowUpRight className="sweep-arrow size-3.5" strokeWidth={1.5} aria-hidden />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
+
+        <footer className="meta mt-24 flex flex-wrap items-center justify-between gap-4 border-t border-ink/25 pt-4 md:mt-32">
+          <span>© {new Date().getFullYear()} {DATA.name}</span>
+          <span className="hidden md:block">{DATA.location}</span>
+          <a
+            href="#top"
+            className="inline-flex h-11 items-center gap-2 uppercase hover:underline"
+          >
+            {copy.backToTop}
+            <ArrowUp className="size-3.5" strokeWidth={1.5} aria-hidden />
+          </a>
+        </footer>
       </div>
-    </div>
+    </section>
   );
 }

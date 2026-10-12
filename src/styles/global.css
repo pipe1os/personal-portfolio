@@ -1,258 +1,524 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
-@plugin "@tailwindcss/typography";
+@import "@fontsource-variable/mona-sans/wdth.css";
+@import "@fontsource/monaspace-neon/latin-400.css";
+@import "@fontsource/monaspace-neon/latin-500.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --font-sans: "Mona Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Monaspace Neon", ui-monospace, monospace;
 
-@theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: "Geist Variable", sans-serif;
-  --font-mono: "Geist Mono Variable", monospace;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --color-ink: #0c0c0d;
+  --color-ink-2: #141415;
+  --color-paper: #ecebe6;
+  --color-grey: #8f8e89;
+  --color-signal: #ff4f1f;
+  --color-rule: rgb(236 235 230 / 0.14);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Animatable axes for the display type. */
+@property --in {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --squeeze {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --lens {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.18 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-.mask-fade-bottom {
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-
-@layer components {
-  .interactive-hover-button-fill {
-    @apply h-2 w-2 rounded-full bg-primary transition-all duration-300;
-  }
-
-  .group:hover .interactive-hover-button-fill {
-    scale: 100.8;
-  }
+  --margin: clamp(16px, 3.2vw, 48px);
+  --gutter: clamp(12px, 1.5vw, 24px);
+  --header-h: 52px;
+  color-scheme: dark;
+  accent-color: var(--color-signal);
+  caret-color: var(--color-signal);
+  scrollbar-color: rgb(236 235 230 / 0.28) var(--color-ink);
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
-    @apply font-sans;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-variation-settings: "wdth" 100;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 24px);
   }
 
-  /* Shiki dual theme support */
-  .shiki,
-  .shiki span {
-    color: var(--shiki-light);
-    background-color: transparent;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
-  .dark .shiki,
-  .dark .shiki span {
-    color: var(--shiki-dark);
-    background-color: transparent;
+  body {
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  .prose pre {
-    @apply leading-relaxed bg-transparent! font-mono!;
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-ink);
   }
 
-  .prose code {
-    @apply m-0! mx-1! border rounded-md! px-1.5 py-0.5 bg-muted/60 dark:bg-muted/40 text-[13px]! font-mono text-foreground/90!;
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
   }
 
-  .prose code::before,
-  .prose code::after {
-    @apply content-none!;
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
   }
 
-  .prose h1 {
-    @apply text-2xl! font-semibold! tracking-tight! leading-tight!;
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 
-  .prose h2 {
-    @apply text-xl! font-semibold! tracking-tight! leading-tight!;
+  p {
+    text-wrap: pretty;
   }
 
-  .prose h3 {
-    @apply text-lg! font-semibold! tracking-tight! leading-tight!;
+  ::-webkit-scrollbar {
+    width: 10px;
   }
-
-  .prose h4 {
-    @apply text-base! font-medium! tracking-tight! leading-tight!;
+  ::-webkit-scrollbar-track {
+    background: var(--color-ink);
   }
-
-  .prose h5 {
-    @apply text-base! font-medium! tracking-tight! leading-tight!;
+  ::-webkit-scrollbar-thumb {
+    background: rgb(236 235 230 / 0.22);
+    border: 3px solid var(--color-ink);
   }
-
-  .prose h6 {
-    @apply text-base! font-medium! tracking-tight! leading-tight!;
-  }
-
-  .prose blockquote {
-    @apply border-l-4 border-amber-500! pl-4 italic bg-muted/50 p-4 rounded-md rounded-l-none;
-  }
-
-  .prose blockquote p {
-    @apply m-0!;
-  }
-
-  .prose blockquote p:first-child {
-    @apply mt-0!;
-  }
-
-  /* Task lists (remark-gfm): remove bullet marker so it renders like a pure checklist */
-  .prose :where(ul.contains-task-list):not(:where([class~="not-prose"] *)) {
-    @apply list-none! pl-0!;
-  }
-
-  .prose :where(li.task-list-item):not(:where([class~="not-prose"] *)) {
-    @apply pl-0!;
-  }
-
-  .prose
-    :where(li.task-list-item > input[type="checkbox"]):not(
-      :where([class~="not-prose"] *)
-    ) {
-    @apply mr-2 align-middle!;
-  }
-
-  .prose :where(table):not(:where([class~="not-prose"]) *) {
-    @apply w-full min-w-full;
-    border-collapse: separate;
-    border-spacing: 0;
-  }
-
-  .prose :where(th):not(:where([class~="not-prose"] *)),
-  .prose :where(td):not(:where([class~="not-prose"] *)) {
-    @apply px-6 py-4 align-middle m-0 whitespace-nowrap;
-  }
-
-  .prose tr {
-    @apply hover:bg-accent/50! transition-colors! cursor-pointer! h-10!;
-  }
-
-  .prose :where(th):not(:where([class~="not-prose"] *)) {
-    @apply text-left font-semibold text-foreground border-b border-border m-0! bg-muted/50 p-3! py-2!;
-  }
-
-  .prose :where(td):not(:where([class~="not-prose"] *)) {
-    @apply text-muted-foreground border-b border-border text-sm! p-2!;
-  }
-
-  .prose :where(th:not(:last-child)):not(:where([class~="not-prose"] *)),
-  .prose :where(td:not(:last-child)):not(:where([class~="not-prose"] *)) {
-    @apply border-r border-border;
-  }
-
-  .prose :where(tbody tr:last-child td):not(:where([class~="not-prose"] *)) {
-    @apply border-b-0;
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-signal);
   }
 }
 
-.prose a {
-  @apply text-foreground/85! underline decoration-muted-foreground/30! underline-offset-4 hover:text-foreground! hover:decoration-foreground! transition-all duration-200;
+@layer components {
+  /* The 12-column page grid. Everything aligns to it, including the ghost overlay. */
+  .wrap {
+    width: 100%;
+    max-width: 1680px;
+    margin-inline: auto;
+    padding-inline: var(--margin);
+  }
+
+  .grid-page {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gutter);
+  }
+
+  @media (min-width: 768px) {
+    .grid-page {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .grid-page {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+
+  /* Ghost cells: the empty columns are drawn, faintly. */
+  .ghost-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .ghost-grid .grid-page {
+    height: 100%;
+  }
+
+  .ghost-grid span {
+    background: rgb(236 235 230 / 0.018);
+    border-inline: 1px solid rgb(236 235 230 / 0.03);
+    transform-origin: top;
+    animation: ghost-draw 1.1s var(--ease-out-expo) both;
+    animation-delay: calc(var(--i) * 45ms);
+  }
+
+  .ghost-grid span:nth-child(n + 5) {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .ghost-grid span:nth-child(n + 5) {
+      display: block;
+    }
+    .ghost-grid span:nth-child(n + 9) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ghost-grid span:nth-child(n + 9) {
+      display: block;
+    }
+  }
+
+  @keyframes ghost-draw {
+    from {
+      transform: scaleY(0);
+    }
+  }
+
+  /* Small metadata voice: data, dates, coordinates, repos. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Rows that act: a vermilion field sweeps in from the left, leaves to the right. */
+  .sweep {
+    position: relative;
+    isolation: isolate;
+    transition: color 0.2s var(--ease-out-expo);
+  }
+
+  .sweep::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--sweep-color, var(--color-signal));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .sweep:hover {
+      color: var(--sweep-ink, var(--color-ink));
+    }
+    .sweep:hover::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  .sweep:focus-visible {
+    color: var(--sweep-ink, var(--color-ink));
+    outline-offset: 0;
+  }
+
+  .sweep:focus-visible::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .sweep .sweep-muted {
+    transition: color 0.2s var(--ease-out-expo);
+  }
+
+  .sweep .sweep-arrow {
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .sweep:hover .sweep-arrow {
+      transform: translate(3px, -3px);
+    }
+  }
+
+  /* Underlined text links that draw their rule on hover. */
+  .link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 0.08em;
+    transition: background-size 0.45s var(--ease-out-expo), color 0.2s;
+  }
+
+  @media (hover: hover) {
+    .link:hover {
+      animation: link-redraw 0.6s var(--ease-out-expo);
+    }
+  }
+
+  @keyframes link-redraw {
+    0% {
+      background-size: 100% 1px;
+      background-position: 100% 100%;
+    }
+    45% {
+      background-size: 0% 1px;
+      background-position: 100% 100%;
+    }
+    46% {
+      background-position: 0 100%;
+    }
+    100% {
+      background-size: 100% 1px;
+      background-position: 0 100%;
+    }
+  }
+
+  /* The vermilion field inverts the page's signals. */
+  .on-signal {
+    --color-rule: rgb(12 12 13 / 0.25);
+  }
+
+  .on-signal ::selection {
+    background: var(--color-ink);
+    color: var(--color-signal);
+  }
+
+  .on-signal :focus-visible {
+    outline-color: var(--color-ink);
+  }
+
+
+  /* The display name: each letter rides its own width and weight axes. */
+  .display-name {
+    --fit: 30vw;
+    font-size: var(--fit);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+  }
+
+  @media (min-width: 768px) {
+    .display-name {
+      --fit: 27vw;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .display-name {
+      --fit: min(20vw, 22rem);
+    }
+  }
+
+  /* A single long word sized to the full measure instead of the name's two lines. */
+  .display-name.is-wide {
+    --fit: min(16.6vw, 19rem);
+  }
+
+  .display-name .line {
+    display: block;
+    white-space: nowrap;
+    overflow: visible clip;
+    padding-block: 0.08em 0.22em;
+    margin-block: -0.08em -0.22em;
+  }
+
+  html.reveal-armed .display-name[data-reveal]:not([data-in]) .ch {
+    animation-play-state: paused;
+  }
+
+  .display-name .ch {
+    display: inline-block;
+    font-variation-settings:
+      "wdth" calc(75 + (var(--in) - var(--squeeze)) * 37 + var(--lens) * 13),
+      "wght" calc(560 + var(--in) * 240 + var(--lens) * 100);
+    transition: --lens 0.5s var(--ease-out-expo);
+    animation: ch-in 1.2s var(--ease-out-expo) both;
+    animation-delay: calc(180ms + var(--i) * 55ms);
+  }
+
+  @keyframes ch-in {
+    from {
+      --in: 0;
+      transform: translateY(130%);
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    .display-name {
+      animation: squeeze linear both;
+      animation-timeline: view();
+      animation-range: exit 10% exit 90%;
+    }
+
+    @keyframes squeeze {
+      to {
+        --squeeze: 1;
+      }
+    }
+  }
+
+  /* Entrance for the rest of the first viewport: wipes along the grid, never blur. */
+  .rise {
+    animation: rise 1s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  @keyframes rise {
+    from {
+      clip-path: inset(-20% -20% 100% -20%);
+      transform: translateY(0.6em);
+    }
+    to {
+      clip-path: inset(-20% -20% -20% -20%);
+    }
+  }
+
+  .wipe {
+    animation: wipe 1.3s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  @keyframes wipe {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+    to {
+      clip-path: inset(0);
+    }
+  }
+
+  .rule-draw {
+    transform-origin: left;
+    animation: rule-draw 1.2s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  @keyframes rule-draw {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  /* Scroll reveals. Content stays visible unless the script has armed them. */
+  html.reveal-armed [data-reveal]:not([data-in]):not([data-reveal="type"]) {
+    opacity: 0;
+  }
+
+  html.reveal-armed [data-reveal="rise"] {
+    clip-path: inset(-20% -20% -20% -20%);
+  }
+
+  html.reveal-armed [data-reveal="rise"]:not([data-in]) {
+    transform: translateY(24px);
+    clip-path: inset(-20% -20% 100% -20%);
+  }
+
+  html.reveal-armed [data-reveal="wipe"] {
+    clip-path: inset(0);
+  }
+
+  html.reveal-armed [data-reveal="wipe"]:not([data-in]) {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  html.reveal-armed [data-reveal="rule"]:not([data-in]) {
+    transform: scaleX(0);
+  }
+
+  html.reveal-armed [data-reveal][data-in] {
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      transform 1s var(--ease-out-expo),
+      clip-path 1.1s var(--ease-out-expo);
+    transition-delay: var(--d, 0ms);
+  }
+
+  html.reveal-armed [data-reveal="rule"] {
+    transform-origin: left;
+  }
+
+  /* Project plates: greyscale until looked at. */
+  .plate img {
+    filter: grayscale(1) contrast(1.04) brightness(0.92);
+    transform: scale(1.015);
+    transition:
+      filter 0.7s var(--ease-out-expo),
+      transform 1.2s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .plate:hover img {
+      filter: none;
+      transform: scale(1);
+    }
+  }
+
+  .plate:focus-within img {
+    filter: none;
+  }
+
+  @media (hover: none) {
+    .plate img {
+      filter: none;
+      transform: none;
+    }
+  }
+
+  /* Header section counter rolls like an indicator board. */
+  .roll {
+    display: inline-block;
+    animation: roll 0.5s var(--ease-out-expo) both;
+  }
+
+  @keyframes roll {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.28s;
+    animation-timing-function: var(--ease-out-expo);
+  }
+}
+
+/* State overrides that must beat colour utilities, so they live outside the layers. */
+@media (hover: hover) {
+  .sweep:hover .sweep-muted {
+    color: inherit;
+  }
+  .link:hover {
+    color: var(--color-signal);
+  }
+  .on-signal .link:hover {
+    color: inherit;
+  }
+}
+
+.sweep:focus-visible .sweep-muted {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .display-name {
+    animation: none !important;
+  }
+
+  .sweep::before,
+  .sweep,
+  .link {
+    transition-duration: 0.15s !important;
+  }
 }

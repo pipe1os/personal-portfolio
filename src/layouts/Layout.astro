@@ -1,8 +1,6 @@
 ---
 import "@/styles/global.css";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
-import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { Toaster } from "@/components/ui/sonner";
+import monaSans from "@fontsource-variable/mona-sans/files/mona-sans-latin-wdth-normal.woff2?url";
 import { DATA } from "@/data/resume";
 
 interface Props {
@@ -12,9 +10,15 @@ interface Props {
   canonicalPath?: string;
 }
 
+// The summary is markdown with in-page links; meta tags want its first paragraph as plain text.
+const plainSummary = DATA.summary
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+  .trim()
+  .split(/\n\s*\n/)[0];
+
 const {
   title = `${DATA.name} | ${DATA.description}`,
-  description = DATA.summary,
+  description = plainSummary,
   image = `${DATA.url}/me.webp`,
   canonicalPath = Astro.url.pathname,
 } = Astro.props;
@@ -23,13 +27,17 @@ const canonicalUrl = new URL(canonicalPath, DATA.url).toString();
 ---
 
 <!doctype html>
-<html lang="es" class="dark scroll-smooth">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0c0c0d" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="preload" href={monaSans} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonicalUrl} />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -45,17 +53,16 @@ const canonicalUrl = new URL(canonicalPath, DATA.url).toString();
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
   </head>
-  <body class="min-h-screen bg-background font-sans antialiased relative text-foreground">
-    <ScrollProgress client:load />
-    <FlickeringGrid
-      client:load
-      className="absolute inset-0 z-0 h-25 w-full mask-fade-bottom"
-      squareSize={2}
-      gridGap={2}
-    />
-    <div class="relative z-10 max-w-2xl mx-auto py-12 sm:py-24 px-6">
+  <body class="relative overflow-x-clip">
+    <div class="ghost-grid" aria-hidden="true">
+      <div class="wrap h-full">
+        <div class="grid-page">
+          {Array.from({ length: 12 }, (_, i) => <span style={`--i:${i}`} />)}
+        </div>
+      </div>
+    </div>
+    <div class="relative z-10">
       <slot />
     </div>
-    <Toaster client:load position="bottom-center" richColors />
   </body>
 </html>

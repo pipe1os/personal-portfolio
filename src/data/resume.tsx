@@ -41,39 +41,70 @@ export const SITE_COPY = {
         en: "EN",
       },
     },
+    header: {
+      localTime: "Hora local en Concepción",
+      index: "Índice",
+    },
     hero: {
-      greeting: "Hola! soy",
+      facts: [
+        {
+          label: "En producción",
+          figure: { value: 14000, prefix: "", suffix: "+" },
+          text: "estudiantes en la FEUCSC, la federación que usa mi portal de finanzas",
+          href: "#projects",
+        },
+        {
+          label: "Open source",
+          figure: { value: "merged", prefix: "", suffix: "" },
+          text: "PRs aceptados en Astro, strands-agents y AnyPS5",
+          href: "#contributions",
+        },
+        {
+          label: "PyPI",
+          figure: { value: 100, prefix: "<", suffix: " ms" },
+          text: "modelinfo-cli lee checkpoints de modelos de ML",
+          href: "https://pypi.org/project/modelinfo-cli/",
+        },
+      ],
     },
     sections: {
-      about: "Acerca de mí",
-      education: "Educación",
-      skills: "Habilidades",
+      about: "Perfil",
+      projects: "Proyectos",
+      contributions: "Código abierto",
+      education: "Formación",
       certifications: "Certificaciones",
+      contact: "Contacto",
+    },
+    about: {
+      tools: "Herramientas",
     },
     projects: {
-      label: "Proyectos",
-      heading: "Revisa mi trabajo",
       description:
         "Una mezcla de aplicaciones web, herramientas CLI y contribuciones.",
+      stack: "Stack",
+      links: "Enlaces",
+      status: "Estado",
+      active: "Activo",
       openProject: "Abrir",
     },
     contributions: {
-      heading: "Contribuciones",
-      description:
-        "Mis contribuciones a proyectos open-source.",
+      description: "Mis contribuciones a proyectos open-source.",
+      summary: "{merged} aceptados · {open} abiertos · {draft} en borrador",
       status: {
-        open: "Open",
-        merged: "Merged",
-        draft: "Draft",
+        open: "Abierto",
+        merged: "Aceptado",
+        draft: "Borrador",
       },
     },
     contact: {
-      label: "Contacto",
-      heading: "Hablemos",
+      heading: "Hablemos.",
       description:
         "Si tienes un proyecto en mente o una propuesta, escríbeme. Te responderé a la brevedad.",
+      copy: "Copiar",
+      copied: "Copiado",
       copySuccess: "Correo copiado al portapapeles",
-      copyError: "No se pudo copiar el correo",
+      copyError: "No se pudo copiar. Escribe a la dirección directamente.",
+      backToTop: "Volver arriba",
     },
     socialLabels: {
       GitHub: "GitHub",
@@ -89,26 +120,55 @@ export const SITE_COPY = {
         en: "EN",
       },
     },
+    header: {
+      localTime: "Local time in Concepción",
+      index: "Index",
+    },
     hero: {
-      greeting: "Hi! I'm",
+      facts: [
+        {
+          label: "In production",
+          figure: { value: 14000, prefix: "", suffix: "+" },
+          text: "students in FEUCSC, the federation that uses my finance portal",
+          href: "#projects",
+        },
+        {
+          label: "Open source",
+          figure: { value: "merged", prefix: "", suffix: "" },
+          text: "PRs merged into Astro, strands-agents and AnyPS5",
+          href: "#contributions",
+        },
+        {
+          label: "PyPI",
+          figure: { value: 100, prefix: "<", suffix: " ms" },
+          text: "modelinfo-cli reads ML model checkpoints",
+          href: "https://pypi.org/project/modelinfo-cli/",
+        },
+      ],
     },
     sections: {
-      about: "About me",
+      about: "Profile",
+      projects: "Projects",
+      contributions: "Open source",
       education: "Education",
-      skills: "Skills",
       certifications: "Certifications",
+      contact: "Contact",
+    },
+    about: {
+      tools: "Tools",
     },
     projects: {
-      label: "Projects",
-      heading: "Check out my work",
       description:
         "A mix of web applications, CLI tools, and open source work.",
+      stack: "Stack",
+      links: "Links",
+      status: "Status",
+      active: "Active",
       openProject: "Open",
     },
     contributions: {
-      heading: "Contributions",
-      description:
-        "My contributions to open-source projects.",
+      description: "My contributions to open-source projects.",
+      summary: "{merged} merged · {open} open · {draft} draft",
       status: {
         open: "Open",
         merged: "Merged",
@@ -116,12 +176,14 @@ export const SITE_COPY = {
       },
     },
     contact: {
-      label: "Contact",
-      heading: "Let's talk",
+      heading: "Let's talk.",
       description:
         "If you have a project in mind, a proposal, or just want to connect, send me a message. I will reply as soon as I can.",
+      copy: "Copy",
+      copied: "Copied",
       copySuccess: "Email copied to clipboard",
-      copyError: "Could not copy email",
+      copyError: "Could not copy. Write to the address directly.",
+      backToTop: "Back to top",
     },
     socialLabels: {
       GitHub: "GitHub",

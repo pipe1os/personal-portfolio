@@ -50,9 +50,9 @@ const STATUS_ICON: Record<
 };
 
 const STATUS_COLOR: Record<ContributionStatus, string> = {
-  open: "text-[#3fb950]",
-  merged: "text-[#8957e5]",
-  draft: "text-muted-foreground",
+  open: "text-paper",
+  merged: "text-signal",
+  draft: "text-grey",
 };
 
 export function PrStatusIcon({

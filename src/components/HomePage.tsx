@@ -1,8 +1,9 @@
-"use client";
-
-import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DisplayName } from "@/components/display-name";
+import { SiteHeader, type SectionLink } from "@/components/site-header";
+import ContactSection from "@/components/section/contact-section";
+import ContributionsSection from "@/components/section/contributions-section";
+import ProjectsSection from "@/components/section/projects-section";
+import { SectionFrame } from "@/components/section/section-frame";
 import {
   DATA,
   DEFAULT_LANGUAGE,
@@ -11,32 +12,117 @@ import {
   SITE_COPY,
   type Language,
 } from "@/data/resume";
-import { ArrowUpRight, MapPin, Award } from "lucide-react";
-import { useEffect, useState, Suspense, lazy } from "react";
-import { GoogleLogo } from "@/components/ui/svgs/google";
-import { FreeCodeCampLogo } from "@/components/ui/svgs/freecodecamp";
-import Markdown from "react-markdown";
-import { TextAnimate } from "@/components/ui/text-animate";
-const ProjectsSection = lazy(() => import("./section/projects-section"));
-const ContributionsSection = lazy(
-  () => import("./section/contributions-section"),
-);
-const ContactSection = lazy(() => import("./section/contact-section"));
-const Footer = lazy(() => import("./section/footer"));
+import { ArrowUpRight } from "lucide-react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from "react";
+import { flushSync } from "react-dom";
 
-const BLUR_FADE_DELAY = 0.04;
+const SECTION_IDS = [
+  "about",
+  "projects",
+  "contributions",
+  "education",
+  "certifications",
+  "contact",
+] as const;
+
+/** Renders the summary's `[label](href)` links; the copy uses nothing else. */
+function inlineLinks(text: string): ReactNode[] {
+  return text.split(/(\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    return m ? (
+      <a key={i} href={m[2]} className="link text-paper">
+        {m[1]}
+      </a>
+    ) : (
+      part
+    );
+  });
+}
+
+/** Arms scroll reveals once; anything already on screen is shown without animating. */
+function useReveal() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          (entry.target as HTMLElement).dataset.in = "";
+          io.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    for (const el of els) {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.dataset.in = "";
+      else io.observe(el);
+    }
+    document.documentElement.classList.add("reveal-armed");
+    return () => io.disconnect();
+  }, []);
+}
+
+const stagger = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
+
+/** A figure that counts up once, in step with its row's entrance. The final value reserves the width. */
+function Tick({
+  value,
+  prefix,
+  suffix,
+  locale,
+  delay,
+}: {
+  value: number;
+  prefix: string;
+  suffix: string;
+  locale: string;
+  delay: number;
+}) {
+  const [shown, setShown] = useState(value);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const start = performance.now() + delay;
+    const step = (now: number) => {
+      const p = Math.min(1, Math.max(0, (now - start) / 1400));
+      setShown(Math.round(value * (1 - Math.pow(1 - p, 4))));
+      if (p < 1) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  const format = (n: number) => `${prefix}${n.toLocaleString(locale)}${suffix}`;
+  return (
+    <span className="inline-grid tabular-nums">
+      <span className="invisible col-start-1 row-start-1" aria-hidden>
+        {format(value)}
+      </span>
+      <span className="col-start-1 row-start-1">{format(shown)}</span>
+    </span>
+  );
+}
 
 export default function HomePage() {
   const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
   const data = getResumeData(language);
   const copy = SITE_COPY[language];
+  const heroRef = useRef<HTMLElement>(null);
+
+  useReveal();
 
   useEffect(() => {
     const stored = localStorage.getItem("portfolio-language") as Language;
-    const initial = LANGUAGES.includes(stored) ? stored : DEFAULT_LANGUAGE;
-
-    setLanguage(initial);
-    document.documentElement.lang = initial;
+    if (LANGUAGES.includes(stored)) setLanguage(stored);
   }, []);
 
   useEffect(() => {
@@ -44,294 +130,286 @@ export default function HomePage() {
     document.documentElement.lang = language;
   }, [language]);
 
-  return (
-    <main className="min-h-dvh flex flex-col gap-14 relative">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex flex-col gap-y-6 md:flex-row md:gap-x-2 justify-between">
-            <div className="gap-2 flex flex-col order-2 md:order-1">
-              <TextAnimate
-                key={`hero-title-${language}`}
-                animation="blurInUp"
-                by="character"
-                startOnView={false}
-                className="text-3xl font-semibold tracking-tighter sm:text-4xl lg:text-6xl"
-              >
-                {`${copy.hero.greeting} ${data.name.split(" ")[0]}`}
-              </TextAnimate>
-              <BlurFadeText
-                className="text-muted-foreground max-w-150 md:text-lg lg:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={data.description}
-              />
-              <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground sm:text-sm">
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPin className="size-4" strokeWidth={1.6} aria-hidden />
-                    {data.location}
-                  </span>
-                </div>
-              </BlurFade>
-              <BlurFade delay={BLUR_FADE_DELAY * 3}>
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
-                  <div className="flex items-center gap-4.5">
-                    {Object.entries(DATA.contact.social)
-                      .filter(([, social]) => social.navbar)
-                      .map(([key, social]) => {
-                        const Icon = social.icon;
-                        const isExternal = social.url.startsWith("http");
+  const switchLanguage = (next: Language) => {
+    if (next === language) return;
+    const apply = () => flushSync(() => setLanguage(next));
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (document.startViewTransition && !calm) document.startViewTransition(apply);
+    else apply();
+  };
 
-                        return (
-                          <a
-                            key={key}
-                            href={social.url}
-                            target={isExternal ? "_blank" : undefined}
-                            rel={isExternal ? "noopener noreferrer" : undefined}
-                            aria-label={
-                              copy.socialLabels[
-                                key as keyof typeof copy.socialLabels
-                              ] ?? social.name
-                            }
-                            className="inline-flex items-center justify-center rounded-full text-muted-foreground shadow-sm transition-colors hover:text-foreground"
-                          >
-                            <Icon className="size-5" aria-hidden />
-                          </a>
-                        );
-                      })}
-                  </div>
-                  <div
-                    role="group"
-                    aria-label={copy.language.label}
-                    className="inline-flex h-8 items-center rounded-full border border-border bg-background/70 p-0.5 text-xs font-medium text-muted-foreground shadow-sm"
-                  >
-                    {LANGUAGES.map((option) => (
-                      <button
-                        key={option}
-                        aria-pressed={language === option}
-                        onClick={() => setLanguage(option)}
-                        className={`h-7 min-w-8 cursor-pointer rounded-full px-2 transition-colors hover:text-foreground ${language === option ? "bg-primary text-primary-foreground hover:text-primary-foreground" : ""}`}
-                      >
-                        {copy.language.options[option]}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </BlurFade>
-            </div>
-            <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
-              <Avatar className="size-24 md:size-32 border rounded-full shadow-lg ring-4 ring-muted transition-all duration-300 hover:scale-[1.04] hover:shadow-xl hover:rotate-3">
-                <AvatarImage alt={data.name} src={data.avatarUrl} />
-                <AvatarFallback>{data.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
-          </div>
-        </div>
-      </section>
-      <section id="about">
-        <div className="flex flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 4}>
-            <h2 className="text-xl font-bold">{copy.sections.about}</h2>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <div className="prose prose-p:mt-0 prose-p:mb-0 max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert whitespace-pre-line">
-              <Markdown>{data.summary}</Markdown>
-            </div>
-          </BlurFade>
-        </div>
-      </section>
-      <section id="education">
-        <div className="flex flex-col gap-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <h2 className="text-xl font-bold">{copy.sections.education}</h2>
-          </BlurFade>
-          <div className="flex flex-col gap-8">
-            {data.education.map((education, index) => (
-              <BlurFade
-                key={education.school}
-                delay={BLUR_FADE_DELAY * 7 + index * 0.05}
+  const sections: SectionLink[] = useMemo(
+    () =>
+      SECTION_IDS.map((id, i) => ({
+        id,
+        n: String(i + 1).padStart(2, "0"),
+        label: copy.sections[id],
+      })),
+    [copy],
+  );
+  const n = (id: (typeof SECTION_IDS)[number]) =>
+    sections.find((s) => s.id === id)!.n;
+
+  const [firstName, ...rest] = data.name.split(" ");
+  const [proof, statement] = data.summary.trim().split(/\n\s*\n/);
+  const firstSentenceEnd = statement.indexOf(". ") + 1;
+  const role = data.description.split(" · ").flatMap((part, i) => (i ? [<br key={i} />, part] : [part]));
+  const merged = data.openSourceContributions.filter((c) => c.status === "merged").length;
+  const social = Object.entries(DATA.contact.social);
+
+  return (
+    <>
+      <SiteHeader
+        name={data.name}
+        role={data.description}
+        language={language}
+        onLanguage={switchLanguage}
+        copy={copy}
+        sections={sections}
+        heroRef={heroRef}
+      />
+
+      <main id="top">
+        {/* Hero: the poster. */}
+        <section
+          ref={heroRef}
+          aria-label={data.name}
+          className="wrap flex min-h-[calc(100svh-var(--header-h))] flex-col pb-4 pt-6 md:pt-8"
+        >
+          <div className="grid-page relative">
+            <DisplayName
+              lines={[firstName, rest.join(" ")]}
+              className="col-span-full row-start-1"
+            />
+            <figure
+              className="wipe col-span-2 col-start-3 row-start-2 mt-8 overflow-hidden md:col-span-3 md:col-start-6 md:mt-10 lg:col-span-3 lg:col-start-10 lg:row-start-1 lg:mt-0 lg:self-end"
+              style={stagger(500)}
+            >
+              <img
+                src={data.avatarUrl}
+                alt={data.name}
+                width={600}
+                height={600}
+                fetchPriority="high"
+                className="aspect-[4/5] w-full origin-[50%_12%] scale-[1.32] object-cover object-[50%_22%] grayscale contrast-[1.08]"
+              />
+            </figure>
+            <div className="col-span-2 col-start-1 row-start-2 mt-8 flex flex-col justify-end gap-3 md:col-span-5 md:mt-10 lg:hidden">
+              <p
+                className="rise text-lg font-medium leading-tight tracking-[-0.02em] [font-variation-settings:'wdth'_106] md:text-[1.75rem] md:leading-[1.05]"
+                style={stagger(650)}
               >
-                <a
-                  href={education.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-x-3 justify-between group"
-                >
-                  <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                    {education.logoUrl ? (
-                      <img
-                        src={education.logoUrl}
-                        alt={education.school}
-                        className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden object-contain flex-none"
-                      />
-                    ) : (
-                      <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border bg-muted flex-none" />
-                    )}
-                    <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                      <div className="font-semibold leading-none flex items-center gap-2">
-                        {education.school}
-                        <ArrowUpRight
-                          className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                          aria-hidden
+                {role}
+              </p>
+              <p className="rise meta text-grey" style={stagger(720)}>
+                {data.location}
+                <br />
+                36°49′S 73°03′W
+              </p>
+            </div>
+          </div>
+
+          <div className="grid-page mt-8 gap-y-8 md:mt-12 lg:mt-8">
+            <div className="hidden flex-col gap-3 lg:col-span-4 lg:flex">
+              <p
+                className="rise text-[clamp(1.375rem,2.2vw,2.125rem)] font-medium leading-[1.05] tracking-[-0.025em] [font-variation-settings:'wdth'_106]"
+                style={stagger(650)}
+              >
+                {role}
+              </p>
+              <p className="rise meta text-grey" style={stagger(720)}>
+                {data.location}
+              </p>
+            </div>
+
+            <ul className="col-span-4 border-t border-rule md:col-span-8 lg:col-span-6 lg:col-start-5">
+              {copy.hero.facts.map((fact, i) => {
+                const external = fact.href.startsWith("http");
+                return (
+                  <li key={fact.label} className="rise border-b border-rule" style={stagger(780 + i * 70)}>
+                    <a
+                      href={fact.href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="sweep grid grid-cols-[minmax(6.25rem,auto)_1fr_auto] items-center gap-x-4 px-1 py-3 md:grid-cols-[8.5rem_1fr_auto]"
+                    >
+                      <span className="text-[clamp(1.5rem,2.1vw,2rem)] font-semibold leading-none tracking-[-0.03em] [font-variation-settings:'wdth'_112]">
+                        <Tick
+                          value={fact.figure.value === "merged" ? merged : fact.figure.value}
+                          prefix={fact.figure.prefix}
+                          suffix={fact.figure.suffix}
+                          locale={language === "es" ? "es-CL" : "en-US"}
+                          delay={780 + i * 70}
                         />
-                      </div>
-                      <div className="font-sans text-sm text-muted-foreground">
-                        {education.degree}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground text-right flex-none">
-                    <span>
-                      {education.start}
-                      {education.end && ` - ${education.end}`}
-                    </span>
-                  </div>
-                </a>
-              </BlurFade>
-            ))}
+                      </span>
+                      <span className="flex flex-col gap-0.5">
+                        <span className="meta sweep-muted text-grey">{fact.label}</span>
+                        <span className="text-sm leading-snug">{fact.text}</span>
+                      </span>
+                      <ArrowUpRight className="sweep-arrow size-3.5" strokeWidth={1.5} aria-hidden />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <ul className="order-first col-span-4 flex gap-6 md:col-span-8 lg:order-none lg:col-span-2 lg:col-start-11 lg:flex-col lg:gap-1.5 lg:pt-3">
+              {social.map(([key, s], i) => {
+                const external = s.url.startsWith("http");
+                return (
+                  <li key={key} className="rise" style={stagger(900 + i * 60)}>
+                    <a
+                      href={s.url}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="link meta inline-flex items-center gap-1 text-paper"
+                    >
+                      {copy.socialLabels[key as keyof typeof copy.socialLabels] ?? s.name}
+                      <ArrowUpRight className="size-3" strokeWidth={1.5} aria-hidden />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-        </div>
-      </section>
-      <section id="skills">
-        <div className="flex flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 8}>
-            <h2 className="text-xl font-bold">{copy.sections.skills}</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-2">
-            {data.skills.map((skill, id) => (
-              <BlurFade
-                key={skill.name}
-                delay={BLUR_FADE_DELAY * 9 + id * 0.05}
-              >
-                <div className="border bg-background border-border ring-2 ring-border/20 rounded-xl h-8 w-fit px-4 flex items-center gap-2">
-                  {skill.icon && (
-                    <skill.icon className="size-4 rounded overflow-hidden object-contain" />
-                  )}
-                  <span className="text-foreground text-sm font-medium">
-                    {skill.name}
-                  </span>
-                </div>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      <Suspense fallback={null}>
-        <section id="projects">
-          <BlurFade delay={BLUR_FADE_DELAY * 10}>
-            <ProjectsSection copy={copy.projects} projects={data.projects} />
-          </BlurFade>
+
+          <nav aria-label={copy.header.index} className="mt-auto pt-10 lg:pt-6">
+            <ol className="grid-page">
+              {sections.map((s, i) => (
+                <li key={s.id} className="col-span-2 md:col-span-2 lg:col-span-2">
+                  <div className="rule-draw h-px bg-rule" style={stagger(900 + i * 60)} />
+                  <a
+                    href={`#${s.id}`}
+                    className="rise sweep flex items-baseline gap-3 px-1 py-3 md:py-4"
+                    style={stagger(980 + i * 60)}
+                  >
+                    <span className="meta sweep-muted text-grey">{s.n}</span>
+                    <span className="text-[0.9375rem] font-medium md:text-base">{s.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </section>
-        <section id="contributions">
+
+        <SectionFrame id="about" n={n("about")} title={copy.sections.about}>
+          <p
+            className="max-w-[24ch] text-[clamp(1.75rem,3.3vw,3.25rem)] font-medium leading-[1.04] tracking-[-0.03em] [font-variation-settings:'wdth'_104]"
+            data-reveal="rise"
+          >
+            {statement.slice(0, firstSentenceEnd)}
+            <span className="text-grey">{statement.slice(firstSentenceEnd)}</span>
+          </p>
+          <div className="mt-14 grid gap-x-(--gutter) gap-y-12 md:mt-20 md:grid-cols-9">
+            <p
+              className="max-w-[60ch] text-base leading-relaxed text-grey md:col-span-5 md:text-[1.0625rem]"
+              data-reveal="rise"
+            >
+              {inlineLinks(proof)}
+            </p>
+            <div className="md:col-span-4 md:col-start-6" data-reveal="rise" style={stagger(80)}>
+              <h3 className="meta mb-3 text-grey">{copy.about.tools}</h3>
+              <ul className="grid grid-cols-2">
+                {data.skills.map((skill) => (
+                  <li
+                    key={skill.name}
+                    className="border-t border-rule py-3 pr-2 odd:border-r odd:pl-0 even:pl-4"
+                  >
+                    <span className="text-lg font-medium leading-tight tracking-[-0.01em]">
+                      {skill.name}
+                    </span>
+                  </li>
+                ))}
+                {data.skills.length % 2 === 1 && (
+                  <li aria-hidden className="border-t border-rule bg-paper/[0.03]" />
+                )}
+              </ul>
+            </div>
+          </div>
+        </SectionFrame>
+
+        <SectionFrame id="projects" n={n("projects")} title={copy.sections.projects}>
+          <ProjectsSection copy={copy.projects} projects={data.projects} />
+        </SectionFrame>
+
+        <SectionFrame
+          id="contributions"
+          n={n("contributions")}
+          title={copy.sections.contributions}
+        >
           <ContributionsSection
             copy={copy.contributions}
             contributions={data.openSourceContributions}
           />
-        </section>
-        <section id="certifications">
-          <div className="flex flex-col gap-y-6">
-            <BlurFade delay={BLUR_FADE_DELAY * 12}>
-              <h2 className="text-xl font-bold">{copy.sections.certifications}</h2>
-            </BlurFade>
-            <div className="flex flex-col gap-8">
-              {data.certifications.map((cert, index) => {
-                let LogoComponent: any = Award;
-                let logoClasses = "size-4.5 fill-current opacity-80 text-emerald-500";
+        </SectionFrame>
 
-                if (cert.issuer.toLowerCase() === "google") {
-                  LogoComponent = GoogleLogo;
-                  logoClasses = "size-4.5";
-                } else if (cert.issuer.toLowerCase() === "freecodecamp") {
-                  LogoComponent = FreeCodeCampLogo;
-                  logoClasses = "size-5 fill-current text-foreground opacity-90";
-                }
+        <SectionFrame id="education" n={n("education")} title={copy.sections.education} compact>
+          <ol className="border-t border-rule">
+            {data.education.map((e, i) => (
+              <li key={e.school} className="border-b border-rule" data-reveal="rise" style={stagger(i * 60)}>
+                <a
+                  href={e.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sweep grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 px-1 py-5 md:grid-cols-9 md:items-baseline md:gap-x-(--gutter)"
+                >
+                  <span className="col-span-2 text-lg font-medium leading-snug md:col-span-4 md:col-start-3 md:row-start-1">
+                    {e.school}
+                  </span>
+                  <span className="sweep-muted text-[0.9375rem] text-grey md:col-span-2 md:col-start-7 md:row-start-1">
+                    {e.degree}
+                  </span>
+                  <span className="meta sweep-muted text-grey md:col-span-2 md:col-start-1 md:row-start-1 max-md:hidden">
+                    {e.start}–{e.end}
+                  </span>
+                  <span className="meta sweep-muted flex items-center justify-end gap-2 text-grey md:col-span-1 md:col-start-9 md:row-start-1">
+                    <span className="md:hidden">
+                      {e.start}–{e.end}
+                    </span>
+                    <ArrowUpRight className="sweep-arrow size-3.5" strokeWidth={1.5} aria-hidden />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </SectionFrame>
 
-                return (
-                  <BlurFade
-                    key={cert.title}
-                    delay={BLUR_FADE_DELAY * 13 + index * 0.05}
-                  >
-                    <a
-                      href={cert.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-x-3 justify-between group w-full"
-                    >
-                      <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                        {cert.logoUrl ? (
-                          <div className="size-8 md:size-10 p-1 border rounded-full shadow ring-2 ring-border overflow-hidden bg-background flex items-center justify-center flex-none">
-                            <img
-                              src={cert.logoUrl}
-                              alt={cert.issuer}
-                              className="size-full object-contain"
-                            />
-                          </div>
-                        ) : (
-                          <div className="size-8 md:size-10 p-1.5 border rounded-full shadow ring-2 ring-border bg-background flex items-center justify-center flex-none overflow-hidden">
-                            <LogoComponent className={logoClasses} />
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                          <div className="font-semibold leading-none flex items-center gap-2">
-                            {cert.title}
-                            <ArrowUpRight
-                              className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                              aria-hidden
-                            />
-                          </div>
-                          <div className="font-sans text-sm text-muted-foreground flex flex-wrap items-center gap-x-2 leading-none">
-                            <span>{cert.issuer}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground text-right flex-none">
-                        <span>{cert.date}</span>
-                      </div>
-                    </a>
-                  </BlurFade>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-        <section id="contact">
-          <BlurFade delay={BLUR_FADE_DELAY * 14}>
-            <ContactSection copy={copy.contact} />
-          </BlurFade>
-        </section>
-        <section id="footer">
-          <BlurFade delay={BLUR_FADE_DELAY * 15}>
-            <Footer
-              socialLinks={
-                <div className="flex items-center gap-4.5">
-                  {Object.entries(DATA.contact.social)
-                    .filter(([, social]) => social.navbar)
-                    .map(([key, social]) => {
-                      const Icon = social.icon;
-                      const isExternal = social.url.startsWith("http");
+        <SectionFrame
+          id="certifications"
+          n={n("certifications")}
+          title={copy.sections.certifications}
+          compact
+        >
+          <ol className="border-t border-rule">
+            {data.certifications.map((cert, i) => (
+              <li key={cert.title} className="border-b border-rule" data-reveal="rise" style={stagger(i * 60)}>
+                <a
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sweep grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 px-1 py-5 md:grid-cols-9 md:items-baseline md:gap-x-(--gutter)"
+                >
+                  <span className="col-span-2 text-lg font-medium leading-snug md:col-span-4 md:col-start-3 md:row-start-1">
+                    {cert.title}
+                  </span>
+                  <span className="sweep-muted text-[0.9375rem] text-grey md:col-span-2 md:col-start-7 md:row-start-1">
+                    {cert.issuer}
+                  </span>
+                  <span className="meta sweep-muted text-grey md:col-span-2 md:col-start-1 md:row-start-1 max-md:hidden">
+                    {cert.date}
+                  </span>
+                  <span className="meta sweep-muted flex items-center justify-end gap-2 text-grey md:col-span-1 md:col-start-9 md:row-start-1">
+                    <span className="md:hidden">{cert.date}</span>
+                    <ArrowUpRight className="sweep-arrow size-3.5" strokeWidth={1.5} aria-hidden />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </SectionFrame>
 
-                      return (
-                        <a
-                          key={key}
-                          href={social.url}
-                          target={isExternal ? "_blank" : undefined}
-                          rel={isExternal ? "noopener noreferrer" : undefined}
-                          aria-label={
-                            copy.socialLabels[
-                              key as keyof typeof copy.socialLabels
-                            ] ?? social.name
-                          }
-                          className="inline-flex items-center justify-center rounded-full text-muted-foreground shadow-sm transition-colors hover:text-foreground"
-                        >
-                          <Icon className="size-5" aria-hidden />
-                        </a>
-                      );
-                    })}
-                </div>
-              }
-            />
-          </BlurFade>
-        </section>
-      </Suspense>
-    </main>
+        <ContactSection copy={copy.contact} socialLabels={copy.socialLabels} />
+      </main>
+    </>
   );
 }

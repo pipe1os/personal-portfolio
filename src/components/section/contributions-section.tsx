@@ -1,12 +1,10 @@
-import BlurFade from "@/components/magicui/blur-fade";
 import type { SiteCopy } from "@/data/resume";
 import {
   PrStatusIcon,
   type ContributionStatus,
 } from "@/components/ui/svgs/pr-status";
 import { ArrowUpRight } from "lucide-react";
-
-const BASE_DELAY = 0.04 * 11;
+import type { CSSProperties } from "react";
 
 type Contribution = {
   title: string;
@@ -15,7 +13,6 @@ type Contribution = {
   status: ContributionStatus;
   statusLabel: string;
   href: string;
-  icon: React.ReactNode;
 };
 
 export default function ContributionsSection({
@@ -25,59 +22,61 @@ export default function ContributionsSection({
   copy: SiteCopy["contributions"];
   contributions: Contribution[];
 }) {
+  const count = (status: ContributionStatus) =>
+    contributions.filter((c) => c.status === status).length;
+  const summary = copy.summary
+    .replace("{merged}", String(count("merged")))
+    .replace("{open}", String(count("open")))
+    .replace("{draft}", String(count("draft")));
+
   return (
-    <div className="flex flex-col gap-y-6">
-      <div className="flex flex-col gap-y-1">
-      <BlurFade delay={BASE_DELAY}>
-        <h2 className="text-xl font-bold">{copy.heading}</h2>
-      </BlurFade>
-      <BlurFade delay={BASE_DELAY + 0.04}>
-        <p className="font-sans text-sm leading-relaxed text-muted-foreground">
+    <>
+      <div className="mb-10 flex flex-col gap-2 md:mb-14" data-reveal="rise">
+        <p className="max-w-[46ch] text-lg leading-snug text-paper md:text-xl">
           {copy.description}
         </p>
-      </BlurFade>
+        <p className="meta text-grey">{summary}</p>
       </div>
-      <div className="flex flex-col gap-8">
-        {contributions.map((contribution, index) => (
-          <BlurFade
-            key={contribution.href}
-            delay={BASE_DELAY + 0.08 + index * 0.05}
+      <ol className="border-t border-rule">
+        {contributions.map((c, i) => (
+          <li
+            key={c.href}
+            className="border-b border-rule"
+            data-reveal="rise"
+            style={{ "--d": `${Math.min(i, 6) * 45}ms` } as CSSProperties}
           >
             <a
-              href={contribution.href}
+              href={c.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-x-3 justify-between group w-full"
+              className="sweep group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 px-1 py-4 md:grid-cols-9 md:items-baseline md:gap-x-(--gutter) md:py-5"
             >
-              <div className="flex items-center gap-x-3 flex-1 min-w-0">
-                <div className="size-8 md:size-10 p-1.5 border rounded-full shadow ring-2 ring-border bg-background flex items-center justify-center flex-none overflow-hidden">
-                  {contribution.icon}
-                </div>
-                <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                  <div className="font-semibold leading-none flex items-center gap-2">
-                    {contribution.title}
-                    <ArrowUpRight
-                      className="h-3.5 w-3.5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
-                      aria-hidden
-                    />
-                  </div>
-                  <div className="font-sans text-sm text-muted-foreground flex flex-wrap items-center gap-x-2 leading-none">
-                    <span>{contribution.repo}</span>
-                    <span className="text-muted-foreground/30">•</span>
-                    <span className="inline-flex items-center gap-1">
-                      <PrStatusIcon status={contribution.status} />
-                      {contribution.statusLabel}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground text-right flex-none">
-                <span>{contribution.dates}</span>
-              </div>
+              <span className="col-span-2 text-base font-medium leading-snug md:col-span-4 md:col-start-3 md:row-start-1 md:text-[1.0625rem]">
+                {c.title}
+              </span>
+              <span className="meta sweep-muted flex min-w-0 items-baseline gap-2 text-grey md:col-span-2 md:col-start-1 md:row-start-1">
+                <PrStatusIcon
+                  status={c.status}
+                  className="sweep-muted size-3.5 shrink-0 translate-y-[3px]"
+                />
+                <span>{c.statusLabel}</span>
+                <span className="truncate md:hidden">· {c.repo}</span>
+              </span>
+              <span className="meta sweep-muted hidden truncate text-grey md:col-span-2 md:col-start-7 md:row-start-1 md:block">
+                {c.repo}
+              </span>
+              <span className="meta sweep-muted flex items-center justify-end gap-2 whitespace-nowrap text-grey md:col-span-1 md:col-start-9 md:row-start-1">
+                {c.dates}
+                <ArrowUpRight
+                  className="sweep-arrow size-3.5"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+              </span>
             </a>
-          </BlurFade>
+          </li>
         ))}
-      </div>
-    </div>
+      </ol>
+    </>
   );
 }
