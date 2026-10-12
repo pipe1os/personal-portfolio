@@ -67,9 +67,7 @@ export default function ProjectsSection({
                   aria-hidden="true"
                   className={cn(
                     "mt-6 block overflow-hidden bg-ink-2 md:mt-8",
-                    split
-                      ? "aspect-[5/3] md:col-span-6"
-                      : "aspect-[16/9] md:col-span-9",
+                    split ? "aspect-video md:col-span-6" : "aspect-video md:col-span-9",
                   )}
                   data-reveal="wipe"
                 >

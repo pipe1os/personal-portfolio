@@ -36,8 +36,15 @@ const SECTION_IDS = [
 function inlineLinks(text: string): ReactNode[] {
   return text.split(/(\[[^\]]+\]\([^)]+\))/g).map((part, i) => {
     const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    const external = m?.[2].startsWith("http");
     return m ? (
-      <a key={i} href={m[2]} className="link text-paper">
+      <a
+        key={i}
+        href={m[2]}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className="link text-paper"
+      >
         {m[1]}
       </a>
     ) : (

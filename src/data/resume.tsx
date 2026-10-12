@@ -17,7 +17,7 @@ const LOCALIZED_RESUME = {
     location: "Concepción, Chile",
     description: "Desarrollador de Software · Full Stack",
     summary: `
-[Mi proyecto principal](#projects) es un portal de transparencia financiera para la FEUCSC, una aplicación real con usuarios reales, donde las decisiones técnicas realmente importaron: autenticación con RLS en Supabase, uploads server-side con validación de magic bytes, control de acceso en tres capas, etc. También he [contribuido a proyectos de código abierto](#contributions), incluyendo astro, next.js y la documentación en español de python.
+Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío donde las decisiones técnicas realmente importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. También he [contribuido a proyectos de código abierto](#contributions), incluyendo astro, next.js y la documentación en español de python.
 
 Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
     `,
@@ -26,7 +26,7 @@ Me importa escribir código que alguien más pueda leer y mantener. Aprendo cons
     location: "Concepción, Chile",
     description: "Software Developer · Full Stack",
     summary: `
-[My main project](#projects) is a financial transparency portal for the FEUCSC, a real app with real users, where the technical decisions actually mattered: Supabase auth with RLS, server-side uploads with magic byte validation, three-layer access control, etc. I have also [contributed to open-source projects](#contributions), including astro, next.js, and python spanish docs.
+I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community where the technical decisions actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. I have also [contributed to open-source projects](#contributions), including astro, next.js, and python spanish docs.
 
 I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
   },
@@ -48,10 +48,10 @@ export const SITE_COPY = {
     hero: {
       facts: [
         {
-          label: "En producción",
-          figure: { value: 14000, prefix: "", suffix: "+" },
-          text: "estudiantes en la FEUCSC, la federación que usa mi portal de finanzas",
-          href: "#projects",
+          label: "Kumo",
+          figure: { value: 72, prefix: "", suffix: " h" },
+          text: "mi emprendimiento: páginas web para pymes de todo Chile, en línea en 48 a 72 horas",
+          href: "https://kumoweb.cl",
         },
         {
           label: "Open source",
@@ -127,10 +127,10 @@ export const SITE_COPY = {
     hero: {
       facts: [
         {
-          label: "In production",
-          figure: { value: 14000, prefix: "", suffix: "+" },
-          text: "students in FEUCSC, the federation that uses my finance portal",
-          href: "#projects",
+          label: "Kumo",
+          figure: { value: 72, prefix: "", suffix: " h" },
+          text: "my business: websites for small businesses across Chile, live in 48 to 72 hours",
+          href: "https://kumoweb.cl",
         },
         {
           label: "Open source",
@@ -278,28 +278,56 @@ export const DATA = {
   projects: [
     {
       title: {
-        es: "Portal de Gestión y Transparencia Financiera",
-        en: "Financial Management and Transparency Portal",
+        es: "Kumo",
+        en: "Kumo",
       },
-      href: "https://feucsc.vercel.app",
+      href: "https://kumoweb.cl",
       dates: {
-        es: "Ene 2026 - Presente",
-        en: "Jan 2026 - Present",
+        es: "2026 - Presente",
+        en: "2026 - Present",
       },
       active: true,
       description: {
-        es: "Plataforma de transparencia financiera construida para la FEUCSC, una federación estudiantil de 14.000+ alumnos. Antes de esto, la gestión de gastos se hacía en papel y hojas de cálculo. La app centraliza el seguimiento de gastos, auditoría e informes con un dashboard en tiempo real, tres capas de seguridad independientes, uploads con validación de magic bytes y RLS en Supabase. En uso activo hoy.",
-        en: "Financial transparency platform built for FEUCSC, the student federation of UCSC, a university of 14,000+ students. Before this, expense management ran on paper and spreadsheets. The app centralizes expense tracking, auditing, and reporting with a real-time dashboard, secured with three independent defensive layers, magic byte file validation, and Supabase RLS. Actively in use today.",
+        es: "Mi emprendimiento de desarrollo web. Kumo hace páginas y software a medida para pymes, locales y emprendedores de todo Chile: landings listas en 48 a 72 horas, sitios con catálogo y SEO, cartas digitales con pedidos online sin comisión y sistemas internos de inventario, ventas y agenda. Precio cerrado y pago único, sin mensualidades.",
+        en: "My web development business. Kumo builds websites and custom software for small businesses across Chile: landing pages live in 48 to 72 hours, catalog sites with SEO, digital menus with commission-free online ordering, and internal systems for inventory, sales, and scheduling. Fixed price, one-time payment, no subscriptions.",
+      },
+      technologies: ["Astro", "Cloudflare"],
+      links: [
+        {
+          type: {
+            es: "Sitio",
+            en: "Website",
+          },
+          href: "https://kumoweb.cl",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/kumo.webp",
+      video: "",
+    },
+    {
+      title: {
+        es: "Centro de Estudio UBB",
+        en: "Centro de Estudio UBB",
+      },
+      href: "https://ceoubb.com",
+      dates: {
+        es: "Ago 2026 - Presente",
+        en: "Aug 2026 - Present",
+      },
+      active: true,
+      description: {
+        es: "Plataforma académica estudiantil e independiente para la comunidad de la Universidad del Bío-Bío, pensada como alternativa moderna a Moodle y Adecca. Aulas virtuales organizadas por resultados de aprendizaje, libreta de notas en escala 1.0 a 7.0 con cálculo de nota mínima, planificador semanal, mensajería por asignatura e importación de cursos desde respaldos de Moodle (.mbz). Turso con Drizzle como sistema de registro y Firestore en Santiago para el estado en tiempo real, con apps Android e iOS vía Capacitor y notificaciones push.",
+        en: "An independent, student-built academic platform for the Universidad del Bío-Bío community, designed as a modern alternative to Moodle and Adecca. Virtual classrooms organized by learning outcomes, a gradebook on Chile's 1.0 to 7.0 scale with minimum-passing-grade math, a weekly planner, per-course messaging, and course import from Moodle backups (.mbz). Turso with Drizzle as the system of record and Firestore in Santiago for real-time state, with Android and iOS apps via Capacitor and push notifications.",
       },
       technologies: [
         "Next.js",
         "Typescript",
-        "Supabase",
-        "PostgreSQL",
-        "Cloudinary",
-        "Tailwind CSS",
-        "Vercel",
-        "Vitest",
+        "Turso",
+        "Drizzle",
+        "Firebase",
+        "Capacitor",
+        "Cloudflare Workers",
       ],
       links: [
         {
@@ -307,7 +335,7 @@ export const DATA = {
             es: "Sitio",
             en: "Website",
           },
-          href: "https://feucsc.vercel.app",
+          href: "https://ceoubb.com",
           icon: <Icons.globe className="size-3" />,
         },
         {
@@ -315,11 +343,11 @@ export const DATA = {
             es: "Repo",
             en: "Repo",
           },
-          href: "https://github.com/pipe1os/FEUCSC-FINANZAS",
+          href: "https://github.com/CEOUBB/CEOUBB",
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/feucsc.webp",
+      image: "/ceoubb.webp",
       video: "",
     },
     {
