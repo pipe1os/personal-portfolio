@@ -14,29 +14,6 @@ This is my personal portfolio: who I am, what I have shipped, the open-source pu
 
 The project started from the [Magic UI Design portfolio template](https://github.com/magicuidesign/portfolio), a Next.js app. I first migrated it to Astro + React and added the Spanish/English switcher. Then I redesigned the whole thing from scratch: none of the template's look, components, or animations remain. What carried over is the content model and the bilingual setup.
 
-## Design
-
-The new identity is a Swiss typographic poster set on black.
-
-- **Visible grid.** A 12-column grid (8 on tablet, 4 on phone) lays out every section and is drawn faintly behind the page. Empty columns stay visible instead of being filled.
-- **Type.** [Mona Sans](https://github.com/github/mona-sans) as a variable font, using its width axis for the display name, plus Monaspace Neon for dates, repos, coordinates, and other data. Both are self-hosted, so they work under the site's CSP.
-- **One spot color.** Vermilion `#ff4f1f` appears only on things that are live or clickable (merged PRs, active projects, hovered rows) and on the contact section.
-- **No chips or cards.** Tags are slash-separated lists, contributions are an index table, and project details sit in a definition list next to each screenshot.
-
-## Motion
-
-- The name is set letter by letter. Each letter widens into place on load, swells under the cursor on desktop, and condenses as you scroll past it (CSS scroll-driven animation).
-- Grid columns draw in on load. Headings and rows rise from a baseline mask, and images wipe in.
-- Rows that link somewhere fill with vermilion from left to right on hover or keyboard focus.
-- The sticky header turns into a wordmark plus a section counter ("03 / 06") once you leave the hero, and shows the local time in Concepción.
-- Switching language uses the View Transitions API.
-- The hero figures count up once on load.
-- `prefers-reduced-motion` turns all of this off and leaves the content static and readable.
-
-## Performance
-
-The redesign dropped Motion, react-markdown, Sonner, Radix, and the Magic UI components in favor of CSS animations, a few small hooks, and IntersectionObserver. Gzipped JS + CSS went from about 203 KB to about 104 KB.
-
 ## Tech Stack
 
 - Astro 7

@@ -14,29 +14,6 @@ Este es mi portafolio personal: quién soy, qué he construido, los pull request
 
 El proyecto partió desde la [plantilla de portafolio de Magic UI Design](https://github.com/magicuidesign/portfolio), una app en Next.js. Primero la migré a Astro + React y agregué el cambio de idioma entre español e inglés. Después rediseñé todo desde cero: no queda nada del aspecto, los componentes ni las animaciones de la plantilla. Lo que se mantuvo es el modelo de contenido y el soporte bilingüe.
 
-## Diseño
-
-La nueva identidad es un cartel tipográfico suizo sobre negro.
-
-- **Grilla visible.** Una grilla de 12 columnas (8 en tablet, 4 en teléfono) ordena cada sección y se dibuja tenue detrás de la página. Las columnas vacías quedan a la vista en vez de rellenarse.
-- **Tipografía.** [Mona Sans](https://github.com/github/mona-sans) como fuente variable, usando su eje de ancho para el nombre, y Monaspace Neon para fechas, repos, coordenadas y otros datos. Ambas están alojadas en el propio sitio, así que funcionan con la CSP.
-- **Un solo color directo.** El bermellón `#ff4f1f` aparece solo en lo que está vivo o se puede presionar (PRs aceptados, proyectos activos, filas en hover) y en la sección de contacto.
-- **Sin chips ni cards.** Las etiquetas son listas separadas por barras, las contribuciones son una tabla índice y los detalles de cada proyecto van en una lista de definiciones junto a su captura.
-
-## Movimiento
-
-- El nombre está compuesto letra por letra. Cada letra se ensancha al cargar, se expande bajo el cursor en escritorio y se condensa al hacer scroll (animación ligada al scroll con CSS).
-- Las columnas de la grilla se dibujan al cargar. Títulos y filas suben desde una máscara en la línea base, y las imágenes entran con un barrido.
-- Las filas que llevan a otro sitio se llenan de bermellón de izquierda a derecha con hover o foco de teclado.
-- El header fijo se convierte en el nombre más un contador de sección ("03 / 06") al salir del inicio, y muestra la hora local de Concepción.
-- El cambio de idioma usa la View Transitions API.
-- Las cifras del inicio cuentan hacia arriba una vez al cargar.
-- `prefers-reduced-motion` desactiva todo esto y deja el contenido estático y legible.
-
-## Rendimiento
-
-El rediseño eliminó Motion, react-markdown, Sonner, Radix y los componentes de Magic UI, reemplazándolos por animaciones CSS, unos pocos hooks e IntersectionObserver. El JS + CSS comprimido bajó de unos 203 KB a unos 104 KB.
-
 ## Stack
 
 - Astro 7
