@@ -302,6 +302,26 @@ export const DATA = {
     {
       repo: "boykopovar/AnyPS5",
       title: {
+        es: "fix(agc): render into non-resident packed mip tails",
+        en: "fix(agc): render into non-resident packed mip tails",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "merged",
+      href: "https://github.com/boykopovar/AnyPS5/pull/4328",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/184076081?v=4"
+          alt="AnyPS5 logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
+    {
+      repo: "boykopovar/AnyPS5",
+      title: {
         es: "fix(agc): keep another device's host imports until its teardown",
         en: "fix(agc): keep another device's host imports until its teardown",
       },
