@@ -283,8 +283,8 @@ export const DATA = {
       },
       href: "https://kumoweb.cl",
       dates: {
-        es: "2026 - Presente",
-        en: "2026 - Present",
+        es: "Sep 2026 - Presente",
+        en: "Sep 2026 - Present",
       },
       active: true,
       description: {
