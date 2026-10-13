@@ -198,7 +198,7 @@ export default function HomePage() {
                 width={600}
                 height={600}
                 fetchPriority="high"
-                className="aspect-[4/5] w-full origin-[50%_12%] scale-[1.32] object-cover object-[50%_22%] grayscale contrast-[1.08]"
+                className="aspect-[4/5] w-full object-cover grayscale contrast-[1.08]"
               />
             </figure>
             <div className="col-span-2 col-start-1 row-start-2 mt-8 flex flex-col justify-end gap-3 md:col-span-5 md:mt-10 lg:hidden">
