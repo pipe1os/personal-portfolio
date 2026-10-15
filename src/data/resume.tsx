@@ -57,7 +57,7 @@ export const SITE_COPY = {
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs aceptados en Astro, strands-agents y AnyPS5",
+          text: "PRs fusionados en Astro, strands-agents y AnyPS5",
           href: "#contributions",
         },
         {
@@ -90,12 +90,18 @@ export const SITE_COPY = {
     },
     contributions: {
       description: "Mis contribuciones a proyectos open-source.",
-      summary: "{merged} aceptados · {open} abiertos · {draft} en borrador",
+      summary: {
+        merged: "fusionados",
+        open: "abiertos",
+        draft: "en borrador",
+      },
       status: {
         open: "Abierto",
-        merged: "Aceptado",
+        merged: "Fusionado",
         draft: "Borrador",
       },
+      expandAll: "Expandir todo",
+      collapseAll: "Contraer todo",
     },
     contact: {
       heading: "Hablemos.",
@@ -169,12 +175,18 @@ export const SITE_COPY = {
     },
     contributions: {
       description: "My contributions to open-source projects.",
-      summary: "{merged} merged · {open} open · {draft} draft",
+      summary: {
+        merged: "merged",
+        open: "open",
+        draft: "draft",
+      },
       status: {
         open: "Open",
         merged: "Merged",
         draft: "Draft",
       },
+      expandAll: "Expand all",
+      collapseAll: "Collapse all",
     },
     contact: {
       heading: "Let's talk.",

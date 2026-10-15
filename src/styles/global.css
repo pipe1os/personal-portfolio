@@ -466,6 +466,123 @@
     }
   }
 
+  /* Contributions: repositories open onto their pull requests. */
+  .repo-field {
+    transition: background-color 0.6s var(--ease-out-expo);
+  }
+
+  .repo[data-open] .repo-field {
+    background: var(--color-ink-2);
+  }
+
+  .repo-logo {
+    filter: grayscale(1);
+    opacity: 0.75;
+    transition:
+      filter 0.6s var(--ease-out-expo),
+      opacity 0.6s var(--ease-out-expo);
+  }
+
+  .repo[data-open] .repo-logo {
+    filter: none;
+    opacity: 1;
+  }
+
+  @media (hover: hover) {
+    .repo button:hover .repo-logo {
+      filter: none;
+      opacity: 1;
+    }
+  }
+
+  .tally i {
+    width: 3px;
+    height: 0.875rem;
+    transform-origin: bottom;
+    transition: transform 0.7s var(--ease-out-expo);
+    transition-delay: calc(var(--d, 0ms) + 250ms + var(--i) * 70ms);
+  }
+
+  html.reveal-armed .repo:not([data-in]) .tally i {
+    transform: scaleY(0);
+  }
+
+  .repo-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s var(--ease-out-expo);
+  }
+
+  .repo[data-open] .repo-panel {
+    grid-template-rows: 1fr;
+    transition-duration: 0.8s;
+  }
+
+  .repo-panel > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .repo-panel li {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition:
+      opacity 0.2s,
+      transform 0.4s var(--ease-out-expo);
+  }
+
+  .repo[data-open] .repo-panel li {
+    opacity: 1;
+    transform: none;
+    transition-duration: 0.6s, 0.9s;
+    transition-delay: calc(80ms + var(--i) * 60ms);
+  }
+
+  .pr-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out-expo);
+  }
+
+  .repo[data-open] .pr-rule {
+    transform: none;
+    transition-duration: 1.1s;
+    transition-delay: calc(120ms + var(--i) * 60ms);
+  }
+
+  /* Plus that folds into a minus. */
+  .toggle-icon {
+    position: relative;
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  .toggle-icon::before,
+  .toggle-icon::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+  }
+
+  .toggle-icon::before {
+    inset: 4.75px 0;
+  }
+
+  .toggle-icon::after {
+    inset: 0 4.75px;
+    transition: transform 0.6s var(--ease-out-expo);
+  }
+
+  [aria-expanded="true"] .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  [aria-expanded="true"] .toggle-icon::after {
+    transform: scaleY(0);
+  }
+
   /* Header section counter rolls like an indicator board. */
   .roll {
     display: inline-block;
