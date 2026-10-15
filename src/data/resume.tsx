@@ -81,10 +81,11 @@ export const SITE_COPY = {
     },
     projects: {
       description:
-        "Una mezcla de aplicaciones web, herramientas CLI y contribuciones.",
+        "Un emprendimiento, una plataforma académica y dos herramientas open source publicadas en npm y PyPI.",
+      index: "Índice de proyectos",
+      kind: "Tipo",
+      period: "Periodo",
       stack: "Stack",
-      links: "Enlaces",
-      status: "Estado",
       active: "Activo",
       openProject: "Abrir",
     },
@@ -166,10 +167,11 @@ export const SITE_COPY = {
     },
     projects: {
       description:
-        "A mix of web applications, CLI tools, and open source work.",
+        "A business, an academic platform, and two open-source tools published on npm and PyPI.",
+      index: "Project index",
+      kind: "Type",
+      period: "Period",
       stack: "Stack",
-      links: "Links",
-      status: "Status",
       active: "Active",
       openProject: "Open",
     },
@@ -296,10 +298,19 @@ export const DATA = {
       },
       href: "https://kumoweb.cl",
       dates: {
-        es: "Sep 2026 - Presente",
-        en: "Sep 2026 - Present",
+        es: "Sep 2026 – Presente",
+        en: "Sep 2026 – Present",
       },
       active: true,
+      featured: true,
+      kind: {
+        es: "Emprendimiento",
+        en: "Business",
+      },
+      tagline: {
+        es: "Páginas y software a medida para pymes de todo Chile.",
+        en: "Websites and custom software for small businesses across Chile.",
+      },
       description: {
         es: "Mi emprendimiento de desarrollo web. Kumo hace páginas y software a medida para pymes, locales y emprendedores de todo Chile: landings listas en 48 a 72 horas, sitios con catálogo y SEO, cartas digitales con pedidos online sin comisión y sistemas internos de inventario, ventas y agenda. Precio cerrado y pago único, sin mensualidades.",
         en: "My web development business. Kumo builds websites and custom software for small businesses across Chile: landing pages live in 48 to 72 hours, catalog sites with SEO, digital menus with commission-free online ordering, and internal systems for inventory, sales, and scheduling. Fixed price, one-time payment, no subscriptions.",
@@ -325,10 +336,19 @@ export const DATA = {
       },
       href: "https://ceoubb.com",
       dates: {
-        es: "Ago 2026 - Presente",
-        en: "Aug 2026 - Present",
+        es: "Ago 2026 – Presente",
+        en: "Aug 2026 – Present",
       },
       active: true,
+      featured: true,
+      kind: {
+        es: "Plataforma web y móvil",
+        en: "Web and mobile platform",
+      },
+      tagline: {
+        es: "Una alternativa moderna a Moodle para la Universidad del Bío-Bío.",
+        en: "A modern alternative to Moodle for the Universidad del Bío-Bío.",
+      },
       description: {
         es: "Plataforma académica estudiantil e independiente para la comunidad de la Universidad del Bío-Bío, pensada como alternativa moderna a Moodle y Adecca. Aulas virtuales organizadas por resultados de aprendizaje, libreta de notas en escala 1.0 a 7.0 con cálculo de nota mínima, planificador semanal, mensajería por asignatura e importación de cursos desde respaldos de Moodle (.mbz). Turso con Drizzle como sistema de registro y Firestore en Santiago para el estado en tiempo real, con apps Android e iOS vía Capacitor y notificaciones push.",
         en: "An independent, student-built academic platform for the Universidad del Bío-Bío community, designed as a modern alternative to Moodle and Adecca. Virtual classrooms organized by learning outcomes, a gradebook on Chile's 1.0 to 7.0 scale with minimum-passing-grade math, a weekly planner, per-course messaging, and course import from Moodle backups (.mbz). Turso with Drizzle as the system of record and Firestore in Santiago for real-time state, with Android and iOS apps via Capacitor and push notifications.",
@@ -371,10 +391,18 @@ export const DATA = {
       logo: Shipdot,
       href: "https://pipe1os.github.io/shipdot/",
       dates: {
-        es: "Oct 2026 - Presente",
-        en: "Oct 2026 - Present",
+        es: "Oct 2026 – Presente",
+        en: "Oct 2026 – Present",
       },
       active: true,
+      kind: {
+        es: "Paquete npm",
+        en: "npm package",
+      },
+      tagline: {
+        es: "Un changelog dentro de tu app, redactado desde tus pull requests.",
+        en: "An in-app changelog drafted from your merged pull requests.",
+      },
       description: {
         es: "Changelog dentro de la app y hotspots de funciones, open source, como alternativa a Beamer y Headway. Las novedades son archivos Markdown en el repositorio: la CLI las redacta a partir de los pull requests fusionados (con plantillas sin conexión o con tu propia clave de Anthropic o de una API compatible con OpenAI) y una GitHub Action abre cada semana un PR con los borradores para revisarlos como código. El widget es un web component de <10 KB, sin dependencias y con Shadow DOM, que muestra una campana con contador de no leídos y pone un punto pulsante sobre el botón exacto donde vive cada función nueva. Sin backend, cuentas ni rastreo, con soporte multilenguaje y contraste WCAG 2.1 AA.",
         en: "An open-source in-app changelog with feature hotspots, built as an alternative to Beamer and Headway. Updates are Markdown files in the repo: the CLI drafts them from merged pull requests (with offline templates or your own Anthropic or OpenAI-compatible key) and a GitHub Action opens a weekly PR with the drafts so they get reviewed like code. The widget is a <10 KB, zero-dependency, Shadow DOM web component that shows a bell with an unread count and puts a pulsing dot on the exact button where each new feature lives. No backend, accounts, or tracking, with multi-language support and WCAG 2.1 AA contrast.",
@@ -420,6 +448,14 @@ export const DATA = {
         en: "May 2026",
       },
       active: true,
+      kind: {
+        es: "Paquete PyPI",
+        en: "PyPI package",
+      },
+      tagline: {
+        es: "Inspecciona modelos de ML en milisegundos, sin instalar PyTorch.",
+        en: "Inspect ML model checkpoints in milliseconds, without PyTorch.",
+      },
       description: {
         es: "Una herramienta CLI sin dependencias que inspecciona checkpoints de modelos de ML (.safetensors, .gguf, .pt) de forma local o directamente desde el Hugging Face Hub. Al omitir PyTorch y Transformers, parsea los headers binarios locales en menos de 100ms. Calcula el footprint de VRAM considerando los multiplicadores de cuantización y las longitudes de contexto, y estima las penalizaciones NCCL en configuraciones multi-GPU y la capacidad de serving de vLLM para planificar despliegues en producción.",
         en: "A zero-dependency CLI tool that inspects ML model checkpoints (.safetensors, .gguf, .pt) locally or directly via the Hugging Face Hub. By bypassing PyTorch and Transformers, it parses local binary headers in under 100ms. It calculates VRAM footprints by factoring in quantization multipliers and context lengths, and calculates multi-GPU NCCL penalties and vLLM serving capacity for production deployment planning.",
@@ -646,6 +682,8 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
       ...project,
       title: project.title[language],
       dates: project.dates[language],
+      kind: project.kind[language],
+      tagline: project.tagline[language],
       description: project.description[language],
       links: project.links.map((link) => ({
         ...link,

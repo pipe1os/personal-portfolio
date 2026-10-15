@@ -7,6 +7,7 @@ export function SectionFrame({
   n,
   title,
   compact,
+  aside,
   children,
 }: {
   id: string;
@@ -14,6 +15,8 @@ export function SectionFrame({
   title: string;
   /** Short lists get a shorter station so they don't read as empty bands. */
   compact?: boolean;
+  /** Pinned under the label on wide screens, e.g. an index of the section. */
+  aside?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -26,14 +29,17 @@ export function SectionFrame({
         )}
       >
         <div className="col-span-4 mb-12 md:col-span-8 lg:col-span-3 lg:mb-0">
-          <h2
-            id={`${id}-title`}
-            className="flex items-baseline gap-4 text-[clamp(1.75rem,2.4vw,2.5rem)] font-semibold leading-none tracking-[-0.03em] [font-variation-settings:'wdth'_108] lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]"
-            data-reveal="rise"
-          >
-            <span className="meta font-normal tracking-normal text-grey">{n}</span>
-            {title}
-          </h2>
+          <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)]">
+            <h2
+              id={`${id}-title`}
+              className="flex items-baseline gap-4 text-[clamp(1.75rem,2.4vw,2.5rem)] font-semibold leading-none tracking-[-0.03em] [font-variation-settings:'wdth'_108]"
+              data-reveal="rise"
+            >
+              <span className="meta font-normal tracking-normal text-grey">{n}</span>
+              {title}
+            </h2>
+            {aside}
+          </div>
         </div>
         <div className="col-span-4 md:col-span-8 lg:col-span-9">{children}</div>
       </div>

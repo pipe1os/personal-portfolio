@@ -34,6 +34,11 @@
   inherits: false;
   initial-value: 0;
 }
+@property --grey {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 
 :root {
   --margin: clamp(16px, 3.2vw, 48px);
@@ -439,9 +444,9 @@
     transform-origin: left;
   }
 
-  /* Project plates: greyscale until looked at. */
+  /* Project plates: greyscale until looked at, by pointer or by scrolling to it. */
   .plate img {
-    filter: grayscale(1) contrast(1.04) brightness(0.92);
+    filter: grayscale(var(--grey)) brightness(calc(1 - var(--grey) * 0.08));
     transform: scale(1.015);
     transition:
       filter 0.7s var(--ease-out-expo),
@@ -461,7 +466,7 @@
 
   @media (hover: none) {
     .plate img {
-      filter: none;
+      --grey: 0;
       transform: none;
     }
   }
@@ -583,6 +588,66 @@
     transform: scaleY(0);
   }
 
+  @supports (animation-timeline: view()) {
+    .plate img {
+      animation: plate-look linear both;
+      animation-timeline: view();
+    }
+
+    @keyframes plate-look {
+      0%,
+      15%,
+      85%,
+      100% {
+        --grey: 1;
+      }
+      42%,
+      62% {
+        --grey: 0;
+      }
+    }
+
+    /* The screenshot settles into its frame as it comes up the screen. */
+    .plate-zoom {
+      transform-origin: 50% 0;
+      animation: plate-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+
+    @keyframes plate-settle {
+      from {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* A label that trails the pointer over a screenshot. */
+  .plate-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(calc(var(--x, 50%) + 14px), calc(var(--y, 50%) + 14px), 0) scale(0.7);
+    transform-origin: 0 0;
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      opacity 0.25s var(--ease-out-expo);
+  }
+
+  .plate-media:hover .plate-cursor {
+    opacity: 1;
+    transform: translate3d(calc(var(--x, 50%) + 14px), calc(var(--y, 50%) + 14px), 0) scale(1);
+  }
+
+  @media not ((hover: hover) and (pointer: fine)) {
+    .plate-cursor {
+      display: none;
+    }
+  }
+
   /* Header section counter rolls like an indicator board. */
   .roll {
     display: inline-block;
@@ -629,7 +694,9 @@
     transition-duration: 0.01ms !important;
   }
 
-  .display-name {
+  .display-name,
+  .plate img,
+  .plate-zoom {
     animation: none !important;
   }
 

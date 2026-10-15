@@ -2,7 +2,7 @@ import { DisplayName } from "@/components/display-name";
 import { SiteHeader, type SectionLink } from "@/components/site-header";
 import ContactSection from "@/components/section/contact-section";
 import ContributionsSection from "@/components/section/contributions-section";
-import ProjectsSection from "@/components/section/projects-section";
+import ProjectsSection, { ProjectIndex } from "@/components/section/projects-section";
 import { SectionFrame } from "@/components/section/section-frame";
 import {
   DATA,
@@ -335,7 +335,12 @@ export default function HomePage() {
           </div>
         </SectionFrame>
 
-        <SectionFrame id="projects" n={n("projects")} title={copy.sections.projects}>
+        <SectionFrame
+          id="projects"
+          n={n("projects")}
+          title={copy.sections.projects}
+          aside={<ProjectIndex projects={data.projects} label={copy.projects.index} />}
+        >
           <ProjectsSection copy={copy.projects} projects={data.projects} />
         </SectionFrame>
 
