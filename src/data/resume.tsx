@@ -4,6 +4,7 @@ import GeodeIcon from "@/components/ui/svgs/geode";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
 import { Python } from "@/components/ui/svgs/python";
 import { ReactDark } from "@/components/ui/svgs/reactDark";
+import { Shipdot } from "@/components/ui/svgs/shipdot";
 import { Supabase } from "@/components/ui/svgs/supabase";
 import { Git } from "@/components/ui/svgs/git";
 import { Postgresql } from "@/components/ui/svgs/postgresql";
@@ -348,6 +349,52 @@ export const DATA = {
         },
       ],
       image: "/ceoubb.webp",
+      video: "",
+    },
+    {
+      title: {
+        es: "shipdot",
+        en: "shipdot",
+      },
+      logo: Shipdot,
+      href: "https://pipe1os.github.io/shipdot/",
+      dates: {
+        es: "Oct 2026 - Presente",
+        en: "Oct 2026 - Present",
+      },
+      active: true,
+      description: {
+        es: "Changelog dentro de la app y hotspots de funciones, open source, como alternativa a Beamer y Headway. Las novedades son archivos Markdown en el repositorio: la CLI las redacta a partir de los pull requests fusionados (con plantillas sin conexión o con tu propia clave de Anthropic o de una API compatible con OpenAI) y una GitHub Action abre cada semana un PR con los borradores para revisarlos como código. El widget es un web component de <10 KB, sin dependencias y con Shadow DOM, que muestra una campana con contador de no leídos y pone un punto pulsante sobre el botón exacto donde vive cada función nueva. Sin backend, cuentas ni rastreo, con soporte multilenguaje y contraste WCAG 2.1 AA.",
+        en: "An open-source in-app changelog with feature hotspots, built as an alternative to Beamer and Headway. Updates are Markdown files in the repo: the CLI drafts them from merged pull requests (with offline templates or your own Anthropic or OpenAI-compatible key) and a GitHub Action opens a weekly PR with the drafts so they get reviewed like code. The widget is a <10 KB, zero-dependency, Shadow DOM web component that shows a bell with an unread count and puts a pulsing dot on the exact button where each new feature lives. No backend, accounts, or tracking, with multi-language support and WCAG 2.1 AA contrast.",
+      },
+      technologies: ["Typescript", "Web Components", "GitHub Actions", "npm"],
+      links: [
+        {
+          type: {
+            es: "Docs",
+            en: "Docs",
+          },
+          href: "https://pipe1os.github.io/shipdot/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: {
+            es: "Repo",
+            en: "Repo",
+          },
+          href: "https://github.com/pipe1os/shipdot",
+          icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: {
+            es: "npm",
+            en: "npm",
+          },
+          href: "https://www.npmjs.com/package/shipdot",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/shipdot.webp",
       video: "",
     },
     {

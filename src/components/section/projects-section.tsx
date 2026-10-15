@@ -1,6 +1,7 @@
 import type { SiteCopy } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 
 type Project = {
   title: string;
@@ -8,6 +9,8 @@ type Project = {
   dates: string;
   technologies: readonly string[];
   active?: boolean;
+  /** A wordmark drawn in place of the title text. */
+  logo?: ComponentType<SVGProps<SVGSVGElement>>;
   href?: string;
   image?: string;
   links?: readonly { href: string; type: string }[];
@@ -36,6 +39,7 @@ export default function ProjectsSection({
       <div className="flex flex-col gap-24 md:gap-36">
         {projects.map((project, i) => {
           const split = i % 2 === 0;
+          const Logo = project.logo;
           return (
             <article
               key={project.title}
@@ -52,7 +56,15 @@ export default function ProjectsSection({
                     rel="noopener noreferrer"
                     className="transition-colors duration-200 hover:text-signal"
                   >
-                    {project.title}
+                    {Logo ? (
+                      <>
+                        {/* Sized so the ascenders meet the cap height and the baseline lines up with the text titles. */}
+                        <Logo aria-hidden className="inline h-[0.94em] w-auto align-[-0.23em]" />
+                        <span className="sr-only">{project.title}</span>
+                      </>
+                    ) : (
+                      project.title
+                    )}
                   </a>
                 </h3>
                 <span className="meta shrink-0 text-grey">{project.dates}</span>
