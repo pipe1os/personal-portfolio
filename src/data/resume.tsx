@@ -497,6 +497,26 @@ export const DATA = {
       ),
     },
     {
+      repo: "boykopovar/AnyPS5",
+      title: {
+        es: "feat(libkernel): support EVFILT_READ on the read end of a pipe",
+        en: "feat(libkernel): support EVFILT_READ on the read end of a pipe",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "open",
+      href: "https://github.com/boykopovar/AnyPS5/pull/5973",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/184076081?v=4"
+          alt="AnyPS5 logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
+    {
       repo: "strands-agents/sdk-python",
       title: {
         es: "fix: prevent in-place mutation of message history in normalizer",
