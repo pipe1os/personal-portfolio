@@ -565,6 +565,26 @@ export const DATA = {
       ),
     },
     {
+      repo: "trpc/trpc",
+      title: {
+        es: "fix(server): clear the sse maxDurationMs timer when the subscription ends",
+        en: "fix(server): clear the sse maxDurationMs timer when the subscription ends",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "open",
+      href: "https://github.com/trpc/trpc/pull/7666",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/78011399?v=4"
+          alt="tRPC logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
+    {
       repo: "strands-agents/sdk-python",
       title: {
         es: "fix: prevent in-place mutation of message history in normalizer",
@@ -596,6 +616,20 @@ export const DATA = {
       },
       status: "merged",
       href: "https://github.com/withastro/astro/pull/16859",
+      icon: <AstroOfficialLogo className="h-5 w-auto" />,
+    },
+    {
+      repo: "withastro/astro",
+      title: {
+        es: "fix(transitions): stop Back from leaving the site in Chrome and Edge on iOS",
+        en: "fix(transitions): stop Back from leaving the site in Chrome and Edge on iOS",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "open",
+      href: "https://github.com/withastro/astro/pull/18408",
       icon: <AstroOfficialLogo className="h-5 w-auto" />,
     },
     {
