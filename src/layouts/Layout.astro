@@ -1,33 +1,76 @@
 ---
 import "@/styles/global.css";
 import monaSans from "@fontsource-variable/mona-sans/files/mona-sans-latin-wdth-normal.woff2?url";
-import { DATA } from "@/data/resume";
+import { DATA, DEFAULT_LANGUAGE, SITE_COPY, type Language } from "@/data/resume";
 
 interface Props {
+  lang?: Language;
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   canonicalPath?: string;
+  /** Paths of this page in each language. Only pages that exist in both get hreflang tags. */
+  alternates?: Record<Language, string>;
+  noindex?: boolean;
 }
 
-// The summary is markdown with in-page links; meta tags want its first paragraph as plain text.
-const plainSummary = DATA.summary
-  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-  .trim()
-  .split(/\n\s*\n/)[0];
-
 const {
-  title = `${DATA.name} | ${DATA.description}`,
-  description = plainSummary,
-  image = `${DATA.url}/me.webp`,
+  lang = DEFAULT_LANGUAGE,
+  title = SITE_COPY[lang].seo.title,
+  description = SITE_COPY[lang].seo.description,
+  image = SITE_COPY[lang].seo.ogImage,
+  imageAlt = SITE_COPY[lang].seo.ogAlt,
   canonicalPath = Astro.url.pathname,
+  alternates,
+  noindex = false,
 } = Astro.props;
 
-const canonicalUrl = new URL(canonicalPath, DATA.url).toString();
+const seo = SITE_COPY[lang].seo;
+const absolute = (path: string) => new URL(path, DATA.url).toString();
+const canonicalUrl = absolute(canonicalPath);
+const imageUrl = absolute(image);
+const otherLocales = (Object.keys(SITE_COPY) as Language[])
+  .filter((l) => l !== lang)
+  .map((l) => SITE_COPY[l].seo.locale);
+
+const sameAs = [DATA.contact.social.GitHub.url, DATA.contact.social.LinkedIn.url];
+
+// ProfilePage + Person lets search engines tie pipeos.dev, GitHub and LinkedIn to one person.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: canonicalUrl,
+  inLanguage: lang,
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${DATA.url}/#person`,
+    name: DATA.name,
+    alternateName: DATA.fullName,
+    url: DATA.url,
+    image: absolute(DATA.avatarUrl),
+    email: `mailto:${DATA.contact.email}`,
+    jobTitle: seo.jobTitle,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Concepción",
+      addressRegion: "Biobío",
+      addressCountry: "CL",
+    },
+    worksFor: { "@type": "Organization", name: "Kumo", url: "https://kumoweb.cl" },
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "Universidad Católica de la Santísima Concepción",
+      url: "https://ucsc.cl",
+    },
+    knowsAbout: DATA.skills.map((s) => s.name),
+    sameAs,
+  },
+};
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,20 +81,45 @@ const canonicalUrl = new URL(canonicalPath, DATA.url).toString();
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="canonical" href={canonicalUrl} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content={DATA.name} />
+    <meta name="author" content={DATA.fullName} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    {
+      alternates &&
+        Object.entries(alternates).map(([l, path]) => (
+          <link rel="alternate" hreflang={l} href={absolute(path)} />
+        ))
+    }
+    {
+      alternates && (
+        <link rel="alternate" hreflang="x-default" href={absolute(alternates[DEFAULT_LANGUAGE])} />
+      )
+    }
+    {sameAs.map((href) => <link rel="me" href={href} />)}
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={DATA.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content={DATA.name} />
-    <meta property="og:image" content={image} />
-    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={seo.locale} />
+    {otherLocales.map((l) => <meta property="og:locale:alternate" content={l} />)}
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta property="profile:first_name" content="Felipe" />
+    <meta property="profile:last_name" content="Arce" />
+    <meta property="profile:username" content="pipe1os" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class="relative overflow-x-clip">
     <div class="ghost-grid" aria-hidden="true">

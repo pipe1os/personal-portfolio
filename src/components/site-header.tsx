@@ -84,8 +84,8 @@ export function SiteHeader({
           <a
             href="#top"
             className="col-span-3 overflow-hidden md:col-span-3 lg:col-span-3"
-            aria-label={name}
           >
+            {!past && <span className="sr-only">{name}, </span>}
             {past ? (
               <span
                 key="name"

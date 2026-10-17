@@ -18,7 +18,7 @@ const LOCALIZED_RESUME = {
     location: "Concepción, Chile",
     description: "Desarrollador de Software · Full Stack",
     summary: `
-Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío donde las decisiones técnicas realmente importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. También he [contribuido a proyectos de código abierto](#contributions), incluyendo astro, next.js y la documentación en español de python.
+Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío que construimos entre dos. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en Astro, AnyPS5 y Strands Agents, el SDK de agentes de AWS.
 
 Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
     `,
@@ -27,7 +27,7 @@ Me importa escribir código que alguien más pueda leer y mantener. Aprendo cons
     location: "Concepción, Chile",
     description: "Software Developer · Full Stack",
     summary: `
-I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community where the technical decisions actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. I have also [contributed to open-source projects](#contributions), including astro, next.js, and python spanish docs.
+I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community that I'm building with one other developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into Astro, AnyPS5, and Strands Agents, AWS's agent SDK.
 
 I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
   },
@@ -35,6 +35,15 @@ I care about writing code that someone else can read and maintain. I learn by bu
 
 export const SITE_COPY = {
   es: {
+    seo: {
+      title: "Felipe Arce · Desarrollador Full Stack en Concepción, Chile",
+      description:
+        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en Astro, AnyPS5 y Strands Agents.",
+      jobTitle: "Desarrollador Full Stack",
+      locale: "es_CL",
+      ogImage: "/og-es.png",
+      ogAlt: "Felipe Arce, desarrollador full stack en Concepción, Chile",
+    },
     language: {
       label: "Cambiar idioma",
       options: {
@@ -46,6 +55,7 @@ export const SITE_COPY = {
       localTime: "Hora local en Concepción",
       index: "Índice",
     },
+    availability: "Busco trabajo",
     hero: {
       facts: [
         {
@@ -57,7 +67,7 @@ export const SITE_COPY = {
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs fusionados en Astro, strands-agents y AnyPS5",
+          text: "PRs fusionados en Astro, AnyPS5 y Strands Agents (AWS)",
           href: "#contributions",
         },
         {
@@ -107,7 +117,7 @@ export const SITE_COPY = {
     contact: {
       heading: "Hablemos.",
       description:
-        "Si tienes un proyecto en mente o una propuesta, escríbeme. Te responderé a la brevedad.",
+        "Busco trabajo como desarrollador full stack: full-time, part-time o práctica, remoto o en Concepción. Si tienes una oferta o un proyecto, escríbeme y te respondo pronto.",
       copy: "Copiar",
       copied: "Copiado",
       copySuccess: "Correo copiado al portapapeles",
@@ -121,6 +131,15 @@ export const SITE_COPY = {
     },
   },
   en: {
+    seo: {
+      title: "Felipe Arce · Full Stack Developer in Concepción, Chile",
+      description:
+        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into Astro, AnyPS5 and Strands Agents.",
+      jobTitle: "Full Stack Developer",
+      locale: "en_US",
+      ogImage: "/og-en.png",
+      ogAlt: "Felipe Arce, full stack developer in Concepción, Chile",
+    },
     language: {
       label: "Change language",
       options: {
@@ -132,6 +151,7 @@ export const SITE_COPY = {
       localTime: "Local time in Concepción",
       index: "Index",
     },
+    availability: "Open to work",
     hero: {
       facts: [
         {
@@ -143,7 +163,7 @@ export const SITE_COPY = {
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs merged into Astro, strands-agents and AnyPS5",
+          text: "PRs merged into Astro, AnyPS5 and Strands Agents (AWS)",
           href: "#contributions",
         },
         {
@@ -193,7 +213,7 @@ export const SITE_COPY = {
     contact: {
       heading: "Let's talk.",
       description:
-        "If you have a project in mind, a proposal, or just want to connect, send me a message. I will reply as soon as I can.",
+        "I'm looking for a full stack developer role: full-time, part-time, or an internship, remote or in Concepción, Chile. If you have an opening or a project, email me and I'll get back to you soon.",
       copy: "Copy",
       copied: "Copied",
       copySuccess: "Email copied to clipboard",
@@ -212,8 +232,9 @@ export type SiteCopy = (typeof SITE_COPY)[Language];
 
 export const DATA = {
   name: "Felipe Arce",
+  fullName: "Felipe Arce Aqueveque",
   initials: "FA",
-  url: "https://pipeos.vercel.app",
+  url: "https://www.pipeos.dev",
   location: LOCALIZED_RESUME.es.location,
   locationLink: "https://www.google.com/maps/place/concepcion",
   description: LOCALIZED_RESUME.es.description,
@@ -230,7 +251,6 @@ export const DATA = {
   ],
   contact: {
     email: "felipearce.2004@gmail.com",
-    tel: "+56935893317",
     social: {
       GitHub: {
         name: "GitHub",
@@ -277,7 +297,7 @@ export const DATA = {
       href: "https://ucsc.cl",
       degree: {
         es: "Ingeniería Civil en Informática",
-        en: "Computer Science",
+        en: "Computer Engineering",
       },
       logoUrl: "/ucsc.webp",
       start: {
