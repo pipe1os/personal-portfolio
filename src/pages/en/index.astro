@@ -1,0 +1,8 @@
+---
+import HomePage from "@/components/HomePage";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout lang="en" canonicalPath="/en/" alternates={{ es: "/", en: "/en/" }}>
+  <HomePage initialLanguage="en" client:load />
+</Layout>

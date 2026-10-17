@@ -8,7 +8,6 @@ import {
   DATA,
   DEFAULT_LANGUAGE,
   getResumeData,
-  LANGUAGES,
   SITE_COPY,
   type Language,
 } from "@/data/resume";
@@ -119,8 +118,32 @@ function Tick({
   );
 }
 
-export default function HomePage() {
-  const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
+/** Says the obvious thing a recruiter is looking for, and jumps to the contact section. */
+function Availability({ label, delay }: { label: string; delay: number }) {
+  return (
+    <a
+      href="#contact"
+      className="rise meta inline-flex w-fit items-center gap-2 whitespace-nowrap text-paper"
+      style={stagger(delay)}
+    >
+      <span className="relative flex size-2" aria-hidden>
+        <span className="absolute inline-flex size-full rounded-full bg-signal opacity-60 motion-safe:animate-ping" />
+        <span className="relative inline-flex size-2 rounded-full bg-signal" />
+      </span>
+      <span className="link">{label}</span>
+    </a>
+  );
+}
+
+/** Each language lives at its own URL (/ and /en/), so links and search results open the right one. */
+const pathFor = (language: Language) => (language === DEFAULT_LANGUAGE ? "/" : `/${language}/`);
+
+export default function HomePage({
+  initialLanguage = DEFAULT_LANGUAGE,
+}: {
+  initialLanguage?: Language;
+}) {
+  const [language, setLanguage] = useState<Language>(initialLanguage);
   const data = getResumeData(language);
   const copy = SITE_COPY[language];
   const heroRef = useRef<HTMLElement>(null);
@@ -128,13 +151,12 @@ export default function HomePage() {
   useReveal();
 
   useEffect(() => {
-    const stored = localStorage.getItem("portfolio-language") as Language;
-    if (LANGUAGES.includes(stored)) setLanguage(stored);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("portfolio-language", language);
     document.documentElement.lang = language;
+    document.title = SITE_COPY[language].seo.title;
+    const path = pathFor(language);
+    if (window.location.pathname !== path) {
+      history.replaceState(history.state, "", path + window.location.hash);
+    }
   }, [language]);
 
   const switchLanguage = (next: Language) => {
@@ -213,6 +235,7 @@ export default function HomePage() {
                 <br />
                 36°49′S 73°03′W
               </p>
+              <Availability label={copy.availability} delay={760} />
             </div>
           </div>
 
@@ -227,6 +250,7 @@ export default function HomePage() {
               <p className="rise meta text-grey" style={stagger(720)}>
                 {data.location}
               </p>
+              <Availability label={copy.availability} delay={760} />
             </div>
 
             <ul className="col-span-4 border-t border-rule md:col-span-8 lg:col-span-6 lg:col-start-5">
