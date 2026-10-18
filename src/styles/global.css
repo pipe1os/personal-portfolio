@@ -1,18 +1,15 @@
 @import "tailwindcss";
 @import "@fontsource-variable/mona-sans/wdth.css";
-@import "@fontsource/monaspace-neon/latin-400.css";
-@import "@fontsource/monaspace-neon/latin-500.css";
 
 @theme {
   --font-sans: "Mona Sans Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Monaspace Neon", ui-monospace, monospace;
 
   --color-ink: #0c0c0d;
   --color-ink-2: #141415;
+  --color-ink-3: #1e1e20;
   --color-paper: #ecebe6;
-  --color-grey: #8f8e89;
+  --color-grey: #93928c;
   --color-signal: #ff4f1f;
-  --color-rule: rgb(236 235 230 / 0.14);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
@@ -43,7 +40,7 @@
 :root {
   --margin: clamp(16px, 3.2vw, 48px);
   --gutter: clamp(12px, 1.5vw, 24px);
-  --header-h: 52px;
+  --header-h: 56px;
   color-scheme: dark;
   accent-color: var(--color-signal);
   caret-color: var(--color-signal);
@@ -59,6 +56,7 @@
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     scroll-padding-top: calc(var(--header-h) + 24px);
+    -webkit-tap-highlight-color: transparent;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -81,11 +79,6 @@
   :focus-visible {
     outline: 2px solid var(--color-signal);
     outline-offset: 3px;
-  }
-
-  a {
-    text-underline-offset: 0.22em;
-    text-decoration-thickness: 1px;
   }
 
   h1,
@@ -114,7 +107,7 @@
 }
 
 @layer components {
-  /* The 12-column page grid. Everything aligns to it, including the ghost overlay. */
+  /* The 12-column page grid. Everything aligns to it. */
   .wrap {
     width: 100%;
     max-width: 1680px;
@@ -140,58 +133,77 @@
     }
   }
 
-  /* Ghost cells: the empty columns are drawn, faintly. */
-  .ghost-grid {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .ghost-grid .grid-page {
-    height: 100%;
-  }
-
-  .ghost-grid span {
-    background: rgb(236 235 230 / 0.018);
-    border-inline: 1px solid rgb(236 235 230 / 0.03);
-    transform-origin: top;
-    animation: ghost-draw 1.1s var(--ease-out-expo) both;
-    animation-delay: calc(var(--i) * 45ms);
-  }
-
-  .ghost-grid span:nth-child(n + 5) {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .ghost-grid span:nth-child(n + 5) {
-      display: block;
-    }
-    .ghost-grid span:nth-child(n + 9) {
-      display: none;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .ghost-grid span:nth-child(n + 9) {
-      display: block;
-    }
-  }
-
-  @keyframes ghost-draw {
-    from {
-      transform: scaleY(0);
-    }
-  }
-
-  /* Small metadata voice: data, dates, coordinates, repos. */
+  /* The small voice: dates, kinds, counts. Same face, tabular figures. */
   .meta {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    line-height: 1.4;
-    letter-spacing: 0.01em;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    font-weight: 450;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* The pipe: Pipe's own glyph, drawn as a solid bar. The page's one mark. */
+  .pipe {
+    display: inline-block;
+    flex-shrink: 0;
+    width: 3px;
+    height: 0.9em;
+    background: currentColor;
+    transform-origin: 50% 100%;
+    transition:
+      transform 0.5s var(--ease-out-expo),
+      background-color 0.25s var(--ease-out-expo);
+  }
+
+  /* Solid, square, one per screen at most. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    height: 3rem;
+    padding-inline: 1.25rem;
+    background: var(--btn-bg, var(--color-signal));
+    color: var(--btn-ink, var(--color-ink));
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.35s var(--ease-out-expo),
+      color 0.35s var(--ease-out-expo),
+      transform 0.5s var(--ease-out-expo);
+  }
+
+  .btn-icon {
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .btn:hover {
+      background: var(--btn-hover-bg, var(--color-paper));
+      color: var(--btn-hover-ink, var(--color-ink));
+    }
+    .btn:hover .btn-icon {
+      transform: translate(var(--nudge-x, 0), var(--nudge-y, 3px));
+    }
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+    transition-duration: 0.12s;
+  }
+
+  .btn[data-state="copied"] .btn-icon {
+    animation: pop 0.6s var(--ease-out-expo);
+  }
+
+  @keyframes pop {
+    from {
+      transform: scale(0.3) rotate(-25deg);
+    }
+    55% {
+      transform: scale(1.25);
+    }
   }
 
   /* Rows that act: a vermilion field sweeps in from the left, leaves to the right. */
@@ -232,6 +244,12 @@
     transform-origin: left;
   }
 
+  .sweep:active::before {
+    transform: scaleX(1);
+    transform-origin: left;
+    transition-duration: 0.2s;
+  }
+
   .sweep .sweep-muted {
     transition: color 0.2s var(--ease-out-expo);
   }
@@ -246,45 +264,55 @@
     }
   }
 
-  /* Underlined text links that draw their rule on hover. */
+  /* Text links: the underline tightens up to the words on hover. */
   .link {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 100% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    padding-bottom: 0.08em;
-    transition: background-size 0.45s var(--ease-out-expo), color 0.2s;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.26em;
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+    transition:
+      color 0.25s var(--ease-out-expo),
+      text-decoration-color 0.25s var(--ease-out-expo),
+      text-underline-offset 0.45s var(--ease-out-expo);
   }
 
   @media (hover: hover) {
     .link:hover {
-      animation: link-redraw 0.6s var(--ease-out-expo);
+      text-decoration-color: currentColor;
+      text-underline-offset: 0.12em;
     }
   }
 
-  @keyframes link-redraw {
-    0% {
-      background-size: 100% 1px;
-      background-position: 100% 100%;
+  /* Index entries: each label sits behind a pipe that rises and lights on hover. */
+  .pipe-link .pipe {
+    color: rgb(236 235 230 / 0.32);
+  }
+
+  .pipe-link .pipe + * {
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .pipe-link:hover .pipe {
+      color: var(--color-signal);
+      transform: scaleY(1.25);
     }
-    45% {
-      background-size: 0% 1px;
-      background-position: 100% 100%;
+    .pipe-link:hover .pipe + * {
+      transform: translateX(3px);
     }
-    46% {
-      background-position: 0 100%;
-    }
-    100% {
-      background-size: 100% 1px;
-      background-position: 0 100%;
-    }
+  }
+
+  .pipe-link:focus-visible .pipe,
+  .pipe-link[aria-current] .pipe {
+    color: var(--color-signal);
+  }
+
+  .pipe-link:active .pipe + * {
+    transform: translateX(6px);
+    transition-duration: 0.15s;
   }
 
   /* The vermilion field inverts the page's signals. */
-  .on-signal {
-    --color-rule: rgb(12 12 13 / 0.25);
-  }
-
   .on-signal ::selection {
     background: var(--color-ink);
     color: var(--color-signal);
@@ -294,7 +322,6 @@
     outline-color: var(--color-ink);
   }
 
-
   /* The display name: each letter rides its own width and weight axes. */
   .display-name {
     --fit: 30vw;
@@ -302,6 +329,10 @@
     line-height: 0.8;
     letter-spacing: -0.04em;
     font-weight: 800;
+    /* Lets a thumb sweep the lens across the name; vertical drags still scroll. */
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   @media (min-width: 768px) {
@@ -310,9 +341,10 @@
     }
   }
 
+  /* On wide but short screens the name also answers to the height, so the index stays on the first screen. */
   @media (min-width: 1024px) {
     .display-name {
-      --fit: min(20vw, 22rem);
+      --fit: max(11rem, min(20vw, 22rem, calc((100svh - 400px) / 1.68)));
     }
   }
 
@@ -362,6 +394,37 @@
         --squeeze: 1;
       }
     }
+
+    /* The portrait drifts deeper into its frame as the hero leaves. */
+    .portrait img {
+      transform-origin: 50% 30%;
+      animation: portrait-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 50% cover 100%;
+    }
+
+    @keyframes portrait-drift {
+      to {
+        transform: scale(1.14) translateY(3%);
+      }
+    }
+  }
+
+  /* The portrait rests in greyscale with the screenshots and logos, and colours under the pointer. */
+  .portrait img {
+    filter: grayscale(1) contrast(1.08);
+    transition: filter 0.9s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .portrait:hover img {
+      filter: none;
+    }
+  }
+
+  /* Section titles widen into place, the same move the name makes on load. */
+  .section-title {
+    font-variation-settings: "wdth" 108;
   }
 
   /* Entrance for the rest of the first viewport: wipes along the grid, never blur. */
@@ -394,15 +457,15 @@
     }
   }
 
-  .rule-draw {
-    transform-origin: left;
-    animation: rule-draw 1.2s var(--ease-out-expo) both;
+  /* A pipe drawn upward from its baseline. */
+  .pipe-in {
+    animation: pipe-in 0.9s var(--ease-out-expo) backwards;
     animation-delay: var(--d, 0ms);
   }
 
-  @keyframes rule-draw {
+  @keyframes pipe-in {
     from {
-      transform: scaleX(0);
+      transform: scaleY(0);
     }
   }
 
@@ -428,10 +491,6 @@
     clip-path: inset(100% 0 0 0);
   }
 
-  html.reveal-armed [data-reveal="rule"]:not([data-in]) {
-    transform: scaleX(0);
-  }
-
   html.reveal-armed [data-reveal][data-in] {
     transition:
       opacity 0.9s var(--ease-out-expo),
@@ -440,8 +499,22 @@
     transition-delay: var(--d, 0ms);
   }
 
-  html.reveal-armed [data-reveal="rule"] {
-    transform-origin: left;
+  html.reveal-armed .section-title:not([data-in]) {
+    font-variation-settings: "wdth" 75;
+  }
+
+  html.reveal-armed .section-title[data-in] {
+    transition:
+      opacity 0.9s var(--ease-out-expo),
+      transform 1s var(--ease-out-expo),
+      clip-path 1.1s var(--ease-out-expo),
+      font-variation-settings 1.6s var(--ease-out-expo);
+  }
+
+  /* Pipes inside a revealed block draw up after it lands. Backwards fill, so hover still transitions. */
+  html.reveal-armed [data-reveal][data-in] .pipe {
+    animation: pipe-in 0.9s var(--ease-out-expo) backwards;
+    animation-delay: calc(var(--d, 0ms) + 250ms);
   }
 
   /* Project plates: greyscale until looked at, by pointer or by scrolling to it. */
@@ -500,6 +573,24 @@
     }
   }
 
+  /* Tool marks rest in greyscale like the repository logos, and colour under the pointer. */
+  .skill svg {
+    filter: grayscale(1);
+    opacity: 0.8;
+    transition:
+      filter 0.5s var(--ease-out-expo),
+      opacity 0.5s var(--ease-out-expo),
+      transform 0.5s var(--ease-out-expo);
+  }
+
+  @media (hover: hover) {
+    .skill:hover svg {
+      filter: none;
+      opacity: 1;
+      transform: scale(1.12);
+    }
+  }
+
   .tally i {
     width: 3px;
     height: 0.875rem;
@@ -541,18 +632,6 @@
     transform: none;
     transition-duration: 0.6s, 0.9s;
     transition-delay: calc(80ms + var(--i) * 60ms);
-  }
-
-  .pr-rule {
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s var(--ease-out-expo);
-  }
-
-  .repo[data-open] .pr-rule {
-    transform: none;
-    transition-duration: 1.1s;
-    transition-delay: calc(120ms + var(--i) * 60ms);
   }
 
   /* Plus that folds into a minus. */
@@ -648,7 +727,7 @@
     }
   }
 
-  /* Header section counter rolls like an indicator board. */
+  /* Header section label rolls like an indicator board. */
   .roll {
     display: inline-block;
     animation: roll 0.5s var(--ease-out-expo) both;
@@ -685,6 +764,34 @@
   color: inherit;
 }
 
+/* The bar over the vermilion field: it takes the field's colour and inks its contents. */
+.site-header,
+.site-header :is(.text-paper, [class*="text-grey"], .text-signal) {
+  transition:
+    background-color 0.35s var(--ease-out-expo),
+    color 0.35s var(--ease-out-expo);
+}
+
+.site-header[data-signal] {
+  background: var(--color-signal);
+}
+
+.site-header[data-signal] :is(.text-paper, .text-signal) {
+  color: var(--color-ink);
+}
+
+.site-header[data-signal] [class*="text-grey"] {
+  color: rgb(12 12 13 / 0.6);
+}
+
+.site-header[data-signal] .decoration-signal {
+  text-decoration-color: var(--color-ink);
+}
+
+.site-header[data-signal] :focus-visible {
+  outline-color: var(--color-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -695,6 +802,7 @@
   }
 
   .display-name,
+  .portrait img,
   .plate img,
   .plate-zoom {
     animation: none !important;
@@ -702,7 +810,8 @@
 
   .sweep::before,
   .sweep,
-  .link {
+  .link,
+  .btn {
     transition-duration: 0.15s !important;
   }
 }

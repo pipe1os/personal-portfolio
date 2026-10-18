@@ -52,11 +52,11 @@ export const SITE_COPY = {
       },
     },
     header: {
-      localTime: "Hora local en Concepción",
       index: "Índice",
     },
     availability: "Busco trabajo",
     hero: {
+      action: "Hablemos",
       facts: [
         {
           label: "Kumo",
@@ -83,8 +83,11 @@ export const SITE_COPY = {
       projects: "Proyectos",
       contributions: "Código abierto",
       education: "Formación",
-      certifications: "Certificaciones",
       contact: "Contacto",
+    },
+    education: {
+      degrees: "Carreras",
+      certifications: "Certificaciones",
     },
     about: {
       tools: "Herramientas",
@@ -148,11 +151,11 @@ export const SITE_COPY = {
       },
     },
     header: {
-      localTime: "Local time in Concepción",
       index: "Index",
     },
     availability: "Open to work",
     hero: {
+      action: "Let's talk",
       facts: [
         {
           label: "Kumo",
@@ -179,8 +182,11 @@ export const SITE_COPY = {
       projects: "Projects",
       contributions: "Open source",
       education: "Education",
-      certifications: "Certifications",
       contact: "Contact",
+    },
+    education: {
+      degrees: "Degrees",
+      certifications: "Certifications",
     },
     about: {
       tools: "Tools",

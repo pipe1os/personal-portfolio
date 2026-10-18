@@ -3,8 +3,9 @@ import { useEffect, useRef, type CSSProperties } from "react";
 
 /**
  * Display type set letter by letter. Each letter rides Mona Sans's width and
- * weight axes: it widens in on entrance, swells under a fine pointer (the lens),
- * and condenses as the heading scrolls away (CSS scroll timeline).
+ * weight axes: it widens in on entrance, swells under the pointer or a thumb
+ * swept across it (the lens), and condenses as the heading scrolls away
+ * (CSS scroll timeline).
  */
 export function DisplayName({
   lines,
@@ -24,10 +25,7 @@ export function DisplayName({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const fine = window.matchMedia(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
-    );
-    if (!fine.matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const letters = Array.from(el.querySelectorAll<HTMLElement>(".ch"));
     let frame = 0;
@@ -65,9 +63,20 @@ export function DisplayName({
       if (!frame) frame = requestAnimationFrame(update);
     };
 
+    // A finger has no hover: let go and the letters settle back.
+    const onRelease = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") return;
+      px = -1;
+      letters.forEach((l) => l.style.setProperty("--lens", "0"));
+    };
+
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerup", onRelease, { passive: true });
+    window.addEventListener("pointercancel", onRelease, { passive: true });
     return () => {
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onRelease);
+      window.removeEventListener("pointercancel", onRelease);
       cancelAnimationFrame(frame);
     };
   }, []);

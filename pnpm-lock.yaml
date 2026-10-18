@@ -14,9 +14,6 @@ importers:
       '@fontsource-variable/mona-sans':
         specifier: ^5.3.0
         version: 5.3.0
-      '@fontsource/monaspace-neon':
-        specifier: ^5.3.0
-        version: 5.3.0
       '@tailwindcss/vite':
         specifier: ^4.3.1
         version: 4.3.1(vite@8.1.0(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
@@ -577,9 +574,6 @@ packages:
 
   '@fontsource-variable/mona-sans@5.3.0':
     resolution: {integrity: sha512-PkxRB3KI4z9Gjpk7vVqgO3GMSyQuOIIj4TaRDbvbcDj8SzWwI38jvLTQxJM/cTRorhcT7h8qjcllR+qjRtM/Fg==}
-
-  '@fontsource/monaspace-neon@5.3.0':
-    resolution: {integrity: sha512-a4B4L4nmW+mW42gDb6JUugy2fA3DC0QKi2yRMXKzuNsN+wHhUvrqgYndIBMds+Evq/cWaMJgd06x14dHuBNxwA==}
 
   '@hono/node-server@1.19.14':
     resolution: {integrity: sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw==}
@@ -3656,8 +3650,6 @@ snapshots:
     optional: true
 
   '@fontsource-variable/mona-sans@5.3.0': {}
-
-  '@fontsource/monaspace-neon@5.3.0': {}
 
   '@hono/node-server@1.19.14(hono@4.12.27)':
     dependencies:

@@ -94,10 +94,11 @@ export function ProjectIndex({
       data-reveal="rise"
       style={stagger(120)}
     >
-      <div className="relative border-l border-rule">
+      <div className="relative">
+        <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-ink-3" />
         <span
           aria-hidden
-          className="absolute -left-px top-0 h-14 w-0.5 bg-signal transition-[transform,opacity] duration-700 ease-out-expo"
+          className="absolute left-0 top-0 h-14 w-[3px] bg-signal transition-[transform,opacity] duration-700 ease-out-expo"
           style={{
             transform: `translateY(${Math.max(active, 0) * 100}%)`,
             opacity: active < 0 ? 0 : 1,
@@ -117,7 +118,7 @@ export function ProjectIndex({
                 <span className="truncate text-[0.9375rem] font-medium leading-tight">
                   {p.title}
                 </span>
-                <span className="meta truncate opacity-75">{p.kind}</span>
+                <span className="meta truncate">{p.kind}</span>
               </a>
             </li>
           ))}
@@ -131,11 +132,11 @@ export function ProjectIndex({
 function Kind({ project, copy }: { project: Project; copy: Copy }) {
   return (
     <p className="flex flex-col gap-1">
-      <span className="text-sm font-medium text-paper">{project.kind}</span>
+      <span className="text-[0.9375rem] font-medium text-paper">{project.kind}</span>
       <span className="meta flex items-center gap-2 text-grey">
         {project.active && (
           <>
-            <span className="size-1.5 shrink-0 bg-signal" aria-hidden />
+            <span className="pipe text-signal" aria-hidden />
             <span className="sr-only">{copy.active}:</span>
           </>
         )}
@@ -199,18 +200,17 @@ function Facts({
         <h4 className="meta mb-3 text-grey">{copy.stack}</h4>
         <ul className="flex flex-wrap gap-1.5">
           {project.technologies.map((tech) => (
-            <li key={tech} className="meta bg-paper/[0.06] px-2 py-1 text-paper">
+            <li key={tech} className="meta bg-ink-3 px-2.5 py-1.5 text-paper">
               {tech}
             </li>
           ))}
         </ul>
       </div>
       {!!project.links?.length && (
-        <ul className="border-t border-rule">
+        <ul>
           {project.links.map((link, i) => (
             <li
               key={link.href}
-              className="border-b border-rule"
               data-reveal="rise"
               style={stagger(280 + i * 60)}
             >
@@ -219,10 +219,10 @@ function Facts({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${link.type}: ${project.title}`}
-                className="sweep grid grid-cols-[4rem_minmax(0,1fr)_auto] items-baseline gap-x-4 px-1 py-3"
+                className="sweep grid grid-cols-[4rem_minmax(0,1fr)_auto] items-baseline gap-x-4 px-1 py-2.5"
               >
                 <span className="meta sweep-muted text-grey">{link.type}</span>
-                <span className="truncate text-sm">{shortUrl(link.href)}</span>
+                <span className="truncate text-[0.9375rem] font-medium">{shortUrl(link.href)}</span>
                 <ArrowUpRight
                   className="sweep-arrow size-3.5 self-center"
                   strokeWidth={1.5}
@@ -281,7 +281,7 @@ function Plate({
         <h3
           id={`${id}-title`}
           className={cn(
-            featured ? "text-[clamp(2.5rem,5vw,4.75rem)]" : "text-[clamp(2rem,3vw,2.75rem)]",
+            featured ? "text-[clamp(2.5rem,5vw,4.5rem)]" : "text-[clamp(2rem,3.34vw,3rem)]",
             split.full,
             // After the size, or tailwind-merge drops the leading.
             "font-semibold leading-[0.92] tracking-[-0.04em] [font-variation-settings:'wdth'_110]",
@@ -307,7 +307,7 @@ function Plate({
         </h3>
         <p
           className={cn(
-            "max-w-[30ch] text-xl md:text-[1.625rem]",
+            "max-w-[30ch] text-xl md:text-[1.375rem]",
             "font-medium leading-[1.15] tracking-[-0.02em] text-paper [font-variation-settings:'wdth'_104]",
             split.left,
           )}
@@ -326,9 +326,8 @@ function Plate({
       <div className={cn("mt-6 grid gap-x-(--gutter) gap-y-10 md:mt-8", split.grid)}>
         <p
           className={cn(
-            "max-w-[62ch] text-base md:text-[1.0625rem]",
-            !featured && "lg:text-base",
-            "leading-relaxed text-grey",
+            "max-w-[62ch] text-[1.0625rem]",
+            "leading-relaxed text-paper",
             split.left,
           )}
           data-reveal="rise"
@@ -355,7 +354,7 @@ export default function ProjectsSection({
   return (
     <>
       <p
-        className="mb-16 max-w-[46ch] text-lg leading-snug text-paper md:mb-24 md:text-xl"
+        className="mb-16 max-w-[46ch] text-lg leading-snug text-paper md:mb-24 md:text-[1.375rem]"
         data-reveal="rise"
       >
         {copy.description}

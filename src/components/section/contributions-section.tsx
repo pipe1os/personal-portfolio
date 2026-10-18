@@ -66,7 +66,7 @@ export default function ContributionsSection({
   return (
     <>
       <div className="mb-10 flex flex-col gap-5 md:mb-14" data-reveal="rise">
-        <p className="max-w-[46ch] text-lg leading-snug text-paper md:text-xl">
+        <p className="max-w-[46ch] text-lg leading-snug text-paper md:text-[1.375rem]">
           {copy.description}
         </p>
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
@@ -92,7 +92,7 @@ export default function ContributionsSection({
         </div>
       </div>
 
-      <ol className="border-t border-rule">
+      <ol>
         {groups.map(([repo, prs], i) => {
           const isOpen = open.has(repo);
           const id = `repo-${repo.replace(/\W+/g, "-")}`;
@@ -101,7 +101,7 @@ export default function ContributionsSection({
           return (
             <li
               key={repo}
-              className="repo border-b border-rule"
+              className="repo"
               data-open={isOpen || undefined}
               data-reveal="rise"
               style={vars({ "--d": `${Math.min(i, 6) * 60}ms` })}
@@ -123,7 +123,7 @@ export default function ContributionsSection({
                         <Tally prs={prs} />
                       </span>
                     </span>
-                    <span className="min-w-0 [overflow-wrap:anywhere] text-[clamp(1.25rem,1.7vw,1.625rem)] font-semibold leading-none tracking-[-0.025em] [font-variation-settings:'wdth'_106] md:col-span-4">
+                    <span className="min-w-0 [overflow-wrap:anywhere] text-[clamp(1.25rem,1.53vw,1.375rem)] font-semibold leading-none tracking-[-0.025em] [font-variation-settings:'wdth'_106] md:col-span-4">
                       <span className="font-normal text-grey">{owner}/</span>
                       {name}
                     </span>
@@ -150,12 +150,11 @@ export default function ContributionsSection({
                           className="max-md:ml-10 md:grid md:grid-cols-9 md:gap-x-(--gutter)"
                           style={vars({ "--i": j })}
                         >
-                          <div className="pr-rule h-px bg-rule md:col-span-7 md:col-start-3" aria-hidden />
                           <a
                             href={pr.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="sweep group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 px-1 py-4 md:col-span-9 md:grid-cols-9 md:items-baseline md:gap-x-(--gutter)"
+                            className="sweep group grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 px-1 py-3 md:col-span-9 md:grid-cols-9 md:items-baseline md:gap-x-(--gutter)"
                           >
                             <span className="meta sweep-muted flex items-baseline gap-2 text-grey md:col-span-2">
                               <PrStatusIcon

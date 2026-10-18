@@ -1,34 +1,8 @@
 import { cn } from "@/lib/utils";
 import { LANGUAGES, type Language, type SiteCopy } from "@/data/resume";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export type SectionLink = { id: string; n: string; label: string };
-
-function LocalClock({ language, label }: { language: Language; label: string }) {
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const format = new Intl.DateTimeFormat(language === "es" ? "es-CL" : "en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-      timeZone: "America/Santiago",
-      timeZoneName: "shortOffset",
-    });
-    const tick = () => setTime(format.format(new Date()));
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
-  }, [language]);
-
-  return (
-    <span className="meta text-grey">
-      <span className="sr-only">{label}: </span>
-      <time aria-live="off">{time || "--:--:-- GMT-3"}</time>
-    </span>
-  );
-}
+export type SectionLink = { id: string; label: string };
 
 export function SiteHeader({
   name,
@@ -49,6 +23,31 @@ export function SiteHeader({
 }) {
   const [past, setPast] = useState(false);
   const [active, setActive] = useState<SectionLink | null>(null);
+  const [onSignal, setOnSignal] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Over the vermilion contact field, the bar takes the field's colour instead of cutting across it.
+  useEffect(() => {
+    const field = document.getElementById("contact");
+    const bar = headerRef.current;
+    if (!field || !bar) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setOnSignal(field.getBoundingClientRect().top <= bar.offsetHeight / 2);
+    };
+    const schedule = () => {
+      frame ||= requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -78,45 +77,38 @@ export function SiteHeader({
   }, [sections]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-ink">
+    <header
+      ref={headerRef}
+      className="site-header sticky top-0 z-40 bg-ink"
+      data-signal={onSignal || undefined}
+    >
       <div className="wrap">
         <div className="grid-page h-(--header-h) items-center">
-          <a
-            href="#top"
-            className="col-span-3 overflow-hidden md:col-span-3 lg:col-span-3"
-          >
+          <a href="#top" className="col-span-3 overflow-hidden md:col-span-3 lg:col-span-3">
             {!past && <span className="sr-only">{name}, </span>}
             {past ? (
               <span
                 key="name"
-                className="roll block truncate text-[0.95rem] font-bold tracking-[-0.01em] [font-variation-settings:'wdth'_80]"
+                className="roll block truncate text-[0.9375rem] font-bold tracking-[-0.01em] [font-variation-settings:'wdth'_80]"
               >
                 {name}
               </span>
             ) : (
-              <span key="role" className="roll block truncate">
-                <span className="meta hidden text-grey md:inline">{role}</span>
-                <span className="md:hidden">
-                  <LocalClock language={language} label={copy.header.localTime} />
-                </span>
+              <span key="role" className="roll meta block truncate text-grey">
+                {role}
               </span>
             )}
           </a>
 
-          <div className="meta hidden gap-4 md:col-span-2 md:flex lg:col-span-4">
-            <span className="hidden text-grey lg:inline">36°49′S 73°03′W</span>
-            <LocalClock language={language} label={copy.header.localTime} />
-          </div>
-
-          <div className="hidden overflow-hidden md:col-span-2 md:block lg:col-span-3">
+          <div className="hidden overflow-hidden md:col-span-3 md:col-start-5 md:block lg:col-span-4 lg:col-start-6">
             {active && past && (
               <a
                 href={`#${active.id}`}
                 key={active.id}
-                className="roll meta text-paper"
+                className="roll meta flex items-center gap-2.5 text-paper"
               >
-                <span className="text-grey">{active.n} / 0{sections.length}</span>
-                <span className="ml-3">{active.label}</span>
+                <span className="pipe pipe-in text-signal" aria-hidden />
+                {active.label}
               </a>
             )}
           </div>
@@ -124,7 +116,7 @@ export function SiteHeader({
           <div
             role="group"
             aria-label={copy.language.label}
-            className="meta col-span-1 flex items-center justify-end lg:col-span-2"
+            className="meta col-span-1 flex items-center justify-end md:col-start-8 lg:col-span-2 lg:col-start-11"
           >
             {LANGUAGES.map((option, i) => (
               <span key={option} className="flex items-center">
@@ -135,7 +127,7 @@ export function SiteHeader({
                   lang={option}
                   onClick={() => onLanguage(option)}
                   className={cn(
-                    "h-11 cursor-pointer px-2 uppercase transition-colors duration-200",
+                    "h-11 cursor-pointer px-2 transition-colors duration-200",
                     language === option
                       ? "text-paper underline decoration-signal decoration-2 underline-offset-[6px]"
                       : "text-grey hover:text-paper",

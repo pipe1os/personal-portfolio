@@ -5,24 +5,27 @@ import { ArrowUpRight } from "lucide-react";
 
 <Layout title="Página no encontrada | Felipe Arce" description="La página solicitada no existe." noindex>
   <main class="wrap flex min-h-dvh flex-col pb-6 pt-6">
-    <p class="meta text-grey">Error 404 — Not found</p>
+    <p class="meta flex items-center gap-2.5 text-grey">
+      <span class="pipe pipe-in text-signal" aria-hidden="true"></span>
+      Error 404
+    </p>
     <h1 class="display-name mt-auto" aria-label="404">
       <span class="line" aria-hidden="true">
         <span class="ch" style="--i:0">4</span><span class="ch" style="--i:1">0</span><span class="ch" style="--i:2">4</span>
       </span>
     </h1>
-    <div class="grid-page mt-10 items-end gap-y-8 border-t border-rule pt-4">
+    <div class="grid-page mt-10 items-end gap-y-8">
       <p class="rise col-span-4 text-xl font-medium leading-snug md:col-span-5" style="--d:400ms">
         Esta página no existe o fue movida.
         <span class="text-grey">This page does not exist or has moved.</span>
       </p>
       <a
         href="/"
-        class="rise sweep meta col-span-4 flex items-center justify-between border-b border-rule px-1 py-4 uppercase md:col-span-3 md:col-start-6 lg:col-span-3 lg:col-start-10"
+        class="rise btn col-span-4 justify-between md:col-span-3 md:col-start-6 lg:col-span-3 lg:col-start-10 [--nudge-x:3px] [--nudge-y:-3px]"
         style="--d:500ms"
       >
         Volver al inicio / Home
-        <ArrowUpRight className="size-3.5" strokeWidth={1.5} aria-hidden="true" />
+        <ArrowUpRight className="btn-icon size-4" strokeWidth={2} aria-hidden="true" />
       </a>
     </div>
   </main>
