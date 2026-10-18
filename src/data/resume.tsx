@@ -686,20 +686,6 @@ export const DATA = {
       href: "https://github.com/python/python-docs-es/pull/3862",
       icon: <Python className="size-5" />,
     },
-    {
-      repo: "vercel/next.js",
-      title: {
-        es: "fix(devtools): detect VSCodium on macOS in launch-editor",
-        en: "fix(devtools): detect VSCodium on macOS in launch-editor",
-      },
-      dates: {
-        es: "May 2026",
-        en: "May 2026",
-      },
-      status: "draft",
-      href: "https://github.com/vercel/next.js/pull/94078",
-      icon: <NextjsIconDark className="size-5" />,
-    },
   ],
   certifications: [
     {
