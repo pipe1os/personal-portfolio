@@ -18,7 +18,7 @@ const LOCALIZED_RESUME = {
     location: "Concepción, Chile",
     description: "Desarrollador de Software · Full Stack",
     summary: `
-Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío que construimos entre dos. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en Astro, AnyPS5 y Strands Agents, el SDK de agentes de AWS.
+Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío que construimos entre dos. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents, el SDK de agentes de AWS.
 
 Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
     `,
@@ -27,7 +27,7 @@ Me importa escribir código que alguien más pueda leer y mantener. Aprendo cons
     location: "Concepción, Chile",
     description: "Software Developer · Full Stack",
     summary: `
-I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community that I'm building with one other developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into Astro, AnyPS5, and Strands Agents, AWS's agent SDK.
+I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community that I'm building with one other developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into Astro, AnyPS5, tRPC, and Strands Agents, AWS's agent SDK.
 
 I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
   },
@@ -38,7 +38,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Desarrollador Full Stack en Concepción, Chile",
       description:
-        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en Astro, AnyPS5 y Strands Agents.",
+        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents.",
       jobTitle: "Desarrollador Full Stack",
       locale: "es_CL",
       ogImage: "/og-es.png",
@@ -67,7 +67,7 @@ export const SITE_COPY = {
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs fusionados en Astro, AnyPS5 y Strands Agents (AWS)",
+          text: "PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents (AWS)",
           href: "#contributions",
         },
         {
@@ -137,7 +137,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Full Stack Developer in Concepción, Chile",
       description:
-        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into Astro, AnyPS5 and Strands Agents.",
+        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into Astro, AnyPS5, tRPC and Strands Agents.",
       jobTitle: "Full Stack Developer",
       locale: "en_US",
       ogImage: "/og-en.png",
@@ -166,7 +166,7 @@ export const SITE_COPY = {
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs merged into Astro, AnyPS5 and Strands Agents (AWS)",
+          text: "PRs merged into Astro, AnyPS5, tRPC and Strands Agents (AWS)",
           href: "#contributions",
         },
         {
@@ -600,7 +600,7 @@ export const DATA = {
         es: "Oct 2026",
         en: "Oct 2026",
       },
-      status: "open",
+      status: "merged",
       href: "https://github.com/trpc/trpc/pull/7666",
       icon: (
         <img
