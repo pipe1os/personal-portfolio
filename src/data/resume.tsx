@@ -591,6 +591,26 @@ export const DATA = {
       ),
     },
     {
+      repo: "boykopovar/AnyPS5",
+      title: {
+        es: "feat(libSceNpTus): run the try-and-set variable calls offline",
+        en: "feat(libSceNpTus): run the try-and-set variable calls offline",
+      },
+      dates: {
+        es: "Oct 2026",
+        en: "Oct 2026",
+      },
+      status: "open",
+      href: "https://github.com/boykopovar/AnyPS5/pull/8925",
+      icon: (
+        <img
+          src="https://avatars.githubusercontent.com/u/184076081?v=4"
+          alt="AnyPS5 logo"
+          className="size-5 rounded-full"
+        />
+      ),
+    },
+    {
       repo: "trpc/trpc",
       title: {
         es: "fix(server): clear the sse maxDurationMs timer when the subscription ends",
