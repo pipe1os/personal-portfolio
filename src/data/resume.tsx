@@ -483,8 +483,8 @@ export const DATA = {
         en: "Inspect ML model checkpoints in milliseconds, without PyTorch.",
       },
       description: {
-        es: "Una herramienta CLI sin dependencias que inspecciona checkpoints de modelos de ML (.safetensors, .gguf, .pt) de forma local o directamente desde el Hugging Face Hub. Al omitir PyTorch y Transformers, parsea los headers binarios locales en menos de 100ms. Calcula el footprint de VRAM considerando los multiplicadores de cuantización y las longitudes de contexto, y estima las penalizaciones NCCL en configuraciones multi-GPU y la capacidad de serving de vLLM para planificar despliegues en producción.",
-        en: "A zero-dependency CLI tool that inspects ML model checkpoints (.safetensors, .gguf, .pt) locally or directly via the Hugging Face Hub. By bypassing PyTorch and Transformers, it parses local binary headers in under 100ms. It calculates VRAM footprints by factoring in quantization multipliers and context lengths, and calculates multi-GPU NCCL penalties and vLLM serving capacity for production deployment planning.",
+        es: "Una herramienta CLI liviana para inspeccionar checkpoints de ML (.safetensors, .gguf, .pt), ya sea en disco o directo desde el Hugging Face Hub. Lee los headers binarios directamente, sin cargar PyTorch ni Transformers, así que los archivos locales se parsean en menos de 100ms. Te dice cuánta VRAM necesita un modelo según la cuantización y el largo de contexto, cómo se reparte entre varias GPUs contando el overhead de NCCL, y cuántos tokens caben en el KV cache de vLLM.",
+        en: "A lightweight CLI for inspecting ML checkpoints (.safetensors, .gguf, .pt), on disk or straight from the Hugging Face Hub. It reads the binary headers directly instead of loading PyTorch or Transformers, so local files parse in under 100ms. It tells you how much VRAM a model needs at a given quantization and context length, how that splits across multiple GPUs once NCCL overhead is counted, and how many tokens fit in vLLM’s KV cache.",
       },
       technologies: ["Python", "CLI", "PyPI", "Machine Learning"],
       links: [
