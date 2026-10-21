@@ -1,13 +1,16 @@
 import { Icons } from "@/components/icons";
+import { Astro } from "@/components/ui/svgs/astro";
 import { AstroOfficialLogo } from "@/components/ui/svgs/astro-official";
+import { Cloudflare } from "@/components/ui/svgs/cloudflare";
+import { Drizzle } from "@/components/ui/svgs/drizzle";
+import { Firebase } from "@/components/ui/svgs/firebase";
 import GeodeIcon from "@/components/ui/svgs/geode";
 import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
 import { Python } from "@/components/ui/svgs/python";
 import { ReactDark } from "@/components/ui/svgs/reactDark";
 import { Shipdot } from "@/components/ui/svgs/shipdot";
-import { Supabase } from "@/components/ui/svgs/supabase";
 import { Git } from "@/components/ui/svgs/git";
-import { Postgresql } from "@/components/ui/svgs/postgresql";
+import { Turso } from "@/components/ui/svgs/turso";
 import { Typescript } from "@/components/ui/svgs/typescript";
 export const LANGUAGES = ["es", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
@@ -18,7 +21,7 @@ const LOCALIZED_RESUME = {
     location: "Concepción, Chile",
     description: "Desarrollador de Software · Full Stack",
     summary: `
-Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío que construimos entre dos. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents, el SDK de agentes de AWS.
+Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío donde soy el desarrollador principal. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en AnyPS5, tRPC y Strands Agents, el SDK de agentes de AWS.
 
 Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
     `,
@@ -27,7 +30,7 @@ Me importa escribir código que alguien más pueda leer y mantener. Aprendo cons
     location: "Concepción, Chile",
     description: "Software Developer · Full Stack",
     summary: `
-I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community that I'm building with one other developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into Astro, AnyPS5, tRPC, and Strands Agents, AWS's agent SDK.
+I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community where I'm the main developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into AnyPS5, tRPC, and Strands Agents, AWS's agent SDK.
 
 I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
   },
@@ -38,7 +41,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Desarrollador Full Stack en Concepción, Chile",
       description:
-        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents.",
+        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en AnyPS5, tRPC y Strands Agents.",
       jobTitle: "Desarrollador Full Stack",
       locale: "es_CL",
       ogImage: "/og-es.png",
@@ -54,27 +57,27 @@ export const SITE_COPY = {
     header: {
       index: "Índice",
     },
-    availability: "Busco trabajo",
+    availability: "Disponible ahora",
     hero: {
       action: "Hablemos",
       facts: [
         {
-          label: "Kumo",
-          figure: { value: 72, prefix: "", suffix: " h" },
-          text: "mi emprendimiento: páginas web para pymes de todo Chile, en línea en 48 a 72 horas",
-          href: "https://kumoweb.cl",
+          label: "Centro de Estudio UBB",
+          figure: { value: 292, prefix: "", suffix: "" },
+          text: "commits como desarrollador principal de una plataforma web, Android e iOS",
+          href: "#projects",
         },
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs fusionados en Astro, AnyPS5, tRPC y Strands Agents (AWS)",
+          text: "PRs fusionados en AnyPS5, tRPC y Strands Agents (AWS)",
           href: "#contributions",
         },
         {
-          label: "PyPI",
-          figure: { value: 100, prefix: "<", suffix: " ms" },
-          text: "modelinfo-cli lee checkpoints de modelos de ML",
-          href: "https://pypi.org/project/modelinfo-cli/",
+          label: "npm · PyPI",
+          figure: { value: 2, prefix: "", suffix: "" },
+          text: "paquetes open source publicados: shipdot y modelinfo-cli",
+          href: "#projects",
         },
       ],
     },
@@ -120,7 +123,7 @@ export const SITE_COPY = {
     contact: {
       heading: "Hablemos.",
       description:
-        "Busco trabajo como desarrollador full stack: full-time, part-time o práctica, remoto o en Concepción. Si tienes una oferta o un proyecto, escríbeme y te respondo pronto.",
+        "Busco trabajo como desarrollador full stack, full-time o part-time, remoto o en Concepción, y puedo empezar de inmediato. Kumo es un proyecto paralelo: lo que busco es un equipo donde crecer como desarrollador. Si tienes una oferta, escríbeme y te respondo pronto.",
       copy: "Copiar",
       copied: "Copiado",
       copySuccess: "Correo copiado al portapapeles",
@@ -137,7 +140,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Full Stack Developer in Concepción, Chile",
       description:
-        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into Astro, AnyPS5, tRPC and Strands Agents.",
+        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into AnyPS5, tRPC and Strands Agents.",
       jobTitle: "Full Stack Developer",
       locale: "en_US",
       ogImage: "/og-en.png",
@@ -153,27 +156,27 @@ export const SITE_COPY = {
     header: {
       index: "Index",
     },
-    availability: "Open to work",
+    availability: "Available now",
     hero: {
       action: "Let's talk",
       facts: [
         {
-          label: "Kumo",
-          figure: { value: 72, prefix: "", suffix: " h" },
-          text: "my business: websites for small businesses across Chile, live in 48 to 72 hours",
-          href: "https://kumoweb.cl",
+          label: "Centro de Estudio UBB",
+          figure: { value: 292, prefix: "", suffix: "" },
+          text: "commits as main developer of a web, Android and iOS platform",
+          href: "#projects",
         },
         {
           label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs merged into Astro, AnyPS5, tRPC and Strands Agents (AWS)",
+          text: "PRs merged into AnyPS5, tRPC and Strands Agents (AWS)",
           href: "#contributions",
         },
         {
-          label: "PyPI",
-          figure: { value: 100, prefix: "<", suffix: " ms" },
-          text: "modelinfo-cli reads ML model checkpoints",
-          href: "https://pypi.org/project/modelinfo-cli/",
+          label: "npm · PyPI",
+          figure: { value: 2, prefix: "", suffix: "" },
+          text: "open-source packages published: shipdot and modelinfo-cli",
+          href: "#projects",
         },
       ],
     },
@@ -219,7 +222,7 @@ export const SITE_COPY = {
     contact: {
       heading: "Let's talk.",
       description:
-        "I'm looking for a full stack developer role: full-time, part-time, or an internship, remote or in Concepción, Chile. If you have an opening or a project, email me and I'll get back to you soon.",
+        "I'm looking for a full stack developer role, full-time or part-time, remote or in Concepción, Chile, and I can start right away. Kumo is a side business: what I want is a team to grow with as a developer. If you have an opening, email me and I'll get back to you soon.",
       copy: "Copy",
       copied: "Copied",
       copySuccess: "Email copied to clipboard",
@@ -250,9 +253,12 @@ export const DATA = {
     { name: "Next.js", icon: NextjsIconDark },
     { name: "Typescript", icon: Typescript },
     { name: "React", icon: ReactDark },
-    { name: "Supabase", icon: Supabase },
-    { name: "PostgreSQL", icon: Postgresql },
+    { name: "Astro", icon: Astro },
     { name: "Python", icon: Python },
+    { name: "Turso", icon: Turso },
+    { name: "Drizzle", icon: Drizzle },
+    { name: "Firebase", icon: Firebase },
+    { name: "Cloudflare", icon: Cloudflare },
     { name: "Git", icon: Git },
   ],
   contact: {
@@ -285,8 +291,8 @@ export const DATA = {
       school: "INACAP",
       href: "https://www.inacap.cl",
       degree: {
-        es: "Analista Programador",
-        en: "Programmer Analyst",
+        es: "Analista Programador · comienza en 2027",
+        en: "Programmer Analyst · starts in 2027",
       },
       logoUrl: "/inacap.svg",
       start: {
@@ -302,8 +308,8 @@ export const DATA = {
       school: "UCSC (Universidad Católica de la Santísima Concepción)",
       href: "https://ucsc.cl",
       degree: {
-        es: "Ingeniería Civil en Informática",
-        en: "Computer Engineering",
+        es: "Ingeniería Civil en Informática · incompleta, 2 años",
+        en: "Computer Engineering · incomplete, 2 years",
       },
       logoUrl: "/ucsc.webp",
       start: {
@@ -368,8 +374,8 @@ export const DATA = {
       active: true,
       featured: true,
       kind: {
-        es: "Plataforma web y móvil",
-        en: "Web and mobile platform",
+        es: "Plataforma web y móvil · desarrollador principal",
+        en: "Web and mobile platform · main developer",
       },
       tagline: {
         es: "Una alternativa moderna a Moodle para la Universidad del Bío-Bío.",
@@ -653,20 +659,6 @@ export const DATA = {
     {
       repo: "withastro/astro",
       title: {
-        es: "fix(core): cache resolved actions in base pipeline",
-        en: "fix(core): cache resolved actions in base pipeline",
-      },
-      dates: {
-        es: "May 2026",
-        en: "May 2026",
-      },
-      status: "merged",
-      href: "https://github.com/withastro/astro/pull/16859",
-      icon: <AstroOfficialLogo className="h-5 w-auto" />,
-    },
-    {
-      repo: "withastro/astro",
-      title: {
         es: "fix(transitions): stop Back from leaving the site in Chrome and Edge on iOS",
         en: "fix(transitions): stop Back from leaving the site in Chrome and Edge on iOS",
       },
@@ -691,20 +683,6 @@ export const DATA = {
       status: "open",
       href: "https://github.com/geode-sdk/geode/pull/2082",
       icon: <GeodeIcon className="size-5" />,
-    },
-    {
-      repo: "python/python-docs-es",
-      title: {
-        es: "Complete translation of tutorial/classes.po",
-        en: "Complete translation of tutorial/classes.po",
-      },
-      dates: {
-        es: "May 2026",
-        en: "May 2026",
-      },
-      status: "open",
-      href: "https://github.com/python/python-docs-es/pull/3862",
-      icon: <Python className="size-5" />,
     },
   ],
   certifications: [
