@@ -671,6 +671,20 @@ export const DATA = {
       icon: <AstroOfficialLogo className="h-5 w-auto" />,
     },
     {
+      repo: "withastro/astro",
+      title: {
+        es: "fix(core): cache resolved actions in base pipeline",
+        en: "fix(core): cache resolved actions in base pipeline",
+      },
+      dates: {
+        es: "May 2026",
+        en: "May 2026",
+      },
+      status: "merged",
+      href: "https://github.com/withastro/astro/pull/16859",
+      icon: <AstroOfficialLogo className="h-5 w-auto" />,
+    },
+    {
       repo: "geode-sdk/geode",
       title: {
         es: "Fix windows startup freeze when geode fails to load",
