@@ -19,20 +19,30 @@ export const DEFAULT_LANGUAGE: Language = "es";
 const LOCALIZED_RESUME = {
   es: {
     location: "Concepción, Chile",
+    languages: "Trabajo en español e inglés",
     description: "Desarrollador de Software · Full Stack",
-    summary: `
-Dirijo [Kumo](https://kumoweb.cl), mi emprendimiento de desarrollo web: páginas y software a medida para pymes de todo Chile. Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para la comunidad de la Universidad del Bío-Bío donde soy el desarrollador principal. Ahí las decisiones técnicas sí importan: Turso como sistema de registro, Firestore para el tiempo real, reglas de seguridad por matrícula y apps móviles con Capacitor. En [código abierto](#contributions) tengo PRs fusionados en AnyPS5, tRPC y Strands Agents, el SDK de agentes de AWS.
-
-Me importa escribir código que alguien más pueda leer y mantener. Aprendo construyendo cosas que tienen que funcionar de verdad, y me incomoda cuando hay algo que podría estar mejor y nadie lo está arreglando.
-    `,
+    /** The lead is set large; the rest are paragraphs with `[label](href)` links. */
+    profile: {
+      lead: "Me importa escribir código que alguien más pueda leer y mantener.",
+      body: [
+        "Aprendo construyendo cosas que tienen que funcionar de verdad. Me incomoda ver algo que podría estar mejor y que nadie arregla.",
+        "Mi proyecto más grande es [Centro de Estudio UBB](#projects), una plataforma académica para estudiantes de la Universidad del Bío-Bío que todavía está en desarrollo. Soy el desarrollador principal. Elegí Turso como base de datos principal y Firestore para lo que pasa en tiempo real, armé las reglas de seguridad por matrícula y la llevé a Android e iOS con Capacitor.",
+        "También tengo [Kumo](https://kumoweb.cl), donde hago páginas y software a medida para pymes. En [open source](#contributions) me han fusionado PRs en Astro, tRPC y Strands Agents, el SDK de agentes de AWS.",
+      ],
+    },
   },
   en: {
     location: "Concepción, Chile",
+    languages: "I work in Spanish and English",
     description: "Software Developer · Full Stack",
-    summary: `
-I run [Kumo](https://kumoweb.cl), my web development business: websites and custom software for small businesses across Chile. My biggest project is [Centro de Estudio UBB](#projects), an academic platform for the Universidad del Bío-Bío community where I'm the main developer. The technical decisions there actually matter: Turso as the system of record, Firestore for real-time state, enrollment-based security rules, and mobile apps with Capacitor. In [open source](#contributions), I've had PRs merged into AnyPS5, tRPC, and Strands Agents, AWS's agent SDK.
-
-I care about writing code that someone else can read and maintain. I learn by building things that have to actually work, and I get uncomfortable when there's something that could be better and nobody's fixing it.`,
+    profile: {
+      lead: "I care about writing code that someone else can read and maintain.",
+      body: [
+        "I learn by building things that have to actually work. It bothers me to see something that could be better and that nobody fixes.",
+        "My biggest project is [Centro de Estudio UBB](#projects), an academic platform for students at the Universidad del Bío-Bío that is still in development. I'm the main developer. I chose Turso as the main database and Firestore for everything real-time, wrote the enrollment-based security rules, and took it to Android and iOS with Capacitor.",
+        "I also run [Kumo](https://kumoweb.cl), where I build websites and custom software for small businesses. In [open source](#contributions), I've had PRs merged into Astro, tRPC, and Strands Agents, AWS's agent SDK.",
+      ],
+    },
   },
 } as const;
 
@@ -41,7 +51,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Desarrollador Full Stack en Concepción, Chile",
       description:
-        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en AnyPS5, tRPC y Strands Agents.",
+        "Desarrollador full stack en Concepción, Chile. Next.js, TypeScript, React y Python. Dirijo Kumo y tengo PRs fusionados en Astro, tRPC y Strands Agents.",
       jobTitle: "Desarrollador Full Stack",
       locale: "es_CL",
       ogImage: "/og-es.png",
@@ -62,27 +72,25 @@ export const SITE_COPY = {
       action: "Hablemos",
       facts: [
         {
-          label: "Centro de Estudio UBB",
           figure: { value: 292, prefix: "", suffix: "" },
-          text: "commits como desarrollador principal de una plataforma web, Android e iOS",
-          href: "#projects",
+          text: "Commits como desarrollador principal de Centro de Estudio UBB, una plataforma web, Android e iOS que todavía está en desarrollo",
+          href: "#project-centro-de-estudio-ubb",
         },
         {
-          label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs fusionados en AnyPS5, tRPC y Strands Agents (AWS)",
+          text: "PRs fusionados en open source, entre ellos Astro, tRPC y Strands Agents, el SDK de agentes de AWS",
           href: "#contributions",
         },
         {
-          label: "npm · PyPI",
           figure: { value: 2, prefix: "", suffix: "" },
-          text: "paquetes open source publicados: shipdot y modelinfo-cli",
-          href: "#projects",
+          text: "Paquetes publicados: shipdot en npm y modelinfo-cli en PyPI",
+          href: "#project-shipdot",
         },
       ],
     },
     sections: {
       about: "Perfil",
+      experience: "Experiencia",
       projects: "Proyectos",
       contributions: "Código abierto",
       education: "Formación",
@@ -97,7 +105,7 @@ export const SITE_COPY = {
     },
     projects: {
       description:
-        "Un emprendimiento, una plataforma académica y dos herramientas open source publicadas en npm y PyPI.",
+        "Una plataforma académica, mi emprendimiento y dos herramientas open source publicadas en npm y PyPI.",
       index: "Índice de proyectos",
       kind: "Tipo",
       period: "Periodo",
@@ -106,7 +114,7 @@ export const SITE_COPY = {
       openProject: "Abrir",
     },
     contributions: {
-      description: "Mis contribuciones a proyectos open-source.",
+      description: "PRs que he mandado a proyectos open source.",
       summary: {
         merged: "fusionados",
         open: "abiertos",
@@ -122,8 +130,10 @@ export const SITE_COPY = {
     },
     contact: {
       heading: "Hablemos.",
-      description:
-        "Busco trabajo como desarrollador full stack, full-time o part-time, remoto o en Concepción, y puedo empezar de inmediato. Kumo es un proyecto paralelo: lo que busco es un equipo donde crecer como desarrollador. Si tienes una oferta, escríbeme y te respondo pronto.",
+      description: [
+        "Busco trabajo como desarrollador full stack: full-time o part-time, remoto o en Concepción, y puedo empezar ya. Trabajo en español e inglés.",
+        "Kumo lo sigo en paralelo. Lo que quiero es entrar a un equipo donde aprenda de gente con más experiencia que yo. Si tienes algo, escríbeme y te respondo rápido.",
+      ],
       copy: "Copiar",
       copied: "Copiado",
       copySuccess: "Correo copiado al portapapeles",
@@ -140,7 +150,7 @@ export const SITE_COPY = {
     seo: {
       title: "Felipe Arce · Full Stack Developer in Concepción, Chile",
       description:
-        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into AnyPS5, tRPC and Strands Agents.",
+        "Full stack developer in Concepción, Chile. Next.js, TypeScript, React and Python. I run Kumo and have PRs merged into Astro, tRPC and Strands Agents.",
       jobTitle: "Full Stack Developer",
       locale: "en_US",
       ogImage: "/og-en.png",
@@ -161,27 +171,25 @@ export const SITE_COPY = {
       action: "Let's talk",
       facts: [
         {
-          label: "Centro de Estudio UBB",
           figure: { value: 292, prefix: "", suffix: "" },
-          text: "commits as main developer of a web, Android and iOS platform",
-          href: "#projects",
+          text: "Commits as main developer of Centro de Estudio UBB, a web, Android and iOS platform that is still in development",
+          href: "#project-centro-de-estudio-ubb",
         },
         {
-          label: "Open source",
           figure: { value: "merged", prefix: "", suffix: "" },
-          text: "PRs merged into AnyPS5, tRPC and Strands Agents (AWS)",
+          text: "PRs merged in open source, including Astro, tRPC and Strands Agents, AWS's agent SDK",
           href: "#contributions",
         },
         {
-          label: "npm · PyPI",
           figure: { value: 2, prefix: "", suffix: "" },
-          text: "open-source packages published: shipdot and modelinfo-cli",
-          href: "#projects",
+          text: "Packages published: shipdot on npm and modelinfo-cli on PyPI",
+          href: "#project-shipdot",
         },
       ],
     },
     sections: {
       about: "Profile",
+      experience: "Experience",
       projects: "Projects",
       contributions: "Open source",
       education: "Education",
@@ -196,7 +204,7 @@ export const SITE_COPY = {
     },
     projects: {
       description:
-        "A business, an academic platform, and two open-source tools published on npm and PyPI.",
+        "An academic platform, my business, and two open-source tools published on npm and PyPI.",
       index: "Project index",
       kind: "Type",
       period: "Period",
@@ -205,7 +213,7 @@ export const SITE_COPY = {
       openProject: "Open",
     },
     contributions: {
-      description: "My contributions to open-source projects.",
+      description: "PRs I've sent to open-source projects.",
       summary: {
         merged: "merged",
         open: "open",
@@ -221,8 +229,10 @@ export const SITE_COPY = {
     },
     contact: {
       heading: "Let's talk.",
-      description:
-        "I'm looking for a full stack developer role, full-time or part-time, remote or in Concepción, Chile, and I can start right away. Kumo is a side business: what I want is a team to grow with as a developer. If you have an opening, email me and I'll get back to you soon.",
+      description: [
+        "I'm looking for a full stack developer role: full-time or part-time, remote or in Concepción, and I can start now. I work in Spanish and English.",
+        "I'll keep running Kumo on the side. What I want is to join a team where I can learn from people with more experience than me. If you have something, email me and I'll get back to you quickly.",
+      ],
       copy: "Copy",
       copied: "Copied",
       copySuccess: "Email copied to clipboard",
@@ -247,7 +257,6 @@ export const DATA = {
   location: LOCALIZED_RESUME.es.location,
   locationLink: "https://www.google.com/maps/place/concepcion",
   description: LOCALIZED_RESUME.es.description,
-  summary: LOCALIZED_RESUME.es.summary,
   avatarUrl: "/me.webp",
   skills: [
     { name: "Next.js", icon: NextjsIconDark },
@@ -291,76 +300,58 @@ export const DATA = {
       school: "INACAP",
       href: "https://www.inacap.cl",
       degree: {
-        es: "Analista Programador · comienza en 2027",
-        en: "Programmer Analyst · starts in 2027",
+        es: "Analista Programador · ingreso en marzo de 2027",
+        en: "Programmer Analyst · starting in March 2027",
       },
       logoUrl: "/inacap.svg",
-      start: {
-        es: "2027",
-        en: "2027",
-      },
-      end: {
-        es: "2029",
-        en: "2029",
-      },
+      years: "2027",
     },
     {
       school: "UCSC (Universidad Católica de la Santísima Concepción)",
       href: "https://ucsc.cl",
       degree: {
-        es: "Ingeniería Civil en Informática · incompleta, 2 años",
-        en: "Computer Engineering · incomplete, 2 years",
+        es: "Ingeniería Civil en Informática · 2 años cursados",
+        en: "Computer Engineering · 2 years completed",
       },
       logoUrl: "/ucsc.webp",
-      start: {
-        es: "2024",
-        en: "2024",
-      },
-      end: {
-        es: "2026",
-        en: "2026",
-      },
+      years: "2024–2026",
     },
   ],
-  projects: [
+  experience: [
     {
-      title: {
-        es: "Kumo",
-        en: "Kumo",
+      role: {
+        es: "Desarrollador principal",
+        en: "Main developer",
       },
+      org: "Centro de Estudio UBB",
+      href: "https://ceoubb.com",
+      dates: {
+        es: "Ago 2026 – Presente",
+        en: "Aug 2026 – Present",
+      },
+      description: {
+        es: "Diseño y desarrollo la plataforma web y las apps móviles. Todavía no está lanzada.",
+        en: "I design and build the web platform and the mobile apps. It hasn't launched yet.",
+      },
+    },
+    {
+      role: {
+        es: "Fundador y desarrollador",
+        en: "Founder and developer",
+      },
+      org: "Kumo",
       href: "https://kumoweb.cl",
       dates: {
         es: "Sep 2026 – Presente",
         en: "Sep 2026 – Present",
       },
-      active: true,
-      featured: true,
-      kind: {
-        es: "Emprendimiento",
-        en: "Business",
-      },
-      tagline: {
-        es: "Páginas y software a medida para pymes de todo Chile.",
-        en: "Websites and custom software for small businesses across Chile.",
-      },
       description: {
-        es: "Mi emprendimiento de desarrollo web. Kumo hace páginas y software a medida para pymes, locales y emprendedores de todo Chile: landings listas en 48 a 72 horas, sitios con catálogo y SEO, cartas digitales con pedidos online sin comisión y sistemas internos de inventario, ventas y agenda. Precio cerrado y pago único, sin mensualidades.",
-        en: "My web development business. Kumo builds websites and custom software for small businesses across Chile: landing pages live in 48 to 72 hours, catalog sites with SEO, digital menus with commission-free online ordering, and internal systems for inventory, sales, and scheduling. Fixed price, one-time payment, no subscriptions.",
+        es: "Páginas y sistemas a medida para pymes de Chile, con precio cerrado.",
+        en: "Websites and custom systems for small businesses in Chile, at a fixed price.",
       },
-      technologies: ["Astro", "Cloudflare"],
-      links: [
-        {
-          type: {
-            es: "Sitio",
-            en: "Website",
-          },
-          href: "https://kumoweb.cl",
-          icon: <Icons.globe className="size-3" />,
-        },
-      ],
-      image: "/kumo.webp",
-      video: "",
     },
+  ],
+  projects: [
     {
       title: {
         es: "Centro de Estudio UBB",
@@ -373,17 +364,21 @@ export const DATA = {
       },
       active: true,
       featured: true,
+      status: {
+        es: "En desarrollo",
+        en: "In development",
+      },
       kind: {
         es: "Plataforma web y móvil · desarrollador principal",
         en: "Web and mobile platform · main developer",
       },
       tagline: {
-        es: "Una alternativa moderna a Moodle para la Universidad del Bío-Bío.",
-        en: "A modern alternative to Moodle for the Universidad del Bío-Bío.",
+        es: "Una alternativa a Moodle hecha por estudiantes de la Universidad del Bío-Bío.",
+        en: "An alternative to Moodle built by students at the Universidad del Bío-Bío.",
       },
       description: {
-        es: "Plataforma académica estudiantil e independiente para la comunidad de la Universidad del Bío-Bío, pensada como alternativa moderna a Moodle y Adecca. Aulas virtuales organizadas por resultados de aprendizaje, libreta de notas en escala 1.0 a 7.0 con cálculo de nota mínima, planificador semanal, mensajería por asignatura e importación de cursos desde respaldos de Moodle (.mbz). Turso con Drizzle como sistema de registro y Firestore en Santiago para el estado en tiempo real, con apps Android e iOS vía Capacitor y notificaciones push.",
-        en: "An independent, student-built academic platform for the Universidad del Bío-Bío community, designed as a modern alternative to Moodle and Adecca. Virtual classrooms organized by learning outcomes, a gradebook on Chile's 1.0 to 7.0 scale with minimum-passing-grade math, a weekly planner, per-course messaging, and course import from Moodle backups (.mbz). Turso with Drizzle as the system of record and Firestore in Santiago for real-time state, with Android and iOS apps via Capacitor and push notifications.",
+        es: "Es una plataforma académica independiente, pensada como reemplazo de Moodle y Adecca. Tiene aulas organizadas por resultados de aprendizaje, una libreta de notas de 1,0 a 7,0 que te calcula la nota que te falta para aprobar, planificador semanal, mensajería por ramo e importación de cursos desde Moodle (.mbz). Usa Turso con Drizzle como base principal y Firestore en la región de Santiago para el tiempo real. Las apps Android e iOS están hechas con Capacitor y tienen notificaciones push.",
+        en: "It's an independent academic platform, built to replace Moodle and Adecca. It has classrooms organized by learning outcomes, a gradebook on the 1.0 to 7.0 scale that works out the grade you still need to pass, a weekly planner, per-course messaging, and course import from Moodle (.mbz). It uses Turso with Drizzle as the main database and Firestore in the Santiago region for real time. The Android and iOS apps are built with Capacitor and have push notifications.",
       },
       technologies: [
         "Next.js",
@@ -413,6 +408,44 @@ export const DATA = {
         },
       ],
       image: "/ceoubb.webp",
+      video: "",
+    },
+    {
+      title: {
+        es: "Kumo",
+        en: "Kumo",
+      },
+      href: "https://kumoweb.cl",
+      dates: {
+        es: "Sep 2026 – Presente",
+        en: "Sep 2026 – Present",
+      },
+      active: true,
+      featured: true,
+      kind: {
+        es: "Emprendimiento",
+        en: "Business",
+      },
+      tagline: {
+        es: "Páginas y software a medida para pymes de todo Chile.",
+        en: "Websites and custom software for small businesses across Chile.",
+      },
+      description: {
+        es: "Kumo hace páginas y software para pymes, locales y emprendedores: landings que entrego en 48 a 72 horas, sitios con catálogo y SEO, cartas digitales con pedidos online sin comisión y sistemas internos de inventario, ventas o agenda. Cobro un precio cerrado, en un solo pago.",
+        en: "Kumo builds websites and software for small businesses, shops and entrepreneurs: landing pages I deliver in 48 to 72 hours, catalog sites with SEO, digital menus with commission-free online ordering, and internal systems for inventory, sales or scheduling. I charge a fixed price, in a single payment.",
+      },
+      technologies: ["Astro", "Cloudflare"],
+      links: [
+        {
+          type: {
+            es: "Sitio",
+            en: "Website",
+          },
+          href: "https://kumoweb.cl",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "/kumo.webp",
       video: "",
     },
     {
@@ -733,8 +766,12 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
     education: DATA.education.map((education) => ({
       ...education,
       degree: education.degree[language],
-      start: education.start[language],
-      end: education.end[language],
+    })),
+    experience: DATA.experience.map((job) => ({
+      ...job,
+      role: job.role[language],
+      dates: job.dates[language],
+      description: job.description[language],
     })),
     projects: DATA.projects.map((project) => ({
       ...project,
@@ -743,6 +780,7 @@ export function getResumeData(language: Language = DEFAULT_LANGUAGE) {
       kind: project.kind[language],
       tagline: project.tagline[language],
       description: project.description[language],
+      status: "status" in project ? project.status[language] : undefined,
       links: project.links.map((link) => ({
         ...link,
         type: link.type[language],

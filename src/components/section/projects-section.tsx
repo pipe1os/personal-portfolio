@@ -18,6 +18,8 @@ type Project = {
   dates: string;
   technologies: readonly string[];
   active?: boolean;
+  /** Set beside the title while the thing isn't launched, e.g. "En desarrollo". */
+  status?: string;
   /** Featured projects get the full measure; the rest pair up below them. */
   featured?: boolean;
   /** A wordmark drawn in place of the title text. */
@@ -304,6 +306,12 @@ function Plate({
               project.title
             )}
           </a>
+          {project.status && (
+            <span className="ml-[0.3em] inline-flex -translate-y-[0.4em] items-center gap-2 bg-ink-3 px-2.5 py-1.5 align-middle text-[0.9375rem] font-medium leading-none tracking-normal whitespace-nowrap text-paper [font-variation-settings:normal]">
+              <span className="caret text-signal" aria-hidden />
+              {project.status}
+            </span>
+          )}
         </h3>
         <p
           className={cn(

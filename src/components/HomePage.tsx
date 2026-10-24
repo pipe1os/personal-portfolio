@@ -24,6 +24,7 @@ import { flushSync } from "react-dom";
 
 const SECTION_IDS = [
   "about",
+  "experience",
   "projects",
   "contributions",
   "education",
@@ -190,6 +191,60 @@ function LineUp({ heading, rows, delay = 0 }: { heading: string; rows: LineUpRow
   );
 }
 
+type Job = { role: string; org: string; href: string; dates: string; description: string };
+
+/** Roles still running: each row opens the place, and its caret keeps blinking after "present". */
+function Experience({ jobs }: { jobs: Job[] }) {
+  return (
+    <ol className="-mx-1 flex flex-col">
+      {jobs.map((job, i) => (
+        <li key={job.org}>
+          <a
+            href={job.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="job group grid gap-x-(--gutter) gap-y-3 px-1 py-8 md:grid-cols-9 md:px-5 md:py-10"
+          >
+            {/* Role first in the source, so on a phone the dates follow it instead of sitting above as a label. */}
+            <div
+              className="md:col-span-4 md:col-start-3 md:row-start-1"
+              data-reveal="rise"
+              style={stagger(i * 120 + 70)}
+            >
+              <h3 className="text-[clamp(1.75rem,3vw,2.75rem)] font-semibold leading-[0.95] tracking-[-0.035em] [font-variation-settings:'wdth'_106]">
+                {job.role}
+              </h3>
+              <p className="mt-3 flex items-center gap-1.5 text-xl font-medium tracking-[-0.02em] text-grey transition-colors duration-300 group-hover:text-paper md:text-[1.375rem]">
+                {job.org}
+                <ArrowUpRight
+                  className="size-4 transition-transform duration-500 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  strokeWidth={1.5}
+                  aria-hidden
+                />
+              </p>
+            </div>
+            <p
+              className="meta flex items-center gap-2.5 self-start text-grey md:col-span-2 md:col-start-1 md:row-start-1 md:pt-3"
+              data-reveal="rise"
+              style={stagger(i * 120)}
+            >
+              <span className="caret text-signal" aria-hidden />
+              {job.dates}
+            </p>
+            <p
+              className="max-w-[40ch] text-[1.0625rem] leading-relaxed md:col-span-3 md:col-start-7 md:row-start-1 md:pt-2"
+              data-reveal="rise"
+              style={stagger(i * 120 + 140)}
+            >
+              {job.description}
+            </p>
+          </a>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 /** Each language lives at its own URL (/ and /en/), so links and search results open the right one. */
 const pathFor = (language: Language) => (language === DEFAULT_LANGUAGE ? "/" : `/${language}/`);
 
@@ -228,8 +283,7 @@ export default function HomePage({
   );
 
   const [firstName, ...rest] = data.name.split(" ");
-  const [proof, statement] = data.summary.trim().split(/\n\s*\n/);
-  const firstSentenceEnd = statement.indexOf(". ") + 1;
+  const place = `${data.location} · ${data.languages}`;
   const role = data.description.split(" · ").flatMap((part, i) => (i ? [<br key={i} />, part] : [part]));
   const merged = data.openSourceContributions.filter((c) => c.status === "merged").length;
   const social = Object.entries(DATA.contact.social);
@@ -279,7 +333,7 @@ export default function HomePage({
                 {role}
               </p>
               <p className="rise meta text-grey" style={stagger(720)}>
-                {data.location}
+                {place}
               </p>
               <HeroAction action={copy.hero.action} availability={copy.availability} delay={780} />
             </div>
@@ -294,7 +348,7 @@ export default function HomePage({
                 {role}
               </p>
               <p className="rise meta text-grey" style={stagger(720)}>
-                {data.location}
+                {place}
               </p>
               <HeroAction action={copy.hero.action} availability={copy.availability} delay={780} />
             </div>
@@ -304,7 +358,7 @@ export default function HomePage({
               {copy.hero.facts.map((fact, i) => {
                 const external = fact.href.startsWith("http");
                 return (
-                  <li key={fact.label} className="rise" style={stagger(820 + i * 80)}>
+                  <li key={fact.href} className="rise" style={stagger(820 + i * 80)}>
                     <a
                       href={fact.href}
                       target={external ? "_blank" : undefined}
@@ -320,9 +374,8 @@ export default function HomePage({
                           delay={820 + i * 80}
                         />
                       </span>
-                      <span className="flex flex-col gap-1 md:col-span-2 md:row-start-2">
-                        <span className="meta sweep-muted text-grey">{fact.label}</span>
-                        <span className="text-[0.9375rem] leading-snug">{fact.text}</span>
+                      <span className="text-[0.9375rem] leading-snug md:col-span-2 md:row-start-2">
+                        {fact.text}
                       </span>
                       <ArrowUpRight
                         className="sweep-arrow size-4 md:col-start-2 md:row-start-1"
@@ -383,7 +436,7 @@ export default function HomePage({
             className="max-w-[26ch] text-[clamp(1.5rem,2.5vw,2.25rem)] font-medium leading-[1.1] tracking-[-0.025em] [font-variation-settings:'wdth'_104]"
             data-reveal="rise"
           >
-            {statement.slice(0, firstSentenceEnd)}
+            {data.profile.lead}
           </p>
           <div className="mt-12 grid gap-x-(--gutter) gap-y-14 md:mt-16 md:grid-cols-9">
             <div
@@ -391,8 +444,9 @@ export default function HomePage({
               data-reveal="rise"
               style={stagger(60)}
             >
-              <p>{statement.slice(firstSentenceEnd).trim()}</p>
-              <p>{inlineLinks(proof)}</p>
+              {data.profile.body.map((paragraph) => (
+                <p key={paragraph}>{inlineLinks(paragraph)}</p>
+              ))}
             </div>
             <div className="md:col-span-4 md:col-start-6" data-reveal="rise" style={stagger(140)}>
               <h3 className="meta mb-3 text-grey">{copy.about.tools}</h3>
@@ -408,6 +462,10 @@ export default function HomePage({
               </ul>
             </div>
           </div>
+        </SectionFrame>
+
+        <SectionFrame id="experience" title={copy.sections.experience} compact>
+          <Experience jobs={data.experience} />
         </SectionFrame>
 
         <SectionFrame
@@ -432,7 +490,7 @@ export default function HomePage({
               rows={data.education.map((e) => ({
                 key: e.school,
                 href: e.href,
-                when: `${e.start}–${e.end}`,
+                when: e.years,
                 title: e.school,
                 detail: e.degree,
               }))}

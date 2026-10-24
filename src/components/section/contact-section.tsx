@@ -46,12 +46,14 @@ export default function ContactSection({
         />
 
         <div className="grid-page mt-12 gap-y-12 md:mt-16 lg:mt-20">
-          <p
-            className="col-span-4 max-w-[34ch] text-xl leading-snug md:col-span-4 lg:col-span-4 lg:text-[1.375rem]"
+          <div
+            className="col-span-4 flex max-w-[34ch] flex-col gap-5 text-xl leading-snug md:col-span-4 lg:col-span-4 lg:text-[1.375rem]"
             data-reveal="rise"
           >
-            {copy.description}
-          </p>
+            {copy.description.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
 
           <div
             className="col-span-4 md:col-span-4 lg:col-span-7 lg:col-start-6"
