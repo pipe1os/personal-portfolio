@@ -599,15 +599,15 @@ export const DATA = {
     {
       repo: "boykopovar/AnyPS5",
       title: {
-        es: "feat(libSceNpTus): run the try-and-set variable calls offline",
-        en: "feat(libSceNpTus): run the try-and-set variable calls offline",
+        es: "feat: run the common-dialog state machine in the Facebook and game custom data dialogs",
+        en: "feat: run the common-dialog state machine in the Facebook and game custom data dialogs",
       },
       dates: {
         es: "Oct 2026",
         en: "Oct 2026",
       },
-      status: "open",
-      href: "https://github.com/boykopovar/AnyPS5/pull/8925",
+      status: "merged",
+      href: "https://github.com/boykopovar/AnyPS5/pull/10022",
       icon: (
         <img
           src="https://avatars.githubusercontent.com/u/184076081?v=4"
